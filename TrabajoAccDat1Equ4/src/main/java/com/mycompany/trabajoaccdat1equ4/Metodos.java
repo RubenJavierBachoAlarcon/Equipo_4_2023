@@ -91,7 +91,7 @@ public class Metodos {
      * las clases FileInputStream y DataInputStream, de un fichero dedicado
      * a almacenar datos binarios de enemigos (por las dimensiones de las 
      * cadenas de caracteres que lee el algoritmo interno).
-     * @param nombreFichero String con el nombre del fichero de enemigos a leer
+     * @param nombreFichero String con la ruta del fichero de enemigos a leer
      */
     public static void leerFicheroEnemigosSecuencial(String nombreFichero) {
         File archivo = new File(nombreFichero);
@@ -118,5 +118,62 @@ public class Metodos {
         } catch (IOException IOE) {
             System.out.println("Excepción de tipo IOE");
         }
+    }
+    
+    
+    
+    /**
+     * Método que permite hacer un borrado recursivo (incluyendo sub-directorios
+     * y contenidos de los mismos) de una ruta (directorio) que le indiquemos
+     * por parámetro.
+     * Útil para borrarlo absolutamente todo y volver a generarlo siempre que
+     * el usuario le dé a jugar al juego.
+     * @param ruta String con la ruta del directorio a borrar.
+     */
+    public static void borradoRecursivo(String ruta) {
+        File archivo = new File (ruta);
+        File[] lista = archivo.listFiles();
+        
+        for (File e:lista) { //Si en un condicional tengo la misma instrucción en ambas, 
+                            //hay papeletas para que se pueda poner fuera
+                            //Si no quiero ver mensajes, puedo simplemente borrar, ponerlo fuera.
+                            //Si lo pongo fuera, pierde sentido el que haya un condicional doble; con un simple if vale.
+            if (e.isFile()) {
+                e.delete();
+                //System.out.println("Fichero borrado.");
+            } else if (e.isDirectory()) {
+                borradoRecursivo(e.getPath());
+                e.delete();
+                //System.out.println("Directorio borrado.");
+            }
+            
+            // if (e.isDirectory()) {
+            //      borrar(e.getPath());
+            // }
+            // e.delete();
+            //
+        }
+        archivo.delete();
+        //System.out.println("Se ha eliminado también el directorio raíz indicado.");
+    }
+    
+    
+    
+    /**
+     * Método que permite crear un directorio en la ruta (incluyendo nombre
+     * del directorio) que le pasemos por parámetro; se utilizará para crear
+     * las zonas en las que se ubicarán los grupos de enemigos.
+     * 
+     * Para evitar posibles conflictos entre partidas distintas, antes de
+     * crear el directorio se comprueba que ya exista, y si se da el caso, se
+     * hace un borrado recursivo del mismo.
+     * @param rutaZona String que contiene la ruta del directorio a crear
+     */
+    public static void crearZona(String rutaZona) {
+        File zona = new File(rutaZona);
+        if (zona.exists()) {
+            Metodos.borradoRecursivo(zona.getPath());
+        }
+        zona.mkdir();
     }
 }

@@ -17,10 +17,10 @@ import java.io.RandomAccessFile;
 public class TrabajoAccDat1Equ4 {
 
     public static void main(String[] args) {
-        
-        Metodos.crearBestiario("ficherito.jocoso");
+        Metodos.crearBestiario("monstruos.dat");
+        Metodos.crearZona(".\\Zona 1");
+        Metodos.crearZona(".\\Zona 2");
+        Metodos.crearZona(".\\Zona 3");
+
     }
-    
-    
- 
 }
