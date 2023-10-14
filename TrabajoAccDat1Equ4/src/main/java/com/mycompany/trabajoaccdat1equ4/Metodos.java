@@ -9,6 +9,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Random;
 
 /**
  *
@@ -114,10 +119,31 @@ public class Metodos {
                 }
                 System.out.println(sb2.toString().trim());
             }
+            dis.close();
+            lector.close();
             
         } catch (IOException IOE) {
             System.out.println("Excepción de tipo IOE");
         }
+    }
+    
+    
+    
+    /**
+     * Método que permite leer una cadena de caracteres del tamaño indicado
+     * y devolverla en forma de una String, incluyendo espacios.
+     * @param tamaño Cantidad de caracteres a leer (tamaño de la cadena)
+     * @param fichero Objeto de la clase RandomAccessFile que realizará la lectura
+     * @return String compuesta por todos los caracteres leídos, con espacios
+     * @throws IOException 
+     */
+    public static String leerCadena(int tamaño, RandomAccessFile fichero) throws IOException {
+        StringBuffer sb = new StringBuffer(tamaño);
+        for (int i=0; i<tamaño; i++) {
+            sb.append(fichero.readChar());
+        }
+        String cadena = sb.toString();
+        return cadena;
     }
     
     
@@ -175,5 +201,89 @@ public class Metodos {
             Metodos.borradoRecursivo(zona.getPath());
         }
         zona.mkdir();
+    }
+    
+    
+    
+    /**
+     * Método que permite obtener un número entero aleatorio entre un límite
+     * superior y un límite inferior que se introduzcan por parámetro.
+     * @param limSuperior Límite superior para el entero aleatorio obtenible
+     * @param limInferior Límite inferior para el entero aleatorio obtenible
+     * @return Número entero aleatorio entre unos límites superior e inferior
+     */
+    public static int aleatorio(int limSuperior, int limInferior) {
+        Random aleatorio = new Random();
+        int entero = aleatorio.nextInt(limSuperior - limInferior + 1) + limInferior;
+        return entero;
+    }
+    
+    
+    
+    /**
+     * Método que permite leer registros de enemigos aleatorios de un bestiario
+     * (archivo binario) de 25 monstruos (o menos) cuyo nombre en formato String 
+     * se pase por parámetro y escribir dichos registros en otros ficheros 
+     * binarios, creando grupos aleatorios de enemigos con el tamaño indicado.
+     * @param nombreGrupo String con el nombre que se le dará al grupo de enemigos 
+     * (archivo binario) creado.
+     * @param tamañoRegistro Tamaño de los registros que leerá el objeto "bestiario"
+     * de la clase RandomAccessFile empleado en el algoritmo.
+     * @param nombreBestiario String con el nombre que tiene el archivo bestiario
+     * (de tamaño 25 monstruos o menos) del que se leerán los registros.
+     * @param tamañoGrupo Número entero que delimita el tamaño del grupo de
+     * enemigos que se creará.
+     */
+    public static void creaGrupo(String nombreGrupo, long tamañoRegistro, String nombreBestiario, int tamañoGrupo) {
+        long T = tamañoRegistro;
+        long numAparecido;
+        
+        try {
+            RandomAccessFile bestiario = new RandomAccessFile(nombreBestiario, "rw");
+            RandomAccessFile grupoEnemigos = new RandomAccessFile(nombreGrupo, "rw");
+            for (int i=1; i<=tamañoGrupo; i++) {
+                grupoEnemigos.writeInt(i);
+                
+                numAparecido = Metodos.aleatorio(25, 1);
+                bestiario.seek((numAparecido-1)*T);
+                bestiario.skipBytes(4);
+                
+                grupoEnemigos.writeChars(Metodos.leerCadena(20, bestiario));
+                grupoEnemigos.writeChars(Metodos.leerCadena(10, bestiario));   
+            }
+            grupoEnemigos.close();
+            bestiario.close();
+            
+        } catch (IOException ioe) {
+            System.out.println("Excepción del tipo IOE");
+        }
+    }
+    
+    
+    
+    /**
+     * Método que permite mover los archivos de un directorio a otro, empleando
+     * como parámetros de entrada una String que hará referencia a la ruta de
+     * origen del archivo a mover y otra String que hará referencia tanto a la 
+     * ruta de destino en la que se ubicará el archivo como a la variable que 
+     * controlará al archivo ubicado en la misma.
+     * @param stringRutaOrigen String que contiene la ruta de origen del archivo
+     * @param stringRutaDestino Strin que contiene la ruta del archivo, y
+     * a la vez, String que se usará para hacer referencia al objeteo File ubicado
+     * en dicha ruta
+     */
+    public static void moverGrupo(String stringRutaOrigen, String stringRutaDestino) {
+        try {
+            String rutaOrigen = new String(stringRutaOrigen);
+            File archivoDestino = new File(stringRutaDestino);
+            String rutaDestino = new String(stringRutaDestino);
+        
+            Path fuente = (Path) Paths.get(rutaOrigen);
+            Path nuevoDir = (Path) Paths.get(rutaDestino);
+            Files.move(fuente, nuevoDir, StandardCopyOption.REPLACE_EXISTING);
+        
+        } catch (IOException ioe) {
+            System.out.println("Excepción de tipo IOE.");
+        }
     }
 }
