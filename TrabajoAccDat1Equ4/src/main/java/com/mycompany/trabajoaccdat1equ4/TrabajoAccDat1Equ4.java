@@ -4,6 +4,12 @@
 
 package com.mycompany.trabajoaccdat1equ4;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 /**
  *
  * @author pokem
@@ -11,6 +17,10 @@ package com.mycompany.trabajoaccdat1equ4;
 public class TrabajoAccDat1Equ4 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        Metodos.crearBestiario("ficherito.jocoso");
     }
+    
+    
+ 
 }
