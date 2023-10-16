@@ -286,4 +286,94 @@ public class Metodos {
             System.out.println("Excepción de tipo IOE.");
         }
     }
+    
+    /**
+    * Método que permite reescribir el ID de un enemigo, cambiándolo a -1
+    * si su elemento es más débil frente al elemento del jugador.
+    * @param fichEnemigos fichero que contiene los registros (los enemigos)
+    * @param elementoElegido String del elemento con el que jugará el usuario
+    * @param nombreFich String que contiene el nombre del fichero de enemigos
+    */ 
+   public static void reescrituraID(RandomAccessFile fichEnemigos, String elementoElegido, String nombreFich) {
+    try {
+        File f = new File(nombreFich);
+        FileInputStream lector = new FileInputStream(f);
+        DataInputStream dis = new DataInputStream(lector);
+        long tam = fichEnemigos.length();
+        String elementoEnemigo = null;
+        long registroActual = 0;
+        int tamRegistro = 4 + (20 * 2) + (10 * 2);
+
+        while (registroActual < tam) {
+            fichEnemigos.seek(registroActual);
+            int id = fichEnemigos.readInt();
+            elementoEnemigo = devolverElementoLecturaSecuencial(dis);
+
+            if (elementoEnemigo.equals(elementoElegido)) {
+                System.out.println("Mismo elemento, no se realiza acción.");
+            } else {
+                if (esElementoElegidoMasFuerte(elementoElegido, elementoEnemigo)) {
+                    System.out.println("El elemento elegido ("+elementoElegido+") es más fuerte que "
+                            + "el elemento del enemigo ("+elementoEnemigo+").");
+                    fichEnemigos.seek(registroActual);
+                    fichEnemigos.writeInt(-1);
+                } else {
+                    System.out.println("El elemento elegido ("+elementoElegido+") es más débil que "
+                            + "el elemento del enemigo ("+elementoEnemigo+").");
+                }
+            }
+
+            // Avanza al siguiente registro
+            registroActual += tamRegistro;
+        }
+
+        fichEnemigos.close();
+
+    } catch (IOException ioe) {
+        System.out.println(ioe);
+    }
+  }
+
+    
+    /**
+     * Método que devuelve el elemento del enemigo mediante una lectura secuencial.
+     * @param dis DataInputStream desde el cual se realizará la lectura
+     * @return String que contiene el elemento del enemigo
+     */
+    public static String devolverElementoLecturaSecuencial(DataInputStream dis) {
+    try {
+        int id = dis.readInt();
+        
+        for (int i = 0; i < 20; i++) {
+            dis.readChar();
+        }
+        StringBuffer sb2 = new StringBuffer();
+        for (int i = 0; i < 10; i++) {
+            sb2.append(dis.readChar());
+        }
+        return sb2.toString().trim();
+    } catch (IOException IOE) {
+        System.out.println(IOE);
+    }
+    return null;
+}
+    
+    /**
+     * Método que compara elementos para saber si el elemento elegido por
+     * el jugador es más fuerte que el elemento del enemigo
+     * @param elementoElegido String que contiene el elemento elegido por el jugador
+     * @param elementoEnemigo String que contiene el elemento del enemigo
+     * @return true si el elemento elegido por el jugador es más fuerte,
+     * false en caso contrario
+     */
+    public static boolean esElementoElegidoMasFuerte(String elementoElegido, String elementoEnemigo) {
+    if (elementoElegido.equals("agua") && elementoEnemigo.equals("fuego")) {
+        return true;
+    } else if (elementoElegido.equals("tierra") && elementoEnemigo.equals("agua")) {
+        return true;
+    } else if (elementoElegido.equals("fuego") && elementoEnemigo.equals("tierra")) {
+        return true;
+    }
+    return false;
+    }
 }
