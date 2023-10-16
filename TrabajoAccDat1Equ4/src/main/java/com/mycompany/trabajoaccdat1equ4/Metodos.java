@@ -14,6 +14,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Random;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  *
@@ -143,6 +161,40 @@ public class Metodos {
             sb.append(fichero.readChar());
         }
         String cadena = sb.toString();
+        return cadena;
+    }
+    
+    
+    
+    /**
+     * Versión sobrecargada del método leerCadena; permite ejecutar el mismo
+     * proceso, con la salvedad de que admite un valor booleano mediante el cual
+     * se indicará si se desea o no hacer una operación .trim() de la cadena
+     * leída, útil a la hora de discriminar si hay que escribir utilizando todos
+     * los carácteres o suprimiendo los espacios (por ejemplo, a la hora de crear
+     * los archivos XML).
+     * @param tamaño Cantidad de caracteres a leer (tamaño de la cadena)
+     * @param fichero Objeto de la clase RandomAccessFile que realizará la lectura
+     * @param cortar Valor booleano que indicará si se hace o no la operación .trim()
+     * a la String obtenida
+     * @return String compuesta por todos los caracteres leídos, sin espacios o
+     * con ellos según se indique
+     * @throws IOException 
+     */
+    public static String leerCadena(int tamaño, RandomAccessFile fichero, boolean cortar) throws IOException {
+        StringBuffer sb = new StringBuffer(tamaño);
+        for (int i=0; i<tamaño; i++) {
+            sb.append(fichero.readChar());
+        }
+        String cadenaConEspacios = sb.toString();
+        String cadena=null;
+        
+        if (cortar) {
+            cadena = cadenaConEspacios.trim();
+        } else {
+            cadena = cadenaConEspacios;
+        }
+        
         return cadena;
     }
     
@@ -343,7 +395,7 @@ public class Metodos {
         lector.close();
 
     } catch (IOException ioe) {
-        System.out.println(ioe);
+        System.out.println("EXCEPCIÓN POR REESCRITURA");
     }
   }
 
@@ -361,13 +413,14 @@ public class Metodos {
         for (int i = 0; i < 20; i++) {
             dis.readChar();
         }
+        
         StringBuffer sb2 = new StringBuffer();
         for (int i = 0; i < 10; i++) {
             sb2.append(dis.readChar());
         }
         return sb2.toString().trim();
     } catch (IOException IOE) {
-        System.out.println(IOE);
+        System.out.println("EXCEPCIÓN POR LECTURA");
     }
     return null;
 }
@@ -395,5 +448,148 @@ public class Metodos {
         return fuerte;
         
         
+    }
+    
+    
+    
+    /**
+     * Método que permite inicializar la creación de un archivo XML utilizando
+     * DOM, recibiendo como parámetro el nombre que tendrá el documento
+     * XML creado. (No confundir con el nombre del archivo)
+     * 
+     * QUE NI SE OS OCURRA QUE EL DOCUMENTO XML CREADO TENGA ESPACIOS
+     * EN EL NOMBRE, PEGA UNA EXCEPCIÓN QUE TE CAGAS
+     * 
+     * @param nombre Nombre que se dará al documento XML creado
+     * @return El documento XML creado, para poder manejarlo y añadirle
+     * nodos principales, expandiendo así el XML.
+     */
+    public static Document inicializar(String nombre) throws ParserConfigurationException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        DOMImplementation implementation = builder.getDOMImplementation();
+        Document raiz = implementation.createDocument(null, nombre, null);
+        raiz.setXmlVersion("1.0");
+        return raiz;
+    }
+    
+    
+    
+    /**
+     * Método que permite crear un nodo principal en un documento XML que
+     * se pase como parámetro.
+     * @param nombreNodoPrincipal String que contiene el nombre que se 
+     * le dará al nodo principal creado.
+     * @param documento Documento XML del que colgará el nodo principal
+     * creado.
+     * @return El nodo principal creado, permitiéndonos así crearle más
+     * hijos para poder expandirlo.
+     */
+    public static Element añadirNodoPrincipal(String nombreNodoPrincipal, Document documento) {
+        Element nodoPrincipal = documento.createElement(nombreNodoPrincipal);
+        documento.getDocumentElement().appendChild(nodoPrincipal);
+        return nodoPrincipal;
+    }
+    
+    
+    
+    /**
+     * Método que permite, en un documento XML concreto, crear nodos hijos que 
+     * contengan únicamente texto y colgarlos de un elemento raíz ("padre").
+     * @param nombreNodo String que contiene el nombre que se dará al nodo hijo creado
+     * @param textoNodo String que contiene el texto que irá dentro del nodo hijo creado
+     * @param documento Documento en el que se crearán el nodo hijo y el texto indicados
+     * @param raiz Elemento padre del que se colgará el nodo hijo que creemos en el método
+     */
+    public static void crearNodo(String nombreNodo, String textoNodo, Document documento, Element raiz) {
+        Element nodoHijo = documento.createElement(nombreNodo);
+        Text texto = documento.createTextNode(textoNodo);
+        
+        nodoHijo.appendChild(texto);
+        raiz.appendChild(nodoHijo);
+    }
+    
+    
+    
+    /**
+     * Método que permite generar un archivo XML tomando como parámetro de
+     * entrada un objeto Document (documento XML) que haya creado en memoria,
+     * y como salida, un archivo cuyo nombre indicaremos en una String pasada
+     * por parámetro.
+     * @param documento Documento XML que se utilizará como fuente para tomar
+     * los datos del archivo final generado
+     * @param nombreArchivo String que contiene el nombre que se dará al archivo
+     * final generado
+     */
+    public static void generarXml(Document documento, String nombreArchivo) throws TransformerException {
+        Source source = new DOMSource(documento);
+        Result salida = new StreamResult(new File(nombreArchivo));
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.transform(source, salida);
+    }
+    
+    
+    
+    /**
+     * Método "grande" que emplea métodos anteriores (versión sobrecargada de
+     * leerCadena, inicializar, generarXml) para convertir en archivo XML un
+     * fichero con un grupo de enemigos que se le pase por parámetro.
+     * 
+     * El parámetro nombreDocumento, al usarse en el método inicializar, no
+     * debe contener espacios (barras bajas son válidas); la ruta del archivo
+     * a convertir en XML puede ponerse como ruta relativa, y el parámetro
+     * nombreXml debe, por cohesión, terminar con el formato .xml
+     * 
+     * @param nombreDocumento String que contiene el nombre del documento XML
+     * que se va a crear.
+     * @param rutaArchivo String que contiene la ruta del archivo que vamos a
+     * convertir en XML.
+     * @param nombreXml String que contiene el nombre que se dará al archivo
+     * XML final.
+     */
+    public static void convertirGrupoAXml(String nombreDocumento, String rutaArchivo, String nombreXml) {
+        
+        Document documento=null;
+        
+        try {
+            documento = Metodos.inicializar(nombreDocumento);
+            
+            long tamaño = 64;
+            long registroActual = 0;
+            int id;
+            Element nodo;
+            RandomAccessFile fichero = new RandomAccessFile(rutaArchivo, "rw");
+            
+            while (registroActual < fichero.length()) {
+                
+                fichero.seek(registroActual);
+                id = fichero.readInt();
+                
+                if (id != -1) {
+                    fichero.seek(registroActual);
+                    
+                    nodo = Metodos.añadirNodoPrincipal("Enemigo", documento);
+                    Metodos.crearNodo("id", String.valueOf(fichero.readInt()), documento, nodo);
+                    Metodos.crearNodo("nombre", Metodos.leerCadena(20, fichero, true), documento, nodo);
+                    Metodos.crearNodo("elemento", Metodos.leerCadena(10, fichero, true), documento, nodo);
+                    
+                }
+                
+                registroActual = registroActual + tamaño;
+            }
+            fichero.close();
+            
+        } catch (IOException ioe) {
+            System.out.println("EXCEPCIÓN CREANDO EL XML");
+        } catch (ParserConfigurationException pce) {
+            System.out.println(pce);
+        }
+        
+        
+        try {
+            Metodos.generarXml(documento, nombreXml);
+        } catch (TransformerException te) {
+            System.out.println(te);
+        }
     }
 }
