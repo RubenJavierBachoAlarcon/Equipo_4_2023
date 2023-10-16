@@ -17,7 +17,7 @@ import java.util.Random;
 
 /**
  *
- * @author pokem
+ * @author pokem, patri, bacho
  */
 public class Metodos {
     
@@ -287,36 +287,47 @@ public class Metodos {
         }
     }
     
+    
+    
     /**
     * Método que permite reescribir el ID de un enemigo, cambiándolo a -1
     * si su elemento es más débil frente al elemento del jugador.
-    * @param fichEnemigos fichero que contiene los registros (los enemigos)
     * @param elementoElegido String del elemento con el que jugará el usuario
-    * @param nombreFich String que contiene el nombre del fichero de enemigos
+    * @param rutaFichEnemigos String que contiene la ruta del fichero de enemigos
     */ 
-   public static void reescrituraID(RandomAccessFile fichEnemigos, String elementoElegido, String nombreFich) {
+   public static void reescrituraID(String elementoElegido, String rutaFichEnemigos) {
     try {
-        File f = new File(nombreFich);
+        
+        File f = new File(rutaFichEnemigos);
+        
+        RandomAccessFile fichero = new RandomAccessFile(rutaFichEnemigos, "rw");
         FileInputStream lector = new FileInputStream(f);
         DataInputStream dis = new DataInputStream(lector);
-        long tam = fichEnemigos.length();
+        
+        long tam = fichero.length();
         String elementoEnemigo = null;
         long registroActual = 0;
-        int tamRegistro = 4 + (20 * 2) + (10 * 2);
+        long tamRegistro = 64; // 4 por el int de ID, 40 por los 20 caracteres 
+                              // del nombre y 20 por los 10 caracteres del
+                              // elemento
 
         while (registroActual < tam) {
-            fichEnemigos.seek(registroActual);
-            int id = fichEnemigos.readInt();
+            
+            fichero.seek(registroActual);
+            int id = fichero.readInt();
             elementoEnemigo = devolverElementoLecturaSecuencial(dis);
 
-            if (elementoEnemigo.equals(elementoElegido)) {
+            if (elementoEnemigo.equalsIgnoreCase(elementoElegido)) {
                 System.out.println("Mismo elemento, no se realiza acción.");
+                
             } else {
                 if (esElementoElegidoMasFuerte(elementoElegido, elementoEnemigo)) {
+                    
                     System.out.println("El elemento elegido ("+elementoElegido+") es más fuerte que "
                             + "el elemento del enemigo ("+elementoEnemigo+").");
-                    fichEnemigos.seek(registroActual);
-                    fichEnemigos.writeInt(-1);
+                    fichero.seek(registroActual);
+                    fichero.writeInt(-1);
+                    
                 } else {
                     System.out.println("El elemento elegido ("+elementoElegido+") es más débil que "
                             + "el elemento del enemigo ("+elementoEnemigo+").");
@@ -327,7 +338,9 @@ public class Metodos {
             registroActual += tamRegistro;
         }
 
-        fichEnemigos.close();
+        fichero.close();
+        dis.close();
+        lector.close();
 
     } catch (IOException ioe) {
         System.out.println(ioe);
@@ -335,6 +348,7 @@ public class Metodos {
   }
 
     
+   
     /**
      * Método que devuelve el elemento del enemigo mediante una lectura secuencial.
      * @param dis DataInputStream desde el cual se realizará la lectura
@@ -358,22 +372,28 @@ public class Metodos {
     return null;
 }
     
+    
+    
     /**
      * Método que compara elementos para saber si el elemento elegido por
-     * el jugador es más fuerte que el elemento del enemigo
+     * el jugador es más fuerte que el elemento del enemigo.
      * @param elementoElegido String que contiene el elemento elegido por el jugador
      * @param elementoEnemigo String que contiene el elemento del enemigo
      * @return true si el elemento elegido por el jugador es más fuerte,
      * false en caso contrario
      */
     public static boolean esElementoElegidoMasFuerte(String elementoElegido, String elementoEnemigo) {
-    if (elementoElegido.equals("agua") && elementoEnemigo.equals("fuego")) {
-        return true;
-    } else if (elementoElegido.equals("tierra") && elementoEnemigo.equals("agua")) {
-        return true;
-    } else if (elementoElegido.equals("fuego") && elementoEnemigo.equals("tierra")) {
-        return true;
-    }
-    return false;
+        boolean fuerte=false;
+        
+        if ((elementoElegido.equalsIgnoreCase("agua") && elementoEnemigo.equalsIgnoreCase("fuego")) ||
+           (elementoElegido.equalsIgnoreCase("tierra") && elementoEnemigo.equalsIgnoreCase("agua")) ||
+           (elementoElegido.equalsIgnoreCase("fuego") && elementoEnemigo.equalsIgnoreCase("tierra"))) {
+            
+            fuerte=true;
+        }
+        
+        return fuerte;
+        
+        
     }
 }

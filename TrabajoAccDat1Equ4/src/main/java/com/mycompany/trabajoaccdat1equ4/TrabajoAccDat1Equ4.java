@@ -17,7 +17,7 @@ import java.util.Random;
 
 /**
  *
- * @author pokem
+ * @author pokem, patri, bacho
  */
 public class TrabajoAccDat1Equ4 {
 
@@ -58,6 +58,9 @@ public class TrabajoAccDat1Equ4 {
         
         File bestiario = new File(".\\enemigos.dat");
         bestiario.delete();
+        
+        
+        Metodos.reescrituraID("FUEGO", ".\\Zona 3\\Grupo 3-3.dat");
         
     }
     
