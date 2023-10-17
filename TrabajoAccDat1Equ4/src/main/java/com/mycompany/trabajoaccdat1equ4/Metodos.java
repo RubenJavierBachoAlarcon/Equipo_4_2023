@@ -20,6 +20,8 @@ import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -85,6 +87,13 @@ public class Metodos {
     }
 
     public static File elegirArchivo() {
+        try {
+            // Establecer el Look and Feel de Windows
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.out.println("Ruta incorrecta");
+        }
+
         JFileChooser fileChooser = new JFileChooser();
         File selectedFile = null;
         int returnValue = fileChooser.showOpenDialog(null);
@@ -610,7 +619,7 @@ public class Metodos {
      * @throws IOException
      */
     public static void crearHTML(String hojaEstilo, String fichXML) throws IOException {
-        File pagHTML = new File("pagina.html"); 
+        File pagHTML = new File("pagina.html");
         FileOutputStream os = new FileOutputStream(pagHTML);
         Source estilos = new StreamSource(hojaEstilo);
         Source datos = new StreamSource(fichXML);
@@ -620,29 +629,23 @@ public class Metodos {
             Transformer transformer = TransformerFactory.newInstance().newTransformer(estilos);
             transformer.transform(datos, result);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Ruta invalida");
         }
         os.close();
 
     }
 
-    public static String crearHTMLString(String hojaEstilo, String fichXML) throws IOException {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        Source estilos = new StreamSource(hojaEstilo);
-        Source datos = new StreamSource(fichXML);
-        Result result = new StreamResult(os);
+    public static String leerHTMLXML(String ruta) throws IOException {
 
-        try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer(estilos);
-            transformer.transform(datos, result);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        crearHTML("hojaEstilos.xsl", ruta);
+        byte[] bytes = Files.readAllBytes(Paths.get("pagina.html"));
+        String fileContent = new String(bytes, "UTF-8");
+        return fileContent;
+    }
 
-        // Convierte el contenido generado a una cadena y devuelve
-        String contenidoHTML = os.toString();
-        System.out.println(contenidoHTML);
-        return contenidoHTML;
+    public static String leeHTMLDAT(String ruta) throws IOException {
+
+        return null;
     }
 
 }

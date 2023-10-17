@@ -6,6 +6,8 @@ package com.mycompany.trabajoaccdat1equ4;
 
 import static com.mycompany.trabajoaccdat1equ4.Metodos.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -88,6 +90,7 @@ public class Interfaz extends javax.swing.JFrame {
         buttonGroup.add(jRadioButton4);
         jRadioButton4.setText("Dificil");
 
+        jEditorPane1.setEditable(false);
         jScrollPane1.setViewportView(jEditorPane1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -175,16 +178,18 @@ public class Interfaz extends javax.swing.JFrame {
 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String fichXML = Metodos.elegirArchivo().getPath(); // Reemplaza con la ubicación real de tu archivo XML
 
         try {
+            String htmlContent = Metodos.leerHTMLXML(Metodos.elegirArchivo().getPath());
+            System.out.println(htmlContent);
+            htmlContent = htmlContent.replaceAll("\\s+", "");
+            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+            System.out.println(htmlContent);
             jEditorPane1.setContentType("text/html");
-            System.out.println(Metodos.crearHTMLString("C:\\Users\\DAM02-05\\Desktop\\Equipo_4_2023\\TrabajoAccDat1Equ4\\hojaEstilos.xsl", fichXML));
-            jEditorPane1.setText(Metodos.crearHTMLString("C:\\Users\\DAM02-05\\Desktop\\Equipo_4_2023\\TrabajoAccDat1Equ4\\hojaEstilos.xsl", fichXML));
-            jEditorPane1.setText("asd");
+            jEditorPane1.setText(htmlContent);
             System.out.println("Archivo HTML creado con éxito.");
-        } catch (IOException e) {
-            System.out.println("Error al crear el archivo HTML: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("`Selecciona la zona de nuevo");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
