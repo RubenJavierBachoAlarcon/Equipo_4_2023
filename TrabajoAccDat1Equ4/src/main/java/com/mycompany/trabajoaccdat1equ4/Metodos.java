@@ -648,4 +648,65 @@ public class Metodos {
         return null;
     }
 
+    public static void duplicarFile(String sourcePath, String destinationPath) throws IOException {
+        File sourceFile = new File(sourcePath);
+        File destinationFile = new File(destinationPath);
+
+        // Verificar si el archivo de origen existe
+        if (!sourceFile.exists()) {
+            throw new IOException("El archivo de origen no existe.");
+        }
+
+        // Verificar si el archivo de destino ya existe
+        if (destinationFile.exists()) {
+            throw new IOException("El archivo de destino ya existe. No se puede duplicar.");
+        }
+
+        // Crear streams de entrada y salida
+        FileInputStream input = new FileInputStream(sourceFile);
+        FileOutputStream output = new FileOutputStream(destinationFile);
+
+        // Leer y escribir el archivo
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) > 0) {
+            output.write(buffer, 0, bytesRead);
+        }
+
+        // Cerrar los streams
+        input.close();
+        output.close();
+
+        System.out.println("Archivo duplicado con éxito.");
+    }
+
+    public static void duplicarDirectory(String sourceDirectory, String destinationDirectory) throws IOException {
+        File source = new File(sourceDirectory);
+        File destination = new File(destinationDirectory);
+
+        // Verificar si el directorio de origen existe
+        if (!source.exists() || !source.isDirectory()) {
+            throw new IOException("El directorio de origen no existe.");
+        }
+
+        // Crear el directorio de destino si no existe
+        if (!destination.exists()) {
+            destination.mkdir();
+        }
+
+        // Obtener lista de archivos y subdirectorios en el directorio de origen
+        File[] files = source.listFiles();
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                // Si es un subdirectorio, duplicar recursivamente
+                duplicarDirectory(file.getPath(), destinationDirectory + File.separator + file.getName());
+            } else {
+                // Si es un archivo, duplicar utilizando Files.copy
+                File destFile = new File(destinationDirectory + File.separator + file.getName());
+                Files.copy(file.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+
+    }
 }
