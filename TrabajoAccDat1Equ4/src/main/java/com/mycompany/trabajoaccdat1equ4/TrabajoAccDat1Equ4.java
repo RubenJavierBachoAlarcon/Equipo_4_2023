@@ -76,10 +76,9 @@ public class TrabajoAccDat1Equ4 {
         bestiario.delete();
         
         
-        //Metodos.modoFacil(".\\Zona 1\\Grupo 1-3.dat", "tierra");
-        //Metodos.reescrituraID("fuego", ".\\Zona 1\\Grupo 1-3.dat");
-        Metodos.convertirGrupoAXml(".\\Zona 3\\Grupo 3-3.dat", ".\\Zona 3\\Grupo 3-3.xml");
-        Metodos.modificarXml(".\\Zona 3\\Grupo 3-3.xml", "Geobabosa", "Perico el de los palotes");
+        Metodos.reescrituraID("tierra", ".\\Zona 1\\Grupo 1-3.dat");
+        Metodos.convertirGrupoAXml(".\\Zona 1\\Grupo 1-3.dat", "Grupo 1-3.xml");
+        Metodos.moverGrupo(".\\Grupo 1-3.xml", ".\\Zona 1\\Grupo 1-3.xml");
         
     }
     
