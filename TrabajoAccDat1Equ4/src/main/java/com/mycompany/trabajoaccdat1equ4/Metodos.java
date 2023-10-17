@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Random;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -28,6 +29,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -591,5 +593,29 @@ public class Metodos {
         } catch (TransformerException te) {
             System.out.println(te);
         }
+    }
+    
+    /**
+     * Método que permite la creación de un fichero HTML a partir de una hoja
+     * de estilos XSL y un fichero fuente XML
+     * @param hojaEstilo
+     * @param fichXML
+     * @throws IOException 
+     */
+    public static void crearHTML(String hojaEstilo, String fichXML) throws IOException {
+        File pagHTML = new File("pagina.html");
+        FileOutputStream os = new FileOutputStream(pagHTML);
+        Source estilos = new StreamSource(hojaEstilo);
+        Source datos = new StreamSource (fichXML);
+        Result result = new StreamResult(os);
+        
+        try {
+            Transformer transformer = TransformerFactory.newInstance().newTransformer(estilos);
+            transformer.transform(datos, result);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        os.close();
+       
     }
 }
