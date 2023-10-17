@@ -37,7 +37,10 @@ import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -538,12 +541,12 @@ public class Metodos {
      *
      * @param documento Documento XML que se utilizará como fuente para tomar
      * los datos del archivo final generado
-     * @param nombreArchivo String que contiene el nombre que se dará al archivo
-     * final generado
+     * @param rutaArchivo String que contiene la ruta del archivo final
+     * generado, incluyendo nombre y extensión
      */
-    public static void generarXml(Document documento, String nombreArchivo) throws TransformerException {
+    public static void generarXml(Document documento, String rutaArchivo) throws TransformerException {
         Source source = new DOMSource(documento);
-        Result salida = new StreamResult(new File(nombreArchivo));
+        Result salida = new StreamResult(new File(rutaArchivo));
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.transform(source, salida);
     }
@@ -558,8 +561,6 @@ public class Metodos {
      * convertir en XML puede ponerse como ruta relativa, y el parámetro
      * nombreXml debe, por cohesión, terminar con el formato .xml
      *
-     * @param nombreDocumento String que contiene el nombre del documento XML
-     * que se va a crear.
      * @param rutaArchivo String que contiene la ruta del archivo que vamos a
      * convertir en XML.
      * @param nombreXml String que contiene el nombre que se dará al archivo XML
@@ -708,5 +709,128 @@ public class Metodos {
             }
         }
 
+    }
+    
+    
+    
+    /**
+     * Método que permite activar el "modo fácil" para lidiar con un grupo de
+     * enemigos en concreto, recorriéndolo y reasignando la debilidad de todos
+     * los enemigos existentes a aquella que se haya pasado en una String por
+     * parámetro. En el caso de pasarse una String cuyo contenido no coincida
+     * con "fuego", "tierra" o "agua" (los tres elementos existentes en el
+     * juego), por defecto se asignará a "tierra".
+     * @param rutaArchivo String que contiene la ruta del archivo para el cual
+     * se quiere activar el "modo fácil".
+     * @param debilidadAsignar String que contiene el elemento al cual se
+     * reasignará la debilidad del grupo completo de enemigos. De ser un valor
+     * distinto de "fuego", "tierra" o "agua", se asignará automáticamente a
+     * "tierra".
+     */
+    public static void modoFacil(String rutaArchivo, String debilidadAsignar) {
+        String debilidad;
+        if (!debilidadAsignar.equalsIgnoreCase("fuego") &&
+                !debilidadAsignar.equalsIgnoreCase("agua") &&
+                !debilidadAsignar.equalsIgnoreCase("tierra")) {
+            
+            debilidad = new String("tierra");
+            
+        } else {
+            
+            debilidad = new String(debilidadAsignar);
+            
+        }
+        StringBuffer sb = new StringBuffer(debilidad);
+        sb.setLength(10);
+        
+        
+        try {
+            
+            RandomAccessFile fichero = new RandomAccessFile(rutaArchivo, "rw");
+            while (fichero.getFilePointer() < fichero.length()) {
+                
+                fichero.readInt();
+                leerCadena(20, fichero);
+                fichero.writeChars(sb.toString());
+                
+            }
+            
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+        
+        
+    }
+    
+    
+    
+    /**
+     * Método que, utilizando DOM, permite llevar a cabo modificaciones del 
+     * texto de nodos existentes en un fichero XML. Se pasarán como parámetros 
+     * una String que contenga el texto de aquellos nodos que se deseen 
+     * modificar y una String que contenga el nuevo texto que se desea que
+     * tengan estos nodos. También una String que contenga la ruta del
+     * archivo a modificar.
+     * Únicamente será aplicable para los nodos de nombres, para utilizarse
+     * en la sección de juego personalizado y poder llamar a los enemigos que
+     * se generen como se quiera.
+     * @param rutaArchivo String que contiene la ruta del archivo XML cuyo nodo
+     * será modificado
+     * @param textoNodo String que contiene el texto (contenido en un nodo) que
+     * se quiera modificar; se empleará para modificar los nombres de los enemigos
+     * (se modificarán todos aquellos nodos cuyo texto contenido coincida con
+     * este parámetro; no se reasignan los nombres de los enemigos de un tipo,
+     * se reasignan todos)
+     * @param textoNuevo String que contiene el nuevo valor de texto que
+     * contendrán los nodos modificacos; el nuevo nombre que se dará a los
+     * enemigos. (Al igual que en el caso anterior, se utiliza en todos los
+     * nodos reasignados)
+     */
+    public static void modificarXml(String rutaArchivo, String textoNodo, String textoNuevo) {
+        Document documento=null;
+        
+        try {
+            File archivo = new File(rutaArchivo);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            documento = builder.parse(archivo);
+            
+            documento.getDocumentElement().normalize();
+            
+            // Obtenemos todos los nodos etiquetados como "nombre", que son
+            // aquellos que pretendemos modificar (el elemento no se puede
+            // tocar aquí)
+            NodeList listaNodos = documento.getElementsByTagName("nombre");
+            
+            // Recorremos la lista de nodos obtenida, elemento por elemento,
+            // iterando entre ellos mediante la i
+            for (int i=0; i<listaNodos.getLength(); i++) {
+                Node nodo = listaNodos.item(i);
+                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                    // Se compara que el elemento texto contenido por el nodo
+                    // que está siendo evaluado coincida con el texto contenido
+                    // por la String que se ha pasado por parámetro
+                    if (nodo.getTextContent().equals(textoNodo)) {
+                        nodo.setTextContent(textoNuevo);
+                    }
+                }
+            }
+            
+            archivo.delete();
+   
+        } catch (ParserConfigurationException pce) {
+            System.out.println("Excepción en el parser para modificar nodos");
+        } catch (SAXException saxe) {
+            System.out.println("Excepción del SAX al modificar nodos");
+        } catch (IOException ioe) {
+            System.out.println("Excepción de tipo IOE");
+        }
+        
+        
+        try {
+            generarXml(documento, rutaArchivo);
+        } catch (TransformerException tce) {
+            System.out.println("Excepción del transformer en la modificación del XML");
+        }
     }
 }
