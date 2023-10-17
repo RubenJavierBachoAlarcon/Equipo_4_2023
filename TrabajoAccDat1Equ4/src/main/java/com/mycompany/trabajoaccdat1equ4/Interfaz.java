@@ -4,6 +4,9 @@
  */
 package com.mycompany.trabajoaccdat1equ4;
 
+import static com.mycompany.trabajoaccdat1equ4.Metodos.*;
+import java.io.IOException;
+
 /**
  *
  * @author b15-06m
@@ -76,7 +79,6 @@ public class Interfaz extends javax.swing.JFrame {
         buttonGroup.add(Normal);
         Normal.setSelected(true);
         Normal.setText("Normal");
-        Normal.setActionCommand("Normal");
         Normal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NormalActionPerformed(evt);
@@ -166,14 +168,24 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NormalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NormalActionPerformed
 
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        System.out.println("hola");
+        String fichXML = Metodos.elegirArchivo().getPath(); // Reemplaza con la ubicación real de tu archivo XML
+
+        try {
+            jEditorPane1.setContentType("text/html");
+            System.out.println(Metodos.crearHTMLString("C:\\Users\\DAM02-05\\Desktop\\Equipo_4_2023\\TrabajoAccDat1Equ4\\hojaEstilos.xsl", fichXML));
+            jEditorPane1.setText(Metodos.crearHTMLString("C:\\Users\\DAM02-05\\Desktop\\Equipo_4_2023\\TrabajoAccDat1Equ4\\hojaEstilos.xsl", fichXML));
+            jEditorPane1.setText("asd");
+            System.out.println("Archivo HTML creado con éxito.");
+        } catch (IOException e) {
+            System.out.println("Error al crear el archivo HTML: " + e.getMessage());
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -210,8 +222,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Normal;
