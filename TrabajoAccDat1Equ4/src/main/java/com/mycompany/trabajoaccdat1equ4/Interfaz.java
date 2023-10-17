@@ -5,9 +5,18 @@
 package com.mycompany.trabajoaccdat1equ4;
 
 import static com.mycompany.trabajoaccdat1equ4.Metodos.*;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.concurrent.CountDownLatch;
 
 /**
  *
@@ -42,6 +51,7 @@ public class Interfaz extends javax.swing.JFrame {
         jRadioButton4 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
+        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,6 +103,13 @@ public class Interfaz extends javax.swing.JFrame {
         jEditorPane1.setEditable(false);
         jScrollPane1.setViewportView(jEditorPane1);
 
+        jButton1.setText("Hola");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -100,11 +117,12 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Normal)
-                            .addComponent(jRadioButton4))
+                            .addComponent(jRadioButton4)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -117,7 +135,9 @@ public class Interfaz extends javax.swing.JFrame {
                 .addComponent(jRadioButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jLabel5.setFont(new java.awt.Font("Noto Serif Cond", 2, 14)); // NOI18N
@@ -171,6 +191,7 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private CountDownLatch latch = new CountDownLatch(1);
 
     private void NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NormalActionPerformed
         // TODO add your handling code here:
@@ -178,20 +199,50 @@ public class Interfaz extends javax.swing.JFrame {
 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
         try {
-            String htmlContent = Metodos.leerHTMLXML(Metodos.elegirArchivo().getPath());
-            System.out.println(htmlContent);
-            htmlContent = htmlContent.replaceAll("\\s+", "");
-            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
-            System.out.println(htmlContent);
-            jEditorPane1.setContentType("text/html");
-            jEditorPane1.setText(htmlContent);
-            System.out.println("Archivo HTML creado con éxito.");
-        } catch (Exception e) {
-            System.out.println("`Selecciona la zona de nuevo");
+            Files.walkFileTree(Metodos.elegirDirectorio().toPath(), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    if (file.toString().toLowerCase().endsWith(".dat")) {
+                        // Procesa el archivo .dat
+                        try {
+                            Metodos.convertirGrupoAXml(file.toString(), "grupo.xml");
+                            String htmlContent = Metodos.leerHTMLXML("grupo.xml");
+                            System.out.println(htmlContent);
+                            htmlContent = htmlContent.replaceAll("\\s+", "");
+                            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+                            System.out.println(htmlContent);
+                            jEditorPane1.setContentType("text/html");
+                            jEditorPane1.setText(htmlContent);
+                            System.out.println("Archivo HTML creado con éxito.");
+                        } catch (Exception e) {
+                            System.out.println("Error al procesar el archivo: " + file.toString());
+                        }
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //        try {
+//            Metodos.convertirGrupoAXml(Metodos.elegirArchivo().getPath(), "grupo.xml");
+//            String htmlContent = Metodos.leerHTMLXML("grupo.xml");
+//            System.out.println(htmlContent);
+//            htmlContent = htmlContent.replaceAll("\\s+", "");
+//            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+//            System.out.println(htmlContent);
+//            jEditorPane1.setContentType("text/html");
+//            jEditorPane1.setText(htmlContent);
+//            System.out.println("Archivo HTML creado con éxito.");
+//        } catch (Exception e) {
+//            System.out.println("`Selecciona la zona de nuevo");
+//        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        latch.countDown();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,10 +279,16 @@ public class Interfaz extends javax.swing.JFrame {
         });
     }
 
+    private void procesarDirectorio(Path directory) throws IOException {
+        // Recorre los archivos y directorios de forma recursiva.
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Normal;
     private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel5;
