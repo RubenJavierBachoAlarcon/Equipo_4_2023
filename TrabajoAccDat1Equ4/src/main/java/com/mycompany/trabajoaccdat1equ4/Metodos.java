@@ -17,6 +17,12 @@ import java.nio.file.StandardCopyOption;
 import java.util.Random;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -105,6 +111,29 @@ public class Metodos {
         }
         return selectedFile;
     }
+
+    public static File elegirDirectorio() {
+        try {
+            // Establecer el Look and Feel de Windows
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.out.println("Ruta incorrecta");
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Configurar para seleccionar directorios
+        File selectedDirectory = null;
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedDirectory = fileChooser.getSelectedFile();
+            System.out.println("Directorio seleccionado: " + selectedDirectory.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ningún directorio.");
+        }
+        return selectedDirectory;
+    }
+
+    
 
     /**
      * Método que escribe en un fichero de datos binario, empleando la clase
@@ -709,4 +738,37 @@ public class Metodos {
         }
 
     }
+
+    public static void moverDirectorio(String directorioOrigen, String directorioDestino) throws IOException {
+        File origen = new File(directorioOrigen);
+        File destino = new File(directorioDestino);
+
+        // Verificar si el directorio de origen existe
+        if (!origen.exists() || !origen.isDirectory()) {
+            throw new IOException("El directorio de origen no existe.");
+        }
+
+        // Crear el directorio de destino si no existe
+        if (!destino.exists()) {
+            destino.mkdir();
+        }
+
+        // Obtener lista de archivos y subdirectorios en el directorio de origen
+        File[] archivos = origen.listFiles();
+
+        for (File archivo : archivos) {
+            if (archivo.isDirectory()) {
+                // Si es un subdirectorio, mover recursivamente
+                moverDirectorio(archivo.getPath(), directorioDestino + File.separator + archivo.getName());
+            } else {
+                // Si es un archivo, mover utilizando Files.move
+                File destinoArchivo = new File(directorioDestino + File.separator + archivo.getName());
+                Files.move(archivo.toPath(), destinoArchivo.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+
+        // Después de mover los contenidos, eliminar el directorio de origen
+        origen.delete();
+    }
+
 }
