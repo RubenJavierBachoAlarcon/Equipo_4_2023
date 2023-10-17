@@ -547,12 +547,12 @@ public class Metodos {
      * @param nombreXml String que contiene el nombre que se dará al archivo
      * XML final.
      */
-    public static void convertirGrupoAXml(String nombreDocumento, String rutaArchivo, String nombreXml) {
+    public static void convertirGrupoAXml(String rutaArchivo, String nombreXml) {
         
         Document documento=null;
         
         try {
-            documento = Metodos.inicializar(nombreDocumento);
+            documento = Metodos.inicializar("Grupo_de_enemigos");
             
             long tamaño = 64;
             long registroActual = 0;

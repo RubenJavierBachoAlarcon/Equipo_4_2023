@@ -77,7 +77,7 @@ public class TrabajoAccDat1Equ4 {
         
         
         Metodos.reescrituraID("tierra", ".\\Zona 1\\Grupo 1-3.dat");
-        Metodos.convertirGrupoAXml("Grupo_1-3", ".\\Zona 1\\Grupo 1-3.dat", "Grupo 1-3.xml");
+        Metodos.convertirGrupoAXml(".\\Zona 1\\Grupo 1-3.dat", "Grupo 1-3.xml");
         Metodos.moverGrupo(".\\Grupo 1-3.xml", ".\\Zona 1\\Grupo 1-3.xml");
         
     }
