@@ -4,8 +4,6 @@
  */
 package com.mycompany.trabajoaccdat1equ4;
 
-import static com.mycompany.trabajoaccdat1equ4.Metodos.*;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
@@ -16,7 +14,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.concurrent.CountDownLatch;
 
 /**
  *
@@ -27,8 +24,13 @@ public class Interfaz extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz
      */
+    private boolean waitingNextGroup = true;
+    public final String userName = System.getProperty("user.name");
+    public static String grupoActual;
+
     public Interfaz() {
         initComponents();
+        jLabel2.setText("¡Bienvenido a la aventura " + userName + "!");
     }
 
     /**
@@ -44,24 +46,32 @@ public class Interfaz extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        jButton1_SeleccionarZona = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Normal = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        Dificil = new javax.swing.JRadioButton();
+        Facil = new javax.swing.JRadioButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jButton2_Continuar = new javax.swing.JButton();
+        jButton1_Luchar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Selecciona una zona para enfrentarte a ella:"));
 
-        jButton3.setText("Selecciona Zona");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton1_SeleccionarZona.setText("Selecciona Zona");
+        jButton1_SeleccionarZona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton1_SeleccionarZonaActionPerformed(evt);
             }
         });
 
@@ -71,17 +81,17 @@ public class Interfaz extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3)
+                .addComponent(jButton1_SeleccionarZona)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
+                    .addComponent(jButton1_SeleccionarZona)
                     .addComponent(jLabel6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -97,13 +107,22 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup.add(jRadioButton4);
-        jRadioButton4.setText("Dificil");
+        buttonGroup.add(Dificil);
+        Dificil.setText("Dificil");
 
-        jEditorPane1.setEditable(false);
-        jScrollPane1.setViewportView(jEditorPane1);
+        buttonGroup.add(Facil);
+        Facil.setText("Fácil");
+        Facil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FacilActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Hola");
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "fuego", "agua", "tierra" }));
+
+        jLabel1.setText("-        Selecciona el tipo de todos los enemigos:");
+
+        jButton1.setText("Confirmar Dificultad");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -117,31 +136,107 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Normal)
-                            .addComponent(jRadioButton4)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(Facil)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Normal)
+                    .addComponent(Dificil)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Facil)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Normal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Dificil)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel5.setFont(new java.awt.Font("Noto Serif Cond", 2, 14)); // NOI18N
-        jLabel5.setText("¡Hola aventurero!");
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("¡Hora de luchar!"), "Selecciona el elemento que tendrá tu personaje"));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "?", "fuego", "agua", "tierra" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("¡Hora de luchar!"));
+
+        jEditorPane1.setEditable(false);
+        jScrollPane1.setViewportView(jEditorPane1);
+
+        jButton2_Continuar.setText("Continuar");
+        jButton2_Continuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2_ContinuarActionPerformed(evt);
+            }
+        });
+
+        jButton1_Luchar.setText("Luchar");
+        jButton1_Luchar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_LucharActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                    .addComponent(jButton2_Continuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton1_Luchar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2_Continuar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1_Luchar)
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setText("¡Hola aventurero!");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -150,23 +245,27 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel5)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Juego", jPanel2);
@@ -191,58 +290,100 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private CountDownLatch latch = new CountDownLatch(1);
+    private void jButton1_LucharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_LucharActionPerformed
+        String tipoPersonaje = jComboBox1.getSelectedItem().toString();
+
+        if (Metodos.esElementoElegidoMasFuerte(tipoPersonaje, Metodos.tipoActual)) {
+            if (tipoPersonaje.equals("fuego")) {
+                System.out.println(userName + " ha usado Explosión Piromágica contra " + Metodos.nombreActual);
+            } else if (tipoPersonaje.equals("agua")) {
+                System.out.println(userName + " ha usado Tormenta Acuática contra " + Metodos.nombreActual);
+            } else if (tipoPersonaje.equals("tierra")) {
+                System.out.println(userName + " ha usado Terremoto Rugiente contra " + Metodos.nombreActual);
+            } else {
+                System.out.println("Tipo invalido");
+            }
+        }
+    }//GEN-LAST:event_jButton1_LucharActionPerformed
+
+    private void jButton2_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_ContinuarActionPerformed
+        jComboBox2.setEnabled(true);
+        Facil.setEnabled(true);
+        Normal.setEnabled(true);
+        Dificil.setEnabled(true);
+        jButton1.setEnabled(true);
+        waitingNextGroup = false;
+    }//GEN-LAST:event_jButton2_ContinuarActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jComboBox2.setEnabled(false);
+        Facil.setEnabled(false);
+        Normal.setEnabled(false);
+        Dificil.setEnabled(false);
+        jButton1.setEnabled(false);
+        if (Facil.isSelected()) {
+            Metodos.modoFacil(grupoActual, jComboBox2.getSelectedItem().toString());
+            try {
+                actualizarTabla(grupoActual);
+            } catch (IOException ex) {
+                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void FacilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacilActionPerformed
+
+        
+    }//GEN-LAST:event_FacilActionPerformed
 
     private void NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NormalActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_NormalActionPerformed
 
+    private void jButton1_SeleccionarZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_SeleccionarZonaActionPerformed
+        new Thread(() -> {
+            try {
+                final Path directorio = Metodos.elegirDirectorio().toPath();
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            Files.walkFileTree(Metodos.elegirDirectorio().toPath(), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    if (file.toString().toLowerCase().endsWith(".dat")) {
+                Files.walkFileTree(directorio, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                         // Procesa el archivo .dat
                         try {
-                            Metodos.convertirGrupoAXml(file.toString(), "grupo.xml");
-                            String htmlContent = Metodos.leerHTMLXML("grupo.xml");
-                            System.out.println(htmlContent);
-                            htmlContent = htmlContent.replaceAll("\\s+", "");
-                            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
-                            System.out.println(htmlContent);
-                            jEditorPane1.setContentType("text/html");
-                            jEditorPane1.setText(htmlContent);
-                            System.out.println("Archivo HTML creado con éxito.");
+                            grupoActual = file.toString();
+
+                            Metodos.leerFicheroEnemigosSecuencial(file.toString());
+
+                            actualizarTabla(file.toString());
+
+                            waitingNextGroup = true;
+
+                            while (waitingNextGroup) {
+                                System.out.println("hola");
+                                // Espera activa para que el jugador confirme
+                                Thread.sleep(1000); // Puedes ajustar el tiempo de espera
+                            }
+
                         } catch (Exception e) {
                             System.out.println("Error al procesar el archivo: " + file.toString());
                         }
-                    }
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        } catch (IOException ex) {
-            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //        try {
-//            Metodos.convertirGrupoAXml(Metodos.elegirArchivo().getPath(), "grupo.xml");
-//            String htmlContent = Metodos.leerHTMLXML("grupo.xml");
-//            System.out.println(htmlContent);
-//            htmlContent = htmlContent.replaceAll("\\s+", "");
-//            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
-//            System.out.println(htmlContent);
-//            jEditorPane1.setContentType("text/html");
-//            jEditorPane1.setText(htmlContent);
-//            System.out.println("Archivo HTML creado con éxito.");
-//        } catch (Exception e) {
-//            System.out.println("`Selecciona la zona de nuevo");
-//        }
-    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        latch.countDown();
-    }//GEN-LAST:event_jButton1ActionPerformed
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
+            } catch (IOException ex) {
+                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Terminado1");
+        }).start();
+        System.out.println("Terminado");
+    }//GEN-LAST:event_jButton1_SeleccionarZonaActionPerformed
+
+
 
     /**
      * @param args the command line arguments
@@ -253,6 +394,7 @@ public class Interfaz extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -279,24 +421,54 @@ public class Interfaz extends javax.swing.JFrame {
         });
     }
 
-    private void procesarDirectorio(Path directory) throws IOException {
-        // Recorre los archivos y directorios de forma recursiva.
+    private void actualizarTabla(String pathFile) throws IOException {
+
+        if (pathFile.toString().toLowerCase().endsWith(".dat")) {
+            Metodos.convertirGrupoAXml(pathFile, "grupo.xml");
+            String htmlContent = Metodos.leerHTMLXML("grupo.xml");
+            System.out.println(htmlContent);
+            htmlContent = htmlContent.replaceAll("\\s+", "");
+            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+            System.out.println(htmlContent);
+            jEditorPane1.setContentType("text/html");
+            jEditorPane1.setText(htmlContent);
+            System.out.println("Archivo HTML creado con éxito.");
+        } else if (pathFile.toString().toLowerCase().endsWith(".xml")) {
+            String htmlContent = Metodos.leerHTMLXML(pathFile);
+            System.out.println(htmlContent);
+            htmlContent = htmlContent.replaceAll("\\s+", "");
+            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+            System.out.println(htmlContent);
+            jEditorPane1.setContentType("text/html");
+            jEditorPane1.setText(htmlContent);
+            System.out.println("Archivo HTML creado con éxito.");
+        } else {
+            System.out.println("La extension tiene que ser .xml o .dat");
+        }
 
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Dificil;
+    private javax.swing.JRadioButton Facil;
     private javax.swing.JRadioButton Normal;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton1_Luchar;
+    private javax.swing.JButton jButton1_SeleccionarZona;
+    private javax.swing.JButton jButton2_Continuar;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables

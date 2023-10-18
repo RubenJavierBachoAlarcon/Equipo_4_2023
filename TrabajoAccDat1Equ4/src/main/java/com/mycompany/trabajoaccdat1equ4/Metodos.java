@@ -60,6 +60,13 @@ public class Metodos {
      *
      * @param nombreArchivo String con el nombre que se le dará al archivo.
      */
+    public static boolean waitingNextGroup;
+    public static int idActual;
+    public static String nombreActual;
+    public static String tipoActual;
+    
+    
+
     public static void crearBestiario(String nombreArchivo) {
         try {
             RandomAccessFile fichero = new RandomAccessFile(nombreArchivo, "rw");
@@ -136,8 +143,6 @@ public class Metodos {
         return selectedDirectory;
     }
 
-    
-
     /**
      * Método que escribe en un fichero de datos binario, empleando la clase
      * RandomAccessFile, un registro con los datos de un enemigo que se le hayan
@@ -183,19 +188,19 @@ public class Metodos {
             DataInputStream dis = new DataInputStream(lector);
 
             while (dis.available() > 0) {
-                System.out.println(dis.readInt());
+                idActual = dis.readInt();
 
                 StringBuffer sb1 = new StringBuffer();
                 for (int i = 0; i < 20; i++) {
                     sb1.append(dis.readChar());
                 }
-                System.out.println(sb1.toString().trim());
+                nombreActual = sb1.toString().trim();
 
                 StringBuffer sb2 = new StringBuffer();
                 for (int i = 0; i < 10; i++) {
                     sb2.append(dis.readChar());
                 }
-                System.out.println(sb2.toString().trim());
+                tipoActual = sb2.toString().trim();
             }
             dis.close();
             lector.close();
@@ -570,8 +575,8 @@ public class Metodos {
      *
      * @param documento Documento XML que se utilizará como fuente para tomar
      * los datos del archivo final generado
-     * @param rutaArchivo String que contiene la ruta del archivo
-     * final generado, incluyendo nombre y extensión
+     * @param rutaArchivo String que contiene la ruta del archivo final
+     * generado, incluyendo nombre y extensión
      */
     public static void generarXml(Document documento, String rutaArchivo) throws TransformerException {
         Source source = new DOMSource(documento);
@@ -667,6 +672,13 @@ public class Metodos {
 
     }
 
+    /**
+     * Lee el contenido de un archivo HTML o XML y lo devuelve como una cadena.
+     *
+     * @param ruta Ruta del archivo HTML o XML que se desea leer.
+     * @return El contenido del archivo como una cadena en formato UTF-8.
+     * @throws IOException Si ocurre un error al leer el archivo.
+     */
     public static String leerHTMLXML(String ruta) throws IOException {
 
         crearHTML("hojaEstilos.xsl", ruta);
@@ -675,11 +687,16 @@ public class Metodos {
         return fileContent;
     }
 
-    public static String leeHTMLDAT(String ruta) throws IOException {
-
-        return null;
-    }
-
+    /**
+     * Duplica un archivo desde una ubicación de origen a una ubicación de
+     * destino.
+     *
+     * @param sourcePath Ruta del archivo de origen que se desea duplicar.
+     * @param destinationPath Ruta del archivo de destino donde se copiará el
+     * archivo.
+     * @throws IOException Si ocurre un error al duplicar el archivo, como si el
+     * archivo de origen no existe o el archivo de destino ya existe.
+     */
     public static void duplicarFile(String sourcePath, String destinationPath) throws IOException {
         File sourceFile = new File(sourcePath);
         File destinationFile = new File(destinationPath);
@@ -712,6 +729,17 @@ public class Metodos {
         System.out.println("Archivo duplicado con éxito.");
     }
 
+    /**
+     * Duplica un directorio y su contenido desde una ubicación de origen a una
+     * ubicación de destino.
+     *
+     * @param sourceDirectory Ruta del directorio de origen que se desea
+     * duplicar.
+     * @param destinationDirectory Ruta del directorio de destino donde se
+     * copiará el directorio y su contenido.
+     * @throws IOException Si ocurre un error al duplicar el directorio, como si
+     * el directorio de origen no existe.
+     */
     public static void duplicarDirectory(String sourceDirectory, String destinationDirectory) throws IOException {
         File source = new File(sourceDirectory);
         File destination = new File(destinationDirectory);
@@ -742,6 +770,16 @@ public class Metodos {
 
     }
 
+    /**
+     * Mueve un directorio y su contenido desde una ubicación de origen a una
+     * ubicación de destino.
+     *
+     * @param directorioOrigen Ruta del directorio de origen que se desea mover.
+     * @param directorioDestino Ruta del directorio de destino donde se moverá
+     * el directorio y su contenido.
+     * @throws IOException Si ocurre un error al mover el directorio, como si el
+     * directorio de origen no existe.
+     */
     public static void moverDirectorio(String directorioOrigen, String directorioDestino) throws IOException {
         File origen = new File(directorioOrigen);
         File destino = new File(directorioDestino);
@@ -773,9 +811,7 @@ public class Metodos {
         // Después de mover los contenidos, eliminar el directorio de origen
         origen.delete();
     }
-    
-    
-    
+
     /**
      * Método que permite activar el "modo fácil" para lidiar con un grupo de
      * enemigos en concreto, recorriéndolo y reasignando la debilidad de todos
@@ -783,6 +819,7 @@ public class Metodos {
      * parámetro. En el caso de pasarse una String cuyo contenido no coincida
      * con "fuego", "tierra" o "agua" (los tres elementos existentes en el
      * juego), por defecto se asignará a "tierra".
+     *
      * @param rutaArchivo String que contiene la ruta del archivo para el cual
      * se quiere activar el "modo fácil".
      * @param debilidadAsignar String que contiene el elemento al cual se
@@ -792,82 +829,78 @@ public class Metodos {
      */
     public static void modoFacil(String rutaArchivo, String debilidadAsignar) {
         String debilidad;
-        if (!debilidadAsignar.equalsIgnoreCase("fuego") &&
-                !debilidadAsignar.equalsIgnoreCase("agua") &&
-                !debilidadAsignar.equalsIgnoreCase("tierra")) {
-            
+        if (!debilidadAsignar.equalsIgnoreCase("fuego")
+                && !debilidadAsignar.equalsIgnoreCase("agua")
+                && !debilidadAsignar.equalsIgnoreCase("tierra")) {
+
             debilidad = new String("tierra");
-            
+
         } else {
-            
+
             debilidad = new String(debilidadAsignar);
-            
+
         }
         StringBuffer sb = new StringBuffer(debilidad);
         sb.setLength(10);
-        
-        
+
         try {
-            
+
             RandomAccessFile fichero = new RandomAccessFile(rutaArchivo, "rw");
             while (fichero.getFilePointer() < fichero.length()) {
-                
+
                 fichero.readInt();
                 leerCadena(20, fichero);
                 fichero.writeChars(sb.toString());
-                
+
             }
-            
+
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
-        
-        
+
     }
-    
-    
-    
+
     /**
-     * Método que, utilizando DOM, permite llevar a cabo modificaciones del 
-     * texto de nodos existentes en un fichero XML. 
-     * Se pasarán como parámetros una String que contenga el texto de 
-     * aquellos nodos que se deseen modificar y una String que contenga 
-     * el nuevo texto que se desea que tengan estos nodos. También una 
-     * String que contenga la ruta del archivo a modificar.
-     * Únicamente será aplicable para los nodos de nombres, para utilizarse
-     * en la sección de juego personalizado y poder nombrar a los enemigos que
-     * se generen como se quiera.
+     * Método que, utilizando DOM, permite llevar a cabo modificaciones del
+     * texto de nodos existentes en un fichero XML. Se pasarán como parámetros
+     * una String que contenga el texto de aquellos nodos que se deseen
+     * modificar y una String que contenga el nuevo texto que se desea que
+     * tengan estos nodos. También una String que contenga la ruta del archivo a
+     * modificar. Únicamente será aplicable para los nodos de nombres, para
+     * utilizarse en la sección de juego personalizado y poder nombrar a los
+     * enemigos que se generen como se quiera.
+     *
      * @param rutaArchivo String que contiene la ruta del archivo XML cuyo nodo
      * será modificado
      * @param textoNodo String que contiene el texto (contenido en un nodo) que
-     * se quiera modificar; se empleará para modificar los nombres de los enemigos
-     * (se modificarán todos aquellos nodos cuyo texto contenido coincida con
-     * este parámetro; no se reasignan los nombres de los enemigos de un tipo,
-     * se reasignan todos)
+     * se quiera modificar; se empleará para modificar los nombres de los
+     * enemigos (se modificarán todos aquellos nodos cuyo texto contenido
+     * coincida con este parámetro; no se reasignan los nombres de los enemigos
+     * de un tipo, se reasignan todos)
      * @param textoNuevo String que contiene el nuevo valor de texto que
      * contendrán los nodos modificacos; el nuevo nombre que se dará a los
      * enemigos. (Al igual que en el caso anterior, se utiliza en todos los
      * nodos reasignados)
      */
     public static void modificarXml(String rutaArchivo, String textoNodo, String textoNuevo) {
-        Document documento=null;
-        
+        Document documento = null;
+
         try {
             File archivo = new File(rutaArchivo);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             documento = builder.parse(archivo);
-            
+
             documento.getDocumentElement().normalize();
-            
+
             // Obtenemos todos los nodos etiquetados como "nombre", que son
             // aquellos que pretendemos modificar (el elemento no se puede
             // tocar aquí)
             NodeList listaNodos = documento.getElementsByTagName("nombre");
-            
+
             // Recorremos la lista de nodos obtenida, elemento por elemento,
             // iterando entre ellos mediante la i
-            for (int i=0; i<listaNodos.getLength(); i++) {
+            for (int i = 0; i < listaNodos.getLength(); i++) {
                 Node nodo = listaNodos.item(i);
                 if (nodo.getNodeType() == Node.ELEMENT_NODE) {
                     // Se compara que el elemento texto contenido por el nodo
@@ -878,9 +911,9 @@ public class Metodos {
                     }
                 }
             }
-            
+
             archivo.delete();
-   
+
         } catch (ParserConfigurationException pce) {
             System.out.println("Excepción en el parser para modificar nodos");
         } catch (SAXException saxe) {
@@ -888,12 +921,32 @@ public class Metodos {
         } catch (IOException ioe) {
             System.out.println("Excepción de tipo IOE");
         }
-        
-        
+
         try {
             generarXml(documento, rutaArchivo);
         } catch (TransformerException tce) {
             System.out.println("Excepción del transformer en la modificación del XML");
         }
+    }
+
+    public static void esperar() throws InterruptedException {
+        waitingNextGroup = true;
+        System.out.println("hola");
+        new Thread(() -> {
+            System.out.println("asdasd");
+            while (waitingNextGroup) {
+                // Realiza la espera o procesamiento en segundo plano
+                try {
+                    System.out.println("hika");
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void detenerEsperar() {
+        waitingNextGroup = false;
     }
 }

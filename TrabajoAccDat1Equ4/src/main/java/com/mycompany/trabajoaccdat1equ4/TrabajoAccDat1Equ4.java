@@ -38,6 +38,9 @@ import org.w3c.dom.Text;
 public class TrabajoAccDat1Equ4 {
 
     public static void main(String[] args) {
+        
+       
+        
         int tamañoRegistro = 64;
         
         Metodos.crearBestiario("enemigos.dat");
