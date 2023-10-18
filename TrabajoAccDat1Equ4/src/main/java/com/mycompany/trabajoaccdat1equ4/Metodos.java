@@ -57,19 +57,19 @@ import java.io.File;
  */
 public class Metodos {
 
-    /**
-     * Método que crea un archivo que contiene todo el bestiario de enemigos que
-     * se empleará en operaciones posteriores.
-     *
-     * @param nombreArchivo String con el nombre que se le dará al archivo.
-     */
+    
     public static boolean waitingNextGroup;
     public static ArrayList<Integer> idGrupo = new ArrayList<>();
     public static ArrayList<String> nombreGrupo = new ArrayList<>();
     public static ArrayList<String> tipoGrupo = new ArrayList<>();
     
     
-
+    /**
+     * Método que crea un archivo que contiene todo el bestiario de enemigos que
+     * se empleará en operaciones posteriores.
+     *
+     * @param nombreArchivo String con el nombre que se le dará al archivo.
+     */
     public static void crearBestiario(String nombreArchivo) {
         try {
             RandomAccessFile fichero = new RandomAccessFile(nombreArchivo, "rw");
@@ -729,35 +729,39 @@ public class Metodos {
      * archivo de origen no existe o el archivo de destino ya existe.
      */
     public static void duplicarFile(String sourcePath, String destinationPath) throws IOException {
-        File sourceFile = new File(sourcePath);
-        File destinationFile = new File(destinationPath);
+        try {
+            File sourceFile = new File(sourcePath);
+            File destinationFile = new File(destinationPath);
 
-        // Verificar si el archivo de origen existe
-        if (!sourceFile.exists()) {
-            throw new IOException("El archivo de origen no existe.");
+            // Verificar si el archivo de origen existe
+            if (!sourceFile.exists()) {
+                throw new IOException("El archivo de origen no existe.");
+            }
+
+            // Verificar si el archivo de destino ya existe
+            if (destinationFile.exists()) {
+                throw new IOException("El archivo de destino ya existe. No se puede duplicar.");
+            }
+
+            // Crear streams de entrada y salida
+            FileInputStream input = new FileInputStream(sourceFile);
+            FileOutputStream output = new FileOutputStream(destinationFile);
+
+            // Leer y escribir el archivo
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = input.read(buffer)) > 0) {
+                output.write(buffer, 0, bytesRead);
+            }
+
+            // Cerrar los streams
+            input.close();
+            output.close();
+
+            System.out.println("Archivo duplicado con éxito.");
+        } catch (IOException ioe) {
+            System.out.println("Excepción de tipo IOE al duplicar archivos");
         }
-
-        // Verificar si el archivo de destino ya existe
-        if (destinationFile.exists()) {
-            throw new IOException("El archivo de destino ya existe. No se puede duplicar.");
-        }
-
-        // Crear streams de entrada y salida
-        FileInputStream input = new FileInputStream(sourceFile);
-        FileOutputStream output = new FileOutputStream(destinationFile);
-
-        // Leer y escribir el archivo
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = input.read(buffer)) > 0) {
-            output.write(buffer, 0, bytesRead);
-        }
-
-        // Cerrar los streams
-        input.close();
-        output.close();
-
-        System.out.println("Archivo duplicado con éxito.");
     }
 
     /**
@@ -812,35 +816,39 @@ public class Metodos {
      * directorio de origen no existe.
      */
     public static void moverDirectorio(String directorioOrigen, String directorioDestino) throws IOException {
-        File origen = new File(directorioOrigen);
-        File destino = new File(directorioDestino);
+        try {
+            File origen = new File(directorioOrigen);
+            File destino = new File(directorioDestino);
 
-        // Verificar si el directorio de origen existe
-        if (!origen.exists() || !origen.isDirectory()) {
-            throw new IOException("El directorio de origen no existe.");
-        }
-
-        // Crear el directorio de destino si no existe
-        if (!destino.exists()) {
-            destino.mkdir();
-        }
-
-        // Obtener lista de archivos y subdirectorios en el directorio de origen
-        File[] archivos = origen.listFiles();
-
-        for (File archivo : archivos) {
-            if (archivo.isDirectory()) {
-                // Si es un subdirectorio, mover recursivamente
-                moverDirectorio(archivo.getPath(), directorioDestino + File.separator + archivo.getName());
-            } else {
-                // Si es un archivo, mover utilizando Files.move
-                File destinoArchivo = new File(directorioDestino + File.separator + archivo.getName());
-                Files.move(archivo.toPath(), destinoArchivo.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            // Verificar si el directorio de origen existe
+            if (!origen.exists() || !origen.isDirectory()) {
+                throw new IOException("El directorio de origen no existe.");
             }
-        }
 
-        // Después de mover los contenidos, eliminar el directorio de origen
-        origen.delete();
+            // Crear el directorio de destino si no existe
+            if (!destino.exists()) {
+                destino.mkdir();
+            }
+
+            // Obtener lista de archivos y subdirectorios en el directorio de origen
+            File[] archivos = origen.listFiles();
+
+            for (File archivo : archivos) {
+                if (archivo.isDirectory()) {
+                    // Si es un subdirectorio, mover recursivamente
+                    moverDirectorio(archivo.getPath(), directorioDestino + File.separator + archivo.getName());
+                } else {
+                    // Si es un archivo, mover utilizando Files.move
+                    File destinoArchivo = new File(directorioDestino + File.separator + archivo.getName());
+                    Files.move(archivo.toPath(), destinoArchivo.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+
+            // Después de mover los contenidos, eliminar el directorio de origen
+            origen.delete();
+        } catch (IOException ioe) {
+            System.out.println("Excepción de tipo ioe");
+        }
     }
 
     /**
@@ -1089,13 +1097,129 @@ public class Metodos {
             System.out.println("La estructura del XML no es válida, no se encriptará.");
         }
         
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = tf.newTransformer();
-        DOMSource source = new DOMSource(document);
-        StreamResult result = new StreamResult(new File(fichXML));
-        transformer.transform(source, result);
+        generarXml(document, fichXML);
         }catch (Exception e) {
             System.out.println(e);
         }
+    }
+    
+    
+    
+    /*
+     * Método que permite crear y reubicar todo lo necesario para poder iniciar
+     * el juego.
+     * 
+     * Inicia creando un archivo bestiario, que contendrá todos los posibles
+     * enemigos que puedan aparecer a lo largo del juego.
+     * 
+     * Crea también tres zonas de juego y una zona "grande" que las contendrá,
+     * para que el inicio del juego se realice desde este directorio "zona grande".
+     * 
+     * A continuación, crea los archivos grupos de enemigos (leyendo registros
+     * aleatorios del bestiario inicialmente generado) para el modo normal
+     * del juego, los mueve a sus respectivas zonas y los duplica, para tener
+     * disponibles los archivos que emplear en el modo fácil del juego.
+     * 
+     * Finalmente, mueve los directorios de las tres zonas junto con todo su
+     * contenido hacia el interior del directorio de la zona principal y 
+     * elimina el bestiario, para que el usuario no tenga acceso a él desde
+     * este modo de juego.
+     */
+    public static void iniciarJuegoNormal() throws IOException {
+        
+        int tamañoRegistro = 64;
+        
+        Metodos.crearBestiario("enemigos.dat");
+        Metodos.crearZona(".\\Zona 1");
+        Metodos.crearZona(".\\Zona 2");
+        Metodos.crearZona(".\\Zona 3");
+        Metodos.crearZona(".\\Zona de juego");
+        
+        Metodos.creaGrupo("Grupo 1-1n.dat", tamañoRegistro, "enemigos.dat", 5);
+        Metodos.moverGrupo(".\\Grupo 1-1n.dat", ".\\Zona 1\\Grupo 1-1n.dat");
+        Metodos.duplicarFile(".\\Zona 1\\Grupo 1-1n.dat", ".\\Zona 1\\Grupo 1-1f.dat");
+        
+        Metodos.creaGrupo("Grupo 1-2n.dat", tamañoRegistro, "enemigos.dat", 6);
+        Metodos.moverGrupo(".\\Grupo 1-2n.dat", ".\\Zona 1\\Grupo 1-2n.dat");
+        Metodos.duplicarFile(".\\Zona 1\\Grupo 1-2n.dat", ".\\Zona 1\\Grupo 1-2f.dat");
+        
+        Metodos.creaGrupo("Grupo 1-3n.dat", tamañoRegistro, "enemigos.dat", 7);
+        Metodos.moverGrupo(".\\Grupo 1-3n.dat", ".\\Zona 1\\Grupo 1-3n.dat");
+        Metodos.duplicarFile(".\\Zona 1\\Grupo 1-3n.dat", ".\\Zona 1\\Grupo 1-3f.dat");
+        
+        Metodos.creaGrupo("Grupo 2-1n.dat", tamañoRegistro, "enemigos.dat", 1);
+        Metodos.moverGrupo(".\\Grupo 2-1n.dat", ".\\Zona 2\\Grupo 2-1n.dat");
+        Metodos.duplicarFile(".\\Zona 2\\Grupo 2-1n.dat", ".\\Zona 2\\Grupo 2-1f.dat");
+        
+        Metodos.creaGrupo("Grupo 2-2n.dat", tamañoRegistro, "enemigos.dat", 2);
+        Metodos.moverGrupo(".\\Grupo 2-2n.dat", ".\\Zona 2\\Grupo 2-2n.dat");
+        Metodos.duplicarFile(".\\Zona 2\\Grupo 2-2n.dat", ".\\Zona 2\\Grupo 2-2f.dat");
+        
+        Metodos.creaGrupo("Grupo 2-3n.dat", tamañoRegistro, "enemigos.dat", 3);
+        Metodos.moverGrupo(".\\Grupo 2-3n.dat", ".\\Zona 2\\Grupo 2-3n.dat");
+        Metodos.duplicarFile(".\\Zona 2\\Grupo 2-3n.dat", ".\\Zona 2\\Grupo 2-3f.dat");
+        
+        Metodos.creaGrupo("Grupo 3-1n.dat", tamañoRegistro, "enemigos.dat", 4);
+        Metodos.moverGrupo(".\\Grupo 3-1n.dat", ".\\Zona 3\\Grupo 3-1n.dat");
+        Metodos.duplicarFile(".\\Zona 3\\Grupo 3-1n.dat", ".\\Zona 3\\Grupo 3-1f.dat");
+        
+        Metodos.creaGrupo("Grupo 3-2n.dat", tamañoRegistro, "enemigos.dat", 8);
+        Metodos.moverGrupo(".\\Grupo 3-2n.dat", ".\\Zona 3\\Grupo 3-2n.dat");
+        Metodos.duplicarFile(".\\Zona 3\\Grupo 3-2n.dat", ".\\Zona 3\\Grupo 3-2f.dat");
+        
+        Metodos.creaGrupo("Grupo 3-3n.dat", tamañoRegistro, "enemigos.dat", 9);
+        Metodos.moverGrupo(".\\Grupo 3-3n.dat", ".\\Zona 3\\Grupo 3-3n.dat");
+        Metodos.duplicarFile(".\\Zona 3\\Grupo 3-3n.dat", ".\\Zona 3\\Grupo 3-3f.dat");
+        
+        
+        Metodos.moverDirectorio(".\\Zona 1", ".\\Zona de juego\\Zona 1");
+        Metodos.moverDirectorio(".\\Zona 2", ".\\Zona de juego\\Zona 2");
+        Metodos.moverDirectorio(".\\Zona 3", ".\\Zona de juego\\Zona 3");
+        
+        
+        File bestiario = new File(".\\enemigos.dat");
+        bestiario.delete();
+    }
+    
+    
+    
+    /** Método que permite comprobar si se ha realizado el borrado lógico de un
+     * fichero completo de enemigos; lo revisa utilizando un contador para
+     * aquellos registros de ID que no estén asignados a -1, y si detecta
+     * que todos los registros de ID se encuentran en ese estado, devuelve true.
+     * 
+     * @param rutaArchivo String que contiene la ruta del fichero cuyo contenido
+     * se va a evaluar
+     * @return true si se ha realizado un borrado lógico completo de todos los
+     * registros existentes, false en caso contrario
+     */
+     public static boolean compruebaBorradoCompleto(String rutaArchivo) {
+        boolean borradoCompleto=false;
+        
+        int cuentaNoBorrado=0;
+        int idLeido;
+        try {
+            
+            RandomAccessFile fichero = new RandomAccessFile(rutaArchivo, "rw");
+            while (fichero.getFilePointer() < fichero.length()) {
+                
+                idLeido = fichero.readInt();
+                if (idLeido != -1) {
+                    cuentaNoBorrado++;
+                }
+                
+                fichero.skipBytes(60);   
+            }
+            fichero.close();
+
+        } catch (IOException ioe) {
+            System.out.println("Excepción de tipo IOE al verificar que un fichero de enemigos esté borrado completo");
+        }
+        
+        if (cuentaNoBorrado==0) {
+            borradoCompleto=true;
+        } 
+        
+        return borradoCompleto;
     }
 }
