@@ -30,7 +30,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
-
+import com.mycompany.trabajoaccdat1equ4.Interfaz;
 /**
  *
  * @author pokem, patri, bacho
@@ -84,6 +84,9 @@ public class TrabajoAccDat1Equ4 {
         Metodos.convertirGrupoAXml(".\\Zona 3\\Grupo 3-3.dat", ".\\Zona 3\\Grupo 3-3.xml");
         Metodos.modificarXml(".\\Zona 3\\Grupo 3-3.xml", "Hydrobabosa", "Tengo sueño cojones");
 
+        
+        Interfaz interfaz = new Interfaz();
+        interfaz.setVisible(true);
         
     }
     
