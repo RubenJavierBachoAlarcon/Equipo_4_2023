@@ -22,6 +22,7 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,9 +62,9 @@ public class Metodos {
      * @param nombreArchivo String con el nombre que se le dará al archivo.
      */
     public static boolean waitingNextGroup;
-    public static int idActual;
-    public static String nombreActual;
-    public static String tipoActual;
+    public static ArrayList<Integer> idGrupo = new ArrayList<>();
+    public static ArrayList<String> nombreGrupo = new ArrayList<>();
+    public static ArrayList<String> tipoGrupo = new ArrayList<>();
     
     
 
@@ -188,19 +189,19 @@ public class Metodos {
             DataInputStream dis = new DataInputStream(lector);
 
             while (dis.available() > 0) {
-                idActual = dis.readInt();
+                idGrupo.add(dis.readInt());
 
                 StringBuffer sb1 = new StringBuffer();
                 for (int i = 0; i < 20; i++) {
                     sb1.append(dis.readChar());
                 }
-                nombreActual = sb1.toString().trim();
+                nombreGrupo.add(sb1.toString().trim());
 
                 StringBuffer sb2 = new StringBuffer();
                 for (int i = 0; i < 10; i++) {
                     sb2.append(dis.readChar());
                 }
-                tipoActual = sb2.toString().trim();
+                tipoGrupo.add(sb2.toString().trim());
             }
             dis.close();
             lector.close();
