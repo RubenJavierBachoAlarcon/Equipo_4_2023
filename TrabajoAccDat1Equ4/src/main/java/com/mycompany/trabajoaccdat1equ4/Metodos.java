@@ -961,7 +961,7 @@ public class Metodos {
      * caso contrario
      */
     public static boolean comprobarEstructuraXML(String fichXML) {
-    boolean estructuraAdecuada = false;
+    boolean estructuraAdecuada = true;
     
     try {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -971,31 +971,93 @@ public class Metodos {
 
         if (root.getTagName().equals("Grupo_de_enemigos")) {
             NodeList enemigos = root.getElementsByTagName("Enemigo");
+            boolean continuarVerificacion = true;
 
-            for (int i = 0; i < enemigos.getLength(); i++) {
+            for (int i = 0; i < enemigos.getLength() && continuarVerificacion; i++) {
                 Element enemigo = (Element) enemigos.item(i);
                 NodeList id = enemigo.getElementsByTagName("id");
                 NodeList nombre = enemigo.getElementsByTagName("nombre");
                 NodeList elemento = enemigo.getElementsByTagName("elemento");
 
-                if (id.getLength() == 1 && nombre.getLength() == 1 && elemento.getLength() == 1) {
-                    System.out.println("Enemigo " + (i + 1) + " tiene la estructura correcta.");
-                    estructuraAdecuada = true;
-                } else {
+                if (id.getLength() != 1 || nombre.getLength() != 1 || elemento.getLength() != 1) {
                     System.out.println("Enemigo " + (i + 1) + " no cumple con la estructura esperada.");
                     estructuraAdecuada = false;
+                    continuarVerificacion = false;
                 }
             }
-        } else {
-            System.out.println("El documento no tiene la estructura esperada.");
-            estructuraAdecuada = false;
-        }
-
-    } catch (Exception e) {
-        System.out.println("El documento no tiene la estructura esperada.");
+        }else {
+                    System.out.println("El documento no tiene la estructura esperada.");
+                    estructuraAdecuada = false;
+                }
+        } catch (Exception e) {
+        System.out.println(e);
         estructuraAdecuada = false;
     }
 
     return estructuraAdecuada;
 }
+    
+    /**
+     * Método que encripta una cadena utilizando la técnica de sumar +1 
+     * a cada carácter
+     * @param contenido String que contiene el texto que queremos encriptar
+     * @return contenidoEncriptado String con el texto encriptado
+     */
+    public static String encriptarContenido(String contenido) {
+    String contenidoEncriptado = "";
+    for (char c : contenido.toCharArray()) {
+        char caracterEncriptado = c;
+
+        if (c >= '0' && c <= '9') {
+            caracterEncriptado = (char) ('0' + (c - '0' + 1) % 10);
+        } else {
+            caracterEncriptado = (char) (c + 1);
+        }
+        
+        contenidoEncriptado += caracterEncriptado;
+    }
+    
+    return contenidoEncriptado;
+}
+    /**
+     * Método de encriptación de ficheros XML utilizando la lectura con DOM
+     * @param fichXML String que contiene el nombre del fichero XML a encriptar
+     */
+    public static void encriptarXML(String fichXML){
+        try {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(new File(fichXML));
+        document.getDocumentElement().normalize();
+        boolean estructuraValida = comprobarEstructuraXML(fichXML);
+        
+        if (estructuraValida) {
+        NodeList enemigos = document.getElementsByTagName("Enemigo");
+        for (int i = 0; i < enemigos.getLength(); i++) {
+             Element enemigo = (Element) enemigos.item(i);
+             NodeList elementos = enemigo.getChildNodes();
+             
+             for (int j = 0; j < elementos.getLength(); j++) {
+                Node elemento = elementos.item(j);
+                
+                if (elemento.getNodeType() == Node.ELEMENT_NODE) {
+                    String contenido = elemento.getTextContent();
+                    String contenidoEncriptado = encriptarContenido(contenido);
+                    elemento.setTextContent(contenidoEncriptado);
+                }
+        }
+        }
+        } else {
+            System.out.println("La estructura del XML no es válida, no se encriptará.");
+        }
+        
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        DOMSource source = new DOMSource(document);
+        StreamResult result = new StreamResult(new File(fichXML));
+        transformer.transform(source, result);
+        }catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
