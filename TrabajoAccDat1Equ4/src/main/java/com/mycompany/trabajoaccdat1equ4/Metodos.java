@@ -112,6 +112,7 @@ public class Metodos {
         }
 
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
         File selectedFile = null;
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -132,6 +133,7 @@ public class Metodos {
         }
 
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Configurar para seleccionar directorios
         File selectedDirectory = null;
         int returnValue = fileChooser.showOpenDialog(null);

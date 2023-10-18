@@ -35,6 +35,8 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         initComponents();
         jLabel2.setText("¡Bienvenido a la aventura " + userName + "!");
+        jLabel1.setVisible(false);
+        jComboBox2.setVisible(false);
     }
 
     /**
@@ -108,6 +110,7 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Seleccione la dificultad que desees:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         buttonGroup.add(Normal);
+        Normal.setSelected(true);
         Normal.setText("Normal");
         Normal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +240,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addComponent(jButton2_Continuar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -301,7 +304,7 @@ public class Interfaz extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -326,17 +329,21 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 389, Short.MAX_VALUE)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 388, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
     private void jButton1_LucharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_LucharActionPerformed
         jButton1_Luchar.setEnabled(false);
-        
+
         String tipoPersonaje = jComboBox1.getSelectedItem().toString();
         String texto = "";
         for (String tipoActual : Metodos.tipoGrupo) {
@@ -371,8 +378,8 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1_LucharActionPerformed
 
     private void jButton2_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_ContinuarActionPerformed
-       jButton1_Luchar.setEnabled(true);
-        
+        jButton1_Luchar.setEnabled(true);
+
         Metodos.idGrupo = new ArrayList<>();
         Metodos.nombreGrupo = new ArrayList<>();
         Metodos.tipoGrupo = new ArrayList<>();
@@ -387,6 +394,31 @@ public class Interfaz extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jComboBox2.setEnabled(false);
+        Facil.setEnabled(false);
+        Normal.setEnabled(false);
+        jButton1.setEnabled(false);
+        if (Facil.isSelected()) {
+            Metodos.modoFacil(grupoActual, jComboBox2.getSelectedItem().toString());
+            try {
+                actualizarTabla(grupoActual);
+            } catch (IOException ex) {
+                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void FacilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacilActionPerformed
+        jLabel1.setVisible(true);
+        jComboBox2.setVisible(true);
+    }//GEN-LAST:event_FacilActionPerformed
+
+    private void NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NormalActionPerformed
+        jLabel1.setVisible(false);
+        jComboBox2.setVisible(false);
+    }//GEN-LAST:event_NormalActionPerformed
 
     private void jButton1_SeleccionarZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_SeleccionarZonaActionPerformed
         new Thread(() -> {
@@ -426,33 +458,6 @@ public class Interfaz extends javax.swing.JFrame {
         }).start();
         System.out.println("Terminado");
     }//GEN-LAST:event_jButton1_SeleccionarZonaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jComboBox2.setEnabled(false);
-        Facil.setEnabled(false);
-        Normal.setEnabled(false);
-        jButton1.setEnabled(false);
-        if (Facil.isSelected()) {
-            Metodos.modoFacil(grupoActual, jComboBox2.getSelectedItem().toString());
-            try {
-                actualizarTabla(grupoActual);
-            } catch (IOException ex) {
-                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void FacilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacilActionPerformed
-
-    }//GEN-LAST:event_FacilActionPerformed
-
-    private void NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NormalActionPerformed
-
-    }//GEN-LAST:event_NormalActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
