@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Random;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileVisitOption;
@@ -48,6 +47,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
 
 /**
  *
@@ -125,7 +127,7 @@ public class Metodos {
     }
 
     public static File elegirDirectorio() {
-        try {
+       try {
             // Establecer el Look and Feel de Windows
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -134,7 +136,21 @@ public class Metodos {
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("."));
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Configurar para seleccionar directorios
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        // Crear un filtro personalizado para mostrar solo directorios que empiezan por "Zona"
+        fileChooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                return file.isDirectory() && file.getName().startsWith("Zona");
+            }
+
+            @Override
+            public String getDescription() {
+                return "Directorios que empiezan por 'Zona'";
+            }
+        });
+
         File selectedDirectory = null;
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -185,31 +201,43 @@ public class Metodos {
      * @param nombreFichero String con la ruta del fichero de enemigos a leer
      */
     public static void leerFicheroEnemigosSecuencial(String nombreFichero) {
+        idGrupo = new ArrayList<>();
+        nombreGrupo = new ArrayList<>();
+        tipoGrupo = new ArrayList<>();
+        
+        
         File archivo = new File(nombreFichero);
         try {
             FileInputStream lector = new FileInputStream(archivo);
             DataInputStream dis = new DataInputStream(lector);
 
             while (dis.available() > 0) {
-                idGrupo.add(dis.readInt());
-
+                int id = dis.readInt();
+                idGrupo.add(id);
+                
                 StringBuffer sb1 = new StringBuffer();
                 for (int i = 0; i < 20; i++) {
                     sb1.append(dis.readChar());
                 }
-                nombreGrupo.add(sb1.toString().trim());
+                String nombre = sb1.toString().trim();
+                nombreGrupo.add(nombre);
 
                 StringBuffer sb2 = new StringBuffer();
                 for (int i = 0; i < 10; i++) {
                     sb2.append(dis.readChar());
                 }
-                tipoGrupo.add(sb2.toString().trim());
+                String tipo = sb2.toString().trim();
+                tipoGrupo.add(tipo);
             }
             dis.close();
             lector.close();
 
         } catch (IOException IOE) {
             System.out.println("Excepción de tipo IOE");
+        }
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
+        for (String str : tipoGrupo){
+            System.out.println(str);
         }
     }
 
@@ -860,6 +888,16 @@ public class Metodos {
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
+//        if (Juego.grupoActual != null){
+//            Metodos.leerFicheroEnemigosSecuencial(Juego.grupoActual);
+//            if (tipoGrupo != null){
+//                for (String str : tipoGrupo){
+//                System.out.println(str);
+//            }
+//            }
+//            
+//        }
+        
 
     }
 

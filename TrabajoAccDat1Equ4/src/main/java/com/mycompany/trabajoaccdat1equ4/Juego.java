@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author b15-06m
  */
-public class Interfaz extends javax.swing.JFrame {
+public class Juego extends javax.swing.JFrame {
 
     /**
      * Creates new form Interfaz
@@ -32,7 +32,7 @@ public class Interfaz extends javax.swing.JFrame {
     public static int nivel = 0;
     public static int vida = 20;
 
-    public Interfaz() {
+    public Juego() {
         initComponents();
         jLabel2.setText("¡Bienvenido a la aventura " + userName + "!");
         jLabel1.setVisible(false);
@@ -343,7 +343,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton1_LucharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_LucharActionPerformed
         jButton1_Luchar.setEnabled(false);
-
+        
         String tipoPersonaje = jComboBox1.getSelectedItem().toString();
         String texto = "";
         for (String tipoActual : Metodos.tipoGrupo) {
@@ -402,10 +402,11 @@ public class Interfaz extends javax.swing.JFrame {
         jButton1.setEnabled(false);
         if (Facil.isSelected()) {
             Metodos.modoFacil(grupoActual, jComboBox2.getSelectedItem().toString());
+            Metodos.leerFicheroEnemigosSecuencial(grupoActual);
             try {
                 actualizarTabla(grupoActual);
             } catch (IOException ex) {
-                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -452,7 +453,7 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                 });
             } catch (IOException ex) {
-                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("Terminado1");
         }).start();
@@ -477,20 +478,21 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interfaz().setVisible(true);
+                new Juego().setVisible(true);
             }
         });
     }
