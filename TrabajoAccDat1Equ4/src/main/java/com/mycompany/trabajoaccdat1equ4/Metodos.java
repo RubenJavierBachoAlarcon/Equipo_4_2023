@@ -652,8 +652,8 @@ public class Metodos {
      * Método que permite la creación de un fichero HTML a partir de una hoja de
      * estilos XSL y un fichero fuente XML
      *
-     * @param hojaEstilo
-     * @param fichXML
+     * @param hojaEstilo fichero con la plantilla XSL
+     * @param fichXML fichero fuente con la estructura XML
      * @throws IOException
      */
     public static void crearHTML(String hojaEstilo, String fichXML) throws IOException {
@@ -950,4 +950,50 @@ public class Metodos {
     public static void detenerEsperar() {
         waitingNextGroup = false;
     }
+    
+    /**
+     * Método que comprueba que la estructura de un archivo XML pasado por parámetro
+     * cumple con la estructura esperada.
+     * @param fichXML String que contiene el nombre del archivo XML a comprobar
+     * @return true si cumple con la estructura esperada, false en
+     * caso contrario
+     */
+    public static boolean comprobarEstructuraXML(String fichXML) {
+    boolean estructuraAdecuada = false;
+    
+    try {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(new File(fichXML));
+        Element root = document.getDocumentElement();
+
+        if (root.getTagName().equals("Grupo_de_enemigos")) {
+            NodeList enemigos = root.getElementsByTagName("Enemigo");
+
+            for (int i = 0; i < enemigos.getLength(); i++) {
+                Element enemigo = (Element) enemigos.item(i);
+                NodeList id = enemigo.getElementsByTagName("id");
+                NodeList nombre = enemigo.getElementsByTagName("nombre");
+                NodeList elemento = enemigo.getElementsByTagName("elemento");
+
+                if (id.getLength() == 1 && nombre.getLength() == 1 && elemento.getLength() == 1) {
+                    System.out.println("Enemigo " + (i + 1) + " tiene la estructura correcta.");
+                    estructuraAdecuada = true;
+                } else {
+                    System.out.println("Enemigo " + (i + 1) + " no cumple con la estructura esperada.");
+                    estructuraAdecuada = false;
+                }
+            }
+        } else {
+            System.out.println("El documento no tiene la estructura esperada.");
+            estructuraAdecuada = false;
+        }
+
+    } catch (Exception e) {
+        System.out.println("El documento no tiene la estructura esperada.");
+        estructuraAdecuada = false;
+    }
+
+    return estructuraAdecuada;
+}
 }
