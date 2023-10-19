@@ -65,11 +65,22 @@ public class TrabajoAccDat1Equ4 {
 //            }
 //        });
         Metodos.crearBestiario(".\\mostros.dat");
-        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 1, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 24, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 2, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 23, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 3, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 22, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 4, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 21, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 5, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 17, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        
+        
+        
+        
     }
+    
+    
 }

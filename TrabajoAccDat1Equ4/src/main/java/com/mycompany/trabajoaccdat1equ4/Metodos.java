@@ -1325,7 +1325,7 @@ public class Metodos {
      * Método que permite utilizar las clases FileOutputStream y DataOutputStream
      * para escribir "a continuación", tomando un fichero de datos binario y
      * escribiendo al final del mismo datos leídos de un fichero bestiario
-     * que se le pase por parámetro.
+     * que se le pase por parámetro y que se leerá mediante la clase RandomAccessFile
      * @param registroUsuario Número de ID con que el usuario desea que sus
      * monstruos aparezcan en el fichero personalizado.
      * @param registroElegido Número de ID asociado en el bestiario al monstruo
@@ -1356,7 +1356,84 @@ public class Metodos {
             ficheroBestiario.close();
             
         } catch (IOException ioe) {
-            System.out.println("Excepción IOE al añadir un enemigo al grupo personalizado");
+            System.out.println("Excepción IOE al añadir un enemigo al grupo personalizado con File/DataOutputStream");
+        }
+    }
+    
+    
+    
+    /**
+     * Método que permite utilizar la clase RandomAccessFile para escribir "al
+     * final" de un archivo, dejando un registro completo en blanco entre el punto en el
+     * que termina el archivo y el punto de escritura de registros.
+     * Los registros que se escriban serán aquellos que se lean de un archivo
+     * bestiario, mediante el uso de la clase RandomAccessFile.
+     * @param registroUsuario Número de ID con que el usuario desea que sus
+     * monstruos aparezcan en el fichero personalizado.
+     * @param registroElegido Número de ID asociado en el bestiario al monstruo
+     * que el usuario desea introducir en su fichero de monstruos personalizado.
+     * @param rutaBestiario String que contiene la ruta del fichero bestiario del
+     * cual se leerán los registros para después escribirlos en el fichero de
+     * datos personalizado.
+     * @param rutaPersonalizado String que contiene la ruta en la que se ubica
+     * el fichero de datos personalizado en el que se escribirán los datos leídos.
+     */
+    public static void insertarAccesoAleatorio(int registroUsuario, int registroElegido, String rutaBestiario, String rutaPersonalizado) {
+
+        long tamañoRegistro = 64;
+        long bytePos = (registroElegido - 1) * tamañoRegistro;
+        
+        try {
+            RandomAccessFile ficheroBestiario = new RandomAccessFile(rutaBestiario, "rw");
+            RandomAccessFile ficheroPersonalizado = new RandomAccessFile(rutaPersonalizado, "rw");
+            
+            ficheroBestiario.seek(bytePos);
+            // Línea en la que se hace la inserción aleatoria dejando
+            // registros en blanco; se salta hasta el final del archivo, se
+            // deja un registro completo en blanco y a continuación se escribe
+            ficheroPersonalizado.seek(ficheroPersonalizado.length() + tamañoRegistro);
+            
+            ficheroPersonalizado.writeInt(registroUsuario);
+            ficheroPersonalizado.writeChars(Metodos.leerCadena(20, ficheroBestiario, false));
+            ficheroPersonalizado.writeChars(Metodos.leerCadena(10, ficheroBestiario, false));
+            
+            ficheroPersonalizado.close();
+            ficheroBestiario.close();
+            
+            
+        } catch (IOException ioe) {
+            System.out.println("Excepción IOE al añadir un enemigo al grupo personalizado con RandomAccessFile saltando registros");
+        }
+    }
+    
+    
+    
+    /**
+     * Método que decide a cara o cruz si el monstruo elegido del bestiario se
+     * insertará al final del fichero personalizado con DataOutputStream
+     * escribiendo al final o con RandomAccessFile posicionándose al final y
+     * dejando un registro en blanco.
+     * @param registroUsuario Número de ID con que el usuario desea que sus
+     * monstruos aparezcan en el fichero personalizado.
+     * @param registroElegido Número de ID asociado en el bestiario al monstruo
+     * que el usuario desea introducir en su fichero de monstruos personalizado.
+     * @param rutaBestiario String que contiene la ruta del fichero bestiario del
+     * cual se leerán los registros para después escribirlos en el fichero de
+     * datos personalizado.
+     * @param rutaPersonalizado String que contiene la ruta en la que se ubica
+     * el fichero de datos personalizado en el que se escribirán los datos leídos.
+     */
+    public static void insertarMonstruoEnFicheroPersonalizado(int registroUsuario, int registroElegido, String rutaBestiario, String rutaPersonalizado) {
+        int aleatorio = aleatorio(1,0);
+        
+        if (aleatorio==0) {
+            System.out.println("La moneda ha salido cara. Los enemigos se añaden al final.");
+            escribirAContinuacion(registroUsuario, registroElegido, rutaBestiario, rutaPersonalizado);
+            
+        } else if (aleatorio==1) {
+            System.out.println("La moneda ha salido cruz. Los enemigos se añaden saltando un registro.");
+            insertarAccesoAleatorio(registroUsuario, registroElegido, rutaBestiario, rutaPersonalizado);
+            
         }
     }
 }
