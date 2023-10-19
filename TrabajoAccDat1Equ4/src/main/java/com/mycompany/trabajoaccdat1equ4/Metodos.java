@@ -50,6 +50,11 @@ import org.xml.sax.SAXException;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
+import java.io.StringReader;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 /**
  *
@@ -1249,4 +1254,67 @@ public class Metodos {
 
         return borradoCompleto;
     }
+    
+    /**
+     * Método que desencripta una cadena utilizando la técnica de restar -1 
+     * a cada carácter
+     * @param contenidoEncriptado String que contiene el texto que queremos desencriptar
+     * @return contenidoDesencriptado String con el texto desencriptado
+     */
+    public static String desencriptarContenido(String contenidoEncriptado) {
+        String contenidoDesencriptado = "";
+        for (char c : contenidoEncriptado.toCharArray()) {
+        char caracterDesencriptado = c;
+
+        if (c >= '0' && c <= '9') {
+            caracterDesencriptado = (char) ('0' + (c - '0' - 1 + 10) % 10);
+        } else {
+            caracterDesencriptado = (char) (c - 1);
+        }
+        
+        contenidoDesencriptado += caracterDesencriptado;
+    }
+    
+        return contenidoDesencriptado;
+    }
+    
+    /**
+     * Método de desencriptación de ficheros XML utilizando la lectura con SAX
+     * @param fichXMLEncriptado String que contiene el nombre del fichero XML encriptado
+     * @param nombreNuevoXML String que contiene el nombre que le vamos a dar 
+     * al fichero desencriptado (puede ser el mismo nombre que el fichero encriptado y,
+     * en ese caso, este se reescribiría)
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws TransformerException 
+     */
+    public static void desencriptarXML(String fichXMLEncriptado, String nombreNuevoXML) 
+            throws ParserConfigurationException, SAXException, TransformerException {
+         try {
+         SAXParserFactory factory = SAXParserFactory.newInstance();
+         SAXParser parser = factory.newSAXParser();
+         XMLReader reader = parser.getXMLReader();
+         GestionContenido handler = new GestionContenido();
+         reader.setContentHandler(handler);
+
+         InputSource source = new InputSource(fichXMLEncriptado);
+         reader.parse(source);
+         String nuevoXml = handler.getNuevoXml();
+         StringBuilder xmlCompleto = new StringBuilder();
+         xmlCompleto.append("<Grupo_de_enemigos>")
+          .append(nuevoXml)  
+          .append("</Grupo_de_enemigos>");
+         String xmlCompleto2 = xmlCompleto.toString();
+         //System.out.println(xmlCompleto2);
+         TransformerFactory tf = TransformerFactory.newInstance();
+         Transformer transformer = tf.newTransformer();
+         StreamSource fuente = new StreamSource(new StringReader(xmlCompleto2));
+         String archivoSalida = nombreNuevoXML;
+         StreamResult result = new StreamResult(new File(archivoSalida));
+         transformer.transform(fuente, result);
+            
+         } catch (Exception e) {
+             System.out.println(e);
+         } 
+}
 }
