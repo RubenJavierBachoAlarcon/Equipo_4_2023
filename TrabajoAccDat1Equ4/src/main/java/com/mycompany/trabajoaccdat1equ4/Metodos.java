@@ -683,17 +683,34 @@ public class Metodos {
 
             while (registroActual < fichero.length()) {
 
+                byte[] registro = new byte[(int)tamaño];
+                fichero.seek(registroActual);
+                fichero.readFully(registro);
+                // Antes de evaluar si el ID del enemigo leído es o no -1 para
+                // ver si se añade o no al XML, se evalúa que se trate de un
+                // registro en blanco para sencillamente omitirlo y que no
+                // aparezca en el archivo XML final.
+                
+                // Se crea un array de bytes de tamaño igual al tamaño de los
+                // registros que estamos utilizando, se ubica el puntero en el
+                // registro que estemos leyendo, se lee el registro completo,
+                // se asigna al array de bytes creado y se pasa como parámetro
+                // a un método que lo evalúa.
+                
+                
                 fichero.seek(registroActual);
                 id = fichero.readInt();
 
-                if (id != -1) {
-                    fichero.seek(registroActual);
+                if (!esRegistroEnBlanco(registro)) {
+                    if (id != -1) {
+                        fichero.seek(registroActual);
 
-                    nodo = Metodos.añadirNodoPrincipal("Enemigo", documento);
-                    Metodos.crearNodo("id", String.valueOf(fichero.readInt()), documento, nodo);
-                    Metodos.crearNodo("nombre", Metodos.leerCadena(20, fichero, true), documento, nodo);
-                    Metodos.crearNodo("elemento", Metodos.leerCadena(10, fichero, true), documento, nodo);
+                        nodo = Metodos.añadirNodoPrincipal("Enemigo", documento);
+                        Metodos.crearNodo("id", String.valueOf(fichero.readInt()), documento, nodo);
+                        Metodos.crearNodo("nombre", Metodos.leerCadena(20, fichero, true), documento, nodo);
+                        Metodos.crearNodo("elemento", Metodos.leerCadena(10, fichero, true), documento, nodo);
 
+                    }
                 }
 
                 registroActual = registroActual + tamaño;
@@ -712,6 +729,34 @@ public class Metodos {
             System.out.println(te);
         }
     }
+    
+    
+    
+    /**
+     * Método que permite verificar si un registro de bytes que se esté 
+     * evaluando está o no completamente en blanco, fruto de haber escrito 
+     * con RandomAccessFile saltando registros, para así omitirlo en la
+     * creación del archivo XML final.
+     * @param registro Array de bytes que conforman un registro a evaluar
+     * @return True si se trata de un registro en blanco, False en caso contrario
+     */
+    public static boolean esRegistroEnBlanco(byte[] registro) {
+        boolean enBlanco = true;
+        
+        for (byte e:registro) {
+            if (e != 0x00) {
+                enBlanco = false;
+            }
+        }
+        
+        return enBlanco;
+    }
+    
+    
+    
+    
+    
+    
 
     /**
      * Método que permite la creación de un fichero HTML a partir de una hoja de

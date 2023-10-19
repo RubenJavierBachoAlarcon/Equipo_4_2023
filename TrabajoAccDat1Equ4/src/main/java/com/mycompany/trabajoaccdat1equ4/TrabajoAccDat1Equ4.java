@@ -76,6 +76,7 @@ public class TrabajoAccDat1Equ4 {
         Metodos.insertarMonstruoEnFicheroPersonalizado(1, 21, ".\\mostros.dat", ".\\MISMOSTROS.dat");
         Metodos.insertarMonstruoEnFicheroPersonalizado(1, 5, ".\\mostros.dat", ".\\MISMOSTROS.dat");
         Metodos.insertarMonstruoEnFicheroPersonalizado(1, 17, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.convertirGrupoAXml(".\\MISMOSTROS.dat", ".\\MISMOSTROS.xml");
         
         
         
