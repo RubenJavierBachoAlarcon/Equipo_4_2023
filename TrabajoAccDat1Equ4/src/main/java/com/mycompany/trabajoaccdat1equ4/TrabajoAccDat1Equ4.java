@@ -49,10 +49,10 @@ public class TrabajoAccDat1Equ4 {
 
             Metodos.iniciarJuegoNormal();
             
-            Metodos.reescrituraID("tierra", ".\\Zona de juego\\Zona 3\\Grupo 3-3n.dat");
-            Metodos.reescrituraID("agua", ".\\Zona de juego\\Zona 3\\Grupo 3-3n.dat");
-            Metodos.reescrituraID("fuego", ".\\Zona de juego\\Zona 3\\Grupo 3-3n.dat");
-            System.out.println(Metodos.compruebaBorradoCompleto(".\\Zona de juego\\Zona 3\\Grupo 3-3n.dat"));
+            Metodos.reescrituraID("tierra", ".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat");
+            Metodos.reescrituraID("agua", ".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat");
+            Metodos.reescrituraID("fuego", ".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat");
+            System.out.println(Metodos.compruebaBorradoCompleto(".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat"));
             
             
             

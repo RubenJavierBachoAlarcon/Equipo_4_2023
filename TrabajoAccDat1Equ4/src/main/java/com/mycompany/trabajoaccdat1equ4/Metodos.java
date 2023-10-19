@@ -1135,41 +1135,41 @@ public class Metodos {
         Metodos.crearZona(".\\Zona 3");
         Metodos.crearZona(".\\Zona de juego");
         
-        Metodos.creaGrupo("Grupo 1-1n.dat", tamañoRegistro, "enemigos.dat", 5);
-        Metodos.moverGrupo(".\\Grupo 1-1n.dat", ".\\Zona 1\\Grupo 1-1n.dat");
-        Metodos.duplicarFile(".\\Zona 1\\Grupo 1-1n.dat", ".\\Zona 1\\Grupo 1-1f.dat");
+        Metodos.creaGrupo("nGrupo 1-1.dat", tamañoRegistro, "enemigos.dat", 5);
+        Metodos.moverGrupo(".\\nGrupo 1-1.dat", ".\\Zona 1\\nGrupo 1-1.dat");
+        Metodos.duplicarFile(".\\Zona 1\\nGrupo 1-1.dat", ".\\Zona 1\\fGrupo 1-1.dat");
         
-        Metodos.creaGrupo("Grupo 1-2n.dat", tamañoRegistro, "enemigos.dat", 6);
-        Metodos.moverGrupo(".\\Grupo 1-2n.dat", ".\\Zona 1\\Grupo 1-2n.dat");
-        Metodos.duplicarFile(".\\Zona 1\\Grupo 1-2n.dat", ".\\Zona 1\\Grupo 1-2f.dat");
+        Metodos.creaGrupo("nGrupo 1-2.dat", tamañoRegistro, "enemigos.dat", 6);
+        Metodos.moverGrupo(".\\nGrupo 1-2.dat", ".\\Zona 1\\nGrupo 1-2.dat");
+        Metodos.duplicarFile(".\\Zona 1\\nGrupo 1-2.dat", ".\\Zona 1\\fGrupo 1-2.dat");
         
-        Metodos.creaGrupo("Grupo 1-3n.dat", tamañoRegistro, "enemigos.dat", 7);
-        Metodos.moverGrupo(".\\Grupo 1-3n.dat", ".\\Zona 1\\Grupo 1-3n.dat");
-        Metodos.duplicarFile(".\\Zona 1\\Grupo 1-3n.dat", ".\\Zona 1\\Grupo 1-3f.dat");
+        Metodos.creaGrupo("nGrupo 1-3.dat", tamañoRegistro, "enemigos.dat", 7);
+        Metodos.moverGrupo(".\\nGrupo 1-3.dat", ".\\Zona 1\\nGrupo 1-3.dat");
+        Metodos.duplicarFile(".\\Zona 1\\nGrupo 1-3.dat", ".\\Zona 1\\fGrupo 1-3.dat");
         
-        Metodos.creaGrupo("Grupo 2-1n.dat", tamañoRegistro, "enemigos.dat", 1);
-        Metodos.moverGrupo(".\\Grupo 2-1n.dat", ".\\Zona 2\\Grupo 2-1n.dat");
-        Metodos.duplicarFile(".\\Zona 2\\Grupo 2-1n.dat", ".\\Zona 2\\Grupo 2-1f.dat");
+        Metodos.creaGrupo("nGrupo 2-1.dat", tamañoRegistro, "enemigos.dat", 1);
+        Metodos.moverGrupo(".\\nGrupo 2-1.dat", ".\\Zona 2\\nGrupo 2-1.dat");
+        Metodos.duplicarFile(".\\Zona 2\\nGrupo 2-1.dat", ".\\Zona 2\\fGrupo 2-1.dat");
         
-        Metodos.creaGrupo("Grupo 2-2n.dat", tamañoRegistro, "enemigos.dat", 2);
-        Metodos.moverGrupo(".\\Grupo 2-2n.dat", ".\\Zona 2\\Grupo 2-2n.dat");
-        Metodos.duplicarFile(".\\Zona 2\\Grupo 2-2n.dat", ".\\Zona 2\\Grupo 2-2f.dat");
+        Metodos.creaGrupo("nGrupo 2-2.dat", tamañoRegistro, "enemigos.dat", 2);
+        Metodos.moverGrupo(".\\nGrupo 2-2.dat", ".\\Zona 2\\nGrupo 2-2.dat");
+        Metodos.duplicarFile(".\\Zona 2\\nGrupo 2-2.dat", ".\\Zona 2\\fGrupo 2-2.dat");
         
-        Metodos.creaGrupo("Grupo 2-3n.dat", tamañoRegistro, "enemigos.dat", 3);
-        Metodos.moverGrupo(".\\Grupo 2-3n.dat", ".\\Zona 2\\Grupo 2-3n.dat");
-        Metodos.duplicarFile(".\\Zona 2\\Grupo 2-3n.dat", ".\\Zona 2\\Grupo 2-3f.dat");
+        Metodos.creaGrupo("nGrupo 2-3.dat", tamañoRegistro, "enemigos.dat", 3);
+        Metodos.moverGrupo(".\\nGrupo 2-3.dat", ".\\Zona 2\\nGrupo 2-3.dat");
+        Metodos.duplicarFile(".\\Zona 2\\nGrupo 2-3.dat", ".\\Zona 2\\fGrupo 2-3.dat");
         
-        Metodos.creaGrupo("Grupo 3-1n.dat", tamañoRegistro, "enemigos.dat", 4);
-        Metodos.moverGrupo(".\\Grupo 3-1n.dat", ".\\Zona 3\\Grupo 3-1n.dat");
-        Metodos.duplicarFile(".\\Zona 3\\Grupo 3-1n.dat", ".\\Zona 3\\Grupo 3-1f.dat");
+        Metodos.creaGrupo("nGrupo 3-1.dat", tamañoRegistro, "enemigos.dat", 4);
+        Metodos.moverGrupo(".\\nGrupo 3-1.dat", ".\\Zona 3\\nGrupo 3-1.dat");
+        Metodos.duplicarFile(".\\Zona 3\\nGrupo 3-1.dat", ".\\Zona 3\\fGrupo 3-1.dat");
         
-        Metodos.creaGrupo("Grupo 3-2n.dat", tamañoRegistro, "enemigos.dat", 8);
-        Metodos.moverGrupo(".\\Grupo 3-2n.dat", ".\\Zona 3\\Grupo 3-2n.dat");
-        Metodos.duplicarFile(".\\Zona 3\\Grupo 3-2n.dat", ".\\Zona 3\\Grupo 3-2f.dat");
+        Metodos.creaGrupo("nGrupo 3-2.dat", tamañoRegistro, "enemigos.dat", 8);
+        Metodos.moverGrupo(".\\nGrupo 3-2.dat", ".\\Zona 3\\nGrupo 3-2.dat");
+        Metodos.duplicarFile(".\\Zona 3\\nGrupo 3-2.dat", ".\\Zona 3\\fGrupo 3-2.dat");
         
-        Metodos.creaGrupo("Grupo 3-3n.dat", tamañoRegistro, "enemigos.dat", 9);
-        Metodos.moverGrupo(".\\Grupo 3-3n.dat", ".\\Zona 3\\Grupo 3-3n.dat");
-        Metodos.duplicarFile(".\\Zona 3\\Grupo 3-3n.dat", ".\\Zona 3\\Grupo 3-3f.dat");
+        Metodos.creaGrupo("nGrupo 3-3.dat", tamañoRegistro, "enemigos.dat", 9);
+        Metodos.moverGrupo(".\\nGrupo 3-3.dat", ".\\Zona 3\\nGrupo 3-3.dat");
+        Metodos.duplicarFile(".\\Zona 3\\nGrupo 3-3.dat", ".\\Zona 3\\fGrupo 3-3.dat");
         
         
         Metodos.moverDirectorio(".\\Zona 1", ".\\Zona de juego\\Zona 1");
