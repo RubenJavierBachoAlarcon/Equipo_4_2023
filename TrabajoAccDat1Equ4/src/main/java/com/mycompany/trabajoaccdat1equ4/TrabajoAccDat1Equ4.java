@@ -64,5 +64,12 @@ public class TrabajoAccDat1Equ4 {
 //               personalizado.setVisible(true);
 //            }
 //        });
+        Metodos.crearBestiario(".\\mostros.dat");
+        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
+        Metodos.escribirAContinuacion(9, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
     }
 }

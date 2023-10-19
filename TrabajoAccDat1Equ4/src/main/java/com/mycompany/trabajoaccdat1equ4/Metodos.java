@@ -6,6 +6,7 @@ package com.mycompany.trabajoaccdat1equ4;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -1316,5 +1317,46 @@ public class Metodos {
          } catch (Exception e) {
              System.out.println(e);
          } 
-}
+    }
+    
+    
+    
+    /**
+     * Método que permite utilizar las clases FileOutputStream y DataOutputStream
+     * para escribir "a continuación", tomando un fichero de datos binario y
+     * escribiendo al final del mismo datos leídos de un fichero bestiario
+     * que se le pase por parámetro.
+     * @param registroUsuario Número de ID con que el usuario desea que sus
+     * monstruos aparezcan en el fichero personalizado.
+     * @param registroElegido Número de ID asociado en el bestiario al monstruo
+     * que el usuario desea introducir en su fichero de monstruos personalizado.
+     * @param rutaBestiario String que contiene la ruta del fichero bestiario del
+     * cual se leerán los registros para después escribirlos en el fichero de
+     * datos personalizado.
+     * @param rutaPersonalizado String que contiene la ruta en la que se ubica
+     * el fichero de datos personalizado en el que se escribirán los datos leídos.
+     */
+    public static void escribirAContinuacion(int registroUsuario, int registroElegido, String rutaBestiario, String rutaPersonalizado) {
+        long tamañoRegistro=64;
+        long bytePos = (registroElegido-1)*tamañoRegistro;
+        
+        try {
+            RandomAccessFile ficheroBestiario = new RandomAccessFile(rutaBestiario, "rw");
+            FileOutputStream escritor = new FileOutputStream(rutaPersonalizado, true);
+            DataOutputStream dos = new DataOutputStream(escritor);
+            
+            ficheroBestiario.seek(bytePos);
+            ficheroBestiario.readInt();
+            dos.writeInt(registroUsuario);
+            dos.writeChars(Metodos.leerCadena(20, ficheroBestiario, false));
+            dos.writeChars(Metodos.leerCadena(10, ficheroBestiario, false));
+            
+            dos.close();
+            escritor.close();
+            ficheroBestiario.close();
+            
+        } catch (IOException ioe) {
+            System.out.println("Excepción IOE al añadir un enemigo al grupo personalizado");
+        }
+    }
 }
