@@ -47,9 +47,6 @@ public class TrabajoAccDat1Equ4 {
     public static void main(String[] args) {
 
         Metodos.iniciarJuegoNormal();
-
-        
-
         Metodos.modoFacil(".\\Zona 3\\Grupo 3-3.dat", "fuego");
         Metodos.convertirGrupoAXml(".\\Zona 3\\Grupo 3-3.dat", ".\\Zona 3\\Grupo 3-3.xml");
         Metodos.modificarXml(".\\Zona 3\\Grupo 3-3.xml", "Hydrobabosa", "Tengo sueño cojones");

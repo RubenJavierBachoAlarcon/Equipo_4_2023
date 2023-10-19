@@ -393,7 +393,7 @@ public class Juego extends javax.swing.JFrame {
 
         new Thread(() -> {
             try {
-                directorio = Metodos.elegirDirectorio().toPath();
+                directorio = Metodos.elegirDirectorioZona().toPath();
                 jPanel3.setVisible(true);
                 Files.walkFileTree(directorio, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
                     @Override
@@ -567,7 +567,7 @@ public class Juego extends javax.swing.JFrame {
         });
     }
 
-    private void actualizarTabla(String pathFile) throws IOException {
+    public void actualizarTabla(String pathFile) throws IOException {
 
         if (pathFile.toString().toLowerCase().endsWith(".dat")) {
             Metodos.convertirGrupoAXml(pathFile, "grupo.xml");

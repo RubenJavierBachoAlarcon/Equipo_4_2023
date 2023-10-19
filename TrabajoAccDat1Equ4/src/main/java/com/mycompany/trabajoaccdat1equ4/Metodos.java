@@ -124,7 +124,7 @@ public class Metodos {
         return selectedFile;
     }
 
-    public static File elegirDirectorio() {
+    public static File elegirDirectorioZona() {
         try {
             // Establecer el Look and Feel de Windows
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -148,6 +148,31 @@ public class Metodos {
                 return "Directorios que empiezan por 'Zona'";
             }
         });
+
+        File selectedDirectory = null;
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedDirectory = fileChooser.getSelectedFile();
+            System.out.println("Directorio seleccionado: " + selectedDirectory.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ningún directorio.");
+        }
+        return selectedDirectory;
+    }
+    
+    public static File elegirDirectorio() {
+        try {
+            // Establecer el Look and Feel de Windows
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.out.println("Ruta incorrecta");
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        // Crear un filtro personalizado para mostrar solo directorios que empiezan por "Zona"
 
         File selectedDirectory = null;
         int returnValue = fileChooser.showOpenDialog(null);
@@ -1181,7 +1206,6 @@ public class Metodos {
         Metodos.moverDirectorio(".\\Zona 3", ".\\Zona de juego\\Zona 3");
 
         File bestiario = new File(".\\enemigos.dat");
-        bestiario.delete();
     }
 
     /**
