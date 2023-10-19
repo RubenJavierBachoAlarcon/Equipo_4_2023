@@ -139,7 +139,7 @@ public class Metodos {
         }
 
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("."));
+        fileChooser.setCurrentDirectory(new File("./Zona de juego"));
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         // Crear un filtro personalizado para mostrar solo directorios que empiezan por "Zona"
