@@ -41,6 +41,9 @@ public class Juego extends javax.swing.JFrame {
         jLabel2.setText("¡Bienvenido a la aventura " + userName + "!");
         jLabel1.setVisible(false);
         jComboBox2.setVisible(false);
+        jPanel3.setVisible(false);
+        jPanel4.setVisible(false);
+        jPanel5.setVisible(false);
     }
 
     /**
@@ -66,18 +69,18 @@ public class Juego extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
-        jButton2_Continuar = new javax.swing.JButton();
         jButton1_Luchar = new javax.swing.JButton();
+        jButton2_Continuar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jEditorPane2 = new javax.swing.JEditorPane();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,7 +159,7 @@ public class Juego extends javax.swing.JFrame {
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(Normal)
                     .addComponent(jButton1))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,58 +202,12 @@ public class Juego extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jEditorPane1.setEditable(false);
-        jEditorPane1.setBorder(null);
-        jScrollPane1.setViewportView(jEditorPane1);
-
-        jButton2_Continuar.setText("Continuar");
-        jButton2_Continuar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2_ContinuarActionPerformed(evt);
-            }
-        });
-
-        jButton1_Luchar.setText("Luchar");
-        jButton1_Luchar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1_LucharActionPerformed(evt);
-            }
-        });
-
-        jEditorPane2.setEditable(false);
-        jScrollPane2.setViewportView(jEditorPane2);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                    .addComponent(jButton2_Continuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1_Luchar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1_Luchar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2_Continuar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("¡Hola aventurero!");
 
-        jTextField1.setText("0");
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "¡Hora de luchar!", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+
+        jLabel3.setText("Vida actual:");
 
         jTextField2.setText("20");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -259,9 +216,73 @@ public class Juego extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Vida actual:");
-
         jLabel4.setText("Nivel: ");
+
+        jTextField1.setText("0");
+
+        jEditorPane1.setEditable(false);
+        jEditorPane1.setBorder(null);
+        jEditorPane1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jScrollPane1.setViewportView(jEditorPane1);
+
+        jButton1_Luchar.setText("Luchar");
+        jButton1_Luchar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_LucharActionPerformed(evt);
+            }
+        });
+
+        jButton2_Continuar.setText("Continuar");
+        jButton2_Continuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2_ContinuarActionPerformed(evt);
+            }
+        });
+
+        jEditorPane2.setEditable(false);
+        jEditorPane2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jScrollPane2.setViewportView(jEditorPane2);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jButton2_Continuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1_Luchar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1_Luchar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2_Continuar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -270,24 +291,12 @@ public class Juego extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,135 +309,36 @@ public class Juego extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel5.getAccessibleContext().setAccessibleName("¡Hora de luchar!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 7, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 245, Short.MAX_VALUE)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 245, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 389, Short.MAX_VALUE)
+                    .addGap(0, 451, Short.MAX_VALUE)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 388, Short.MAX_VALUE)))
+                    .addGap(0, 450, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jButton1_LucharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_LucharActionPerformed
-        
-        try {
-            String tipoPersonaje = jComboBox1.getSelectedItem().toString();
-            
-            for (int i : Metodos.idGrupo) {
-                System.out.println(i);
-            }
-            
-            String texto = ""; // Inicializa la cadena de texto
-            
-            for (int i = 0; i < Metodos.idGrupo.size(); i++) {
-                String tipoActual = Metodos.tipoGrupo.get(i);
-                int idActual = Metodos.idGrupo.get(i);
-                String nombreActual = Metodos.nombreGrupo.get(i);
-                
-                if (idActual != -1) {
-                    if (tipoPersonaje.equals("fuego")) {
-                        texto += userName + " ha usado Explosión Piromágica contra " + nombreActual + "\n";
-                    } else if (tipoPersonaje.equals("agua")) {
-                        texto += userName + " ha usado Tormenta Acuática contra " + nombreActual + "\n";
-                    } else if (tipoPersonaje.equals("tierra")) {
-                        texto += userName + " ha usado Terremoto Rugiente contra " + nombreActual + "\n";
-                    } else {
-                        System.out.println("Tipo inválido");
-                    }
-                    
-                    if (Metodos.esElementoElegidoMasFuerte(tipoPersonaje, tipoActual)) {
-                        texto += "Es super efectivo\nEnemigo derrotado (+1 Nivel)\n\n";
-                        nivel += 1;
-                        jTextField1.setText(Integer.toString(nivel));
-                    } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
-                        texto += "Es poco efectivo\nEl enemigo ha contratacado (-1 vida)\n\n";
-                        vida -= 1;
-                        jTextField2.setText(Integer.toString(vida));
-                        if (vida <= 0) {
-                            JOptionPane.showMessageDialog(null, "Has perdido. La aplicación se cerrará.", ":(", JOptionPane.INFORMATION_MESSAGE);
-                            System.exit(0);
-                        }
-                    } else {
-                        texto += "Es neutro\n\n";
-                    }
-                }
-                
-            }
-            Metodos.reescrituraID(tipoPersonaje, grupoActual);
-            for (int i : Metodos.idGrupo) {
-                System.out.println(i);
-            }
-            actualizarTabla(grupoActual);
-            
-            boolean todosUno = true;
-            for (int i : Metodos.idGrupo) {
-                if (i != -1){
-                    todosUno = false;
-                }
-            }
-            
-            if (todosUno){
-                jButton1_Luchar.setEnabled(false);
-                texto += "¡¡¡ENHORABUENA!!!!! Has derrotado esta zona";
-            }
-            
-            jEditorPane2.setText(texto);
-        } catch (IOException ex) {
-            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }//GEN-LAST:event_jButton1_LucharActionPerformed
-
-    private void jButton2_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_ContinuarActionPerformed
-        jButton1_Luchar.setEnabled(true);
-
-        Metodos.idGrupo = new ArrayList<>();
-        Metodos.nombreGrupo = new ArrayList<>();
-        Metodos.tipoGrupo = new ArrayList<>();
-
-        jComboBox2.setEnabled(true);
-        Facil.setEnabled(true);
-        Normal.setEnabled(true);
-        jButton1.setEnabled(true);
-        waitingNextGroup = false;
-    }//GEN-LAST:event_jButton2_ContinuarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -438,7 +348,10 @@ public class Juego extends javax.swing.JFrame {
         jComboBox2.setEnabled(false);
         Facil.setEnabled(false);
         Normal.setEnabled(false);
+        jButton2_Continuar.setEnabled(false);
         jButton1.setEnabled(false);
+        jPanel4.setVisible(true);
+        jPanel5.setVisible(true);
 
         if (Facil.isSelected()) {
             try {
@@ -476,48 +389,146 @@ public class Juego extends javax.swing.JFrame {
     }//GEN-LAST:event_NormalActionPerformed
 
     private void jButton1_SeleccionarZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_SeleccionarZonaActionPerformed
+        jButton1_SeleccionarZona.setEnabled(false);
+
         new Thread(() -> {
             try {
                 directorio = Metodos.elegirDirectorio().toPath();
-
+                jPanel3.setVisible(true);
                 Files.walkFileTree(directorio, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                         // Procesa el archivo .dat
-                        try {
+                        System.out.println(file.getFileName());
+                        if (file.getFileName().toString().trim().startsWith("n")) {
+                            System.out.println(file.getFileName());
+                            try {
 
-                            nombreFicheroActualN = file.getFileName().toString();
-                            System.out.println(file.getFileName().toString());
+                                nombreFicheroActualN = file.getFileName().toString();
+                                System.out.println(file.getFileName().toString());
 
-                            nombreFicheroActual = nombreFicheroActualN.substring(1);
-                            System.out.println(nombreFicheroActual);
-                            grupoActual = file.toString();
-                            Metodos.leerFicheroEnemigosSecuencial(file.toString());
+                                nombreFicheroActual = nombreFicheroActualN.substring(1);
+                                System.out.println(nombreFicheroActual);
+                                grupoActual = file.toString();
+                                Metodos.leerFicheroEnemigosSecuencial(file.toString());
 
-                            actualizarTabla(file.toString());
+                                actualizarTabla(file.toString());
 
-                            waitingNextGroup = true;
+                                waitingNextGroup = true;
 
-                            while (waitingNextGroup) {
-                                System.out.println("hola");
-                                // Espera activa para que el jugador confirme
-                                Thread.sleep(1000); // Puedes ajustar el tiempo de espera
+                                while (waitingNextGroup) {
+                                    System.out.println("hola");
+                                    // Espera activa para que el jugador confirme
+                                    Thread.sleep(1000); // Puedes ajustar el tiempo de espera
+                                }
+
+                            } catch (Exception e) {
+                                System.out.println("Error al procesar el archivo: " + file.toString());
                             }
-
-                        } catch (Exception e) {
-                            System.out.println("Error al procesar el archivo: " + file.toString());
                         }
-
                         return FileVisitResult.CONTINUE;
                     }
                 });
             } catch (IOException ex) {
                 Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Terminado1");
+            String mensaje = "¡¡¡ENHORABUENA!!! Has completado esta zona\nSelecciona otra zona para continuar";
+            JOptionPane.showMessageDialog(null, mensaje, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            jPanel3.setVisible(false);
+            jPanel4.setVisible(false);
+            jPanel5.setVisible(false);
+            jButton1_SeleccionarZona.setEnabled(true);
         }).start();
-        System.out.println("Terminado");
     }//GEN-LAST:event_jButton1_SeleccionarZonaActionPerformed
+
+    private void jButton2_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_ContinuarActionPerformed
+        jButton2_Continuar.setEnabled(false);
+        jButton1_Luchar.setEnabled(true);
+
+        Metodos.idGrupo = new ArrayList<>();
+        Metodos.nombreGrupo = new ArrayList<>();
+        Metodos.tipoGrupo = new ArrayList<>();
+
+        jComboBox2.setEnabled(true);
+        Facil.setEnabled(true);
+        Normal.setEnabled(true);
+        jButton1.setEnabled(true);
+        waitingNextGroup = false;
+    }//GEN-LAST:event_jButton2_ContinuarActionPerformed
+
+    private void jButton1_LucharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_LucharActionPerformed
+
+        try {
+            String tipoPersonaje = jComboBox1.getSelectedItem().toString();
+
+            for (int i : Metodos.idGrupo) {
+                System.out.println(i);
+            }
+
+            String texto = ""; // Inicializa la cadena de texto
+
+            for (int i = 0; i < Metodos.idGrupo.size(); i++) {
+                String tipoActual = Metodos.tipoGrupo.get(i);
+                int idActual = Metodos.idGrupo.get(i);
+                String nombreActual = Metodos.nombreGrupo.get(i);
+
+                if (idActual != -1) {
+                    if (tipoPersonaje.equals("fuego")) {
+                        texto += userName + " ha usado Explosión Piromágica contra " + nombreActual + "\n";
+                    } else if (tipoPersonaje.equals("agua")) {
+                        texto += userName + " ha usado Tormenta Acuática contra " + nombreActual + "\n";
+                    } else if (tipoPersonaje.equals("tierra")) {
+                        texto += userName + " ha usado Terremoto Rugiente contra " + nombreActual + "\n";
+                    } else {
+                        System.out.println("Tipo inválido");
+                    }
+
+                    if (Metodos.esElementoElegidoMasFuerte(tipoPersonaje, tipoActual)) {
+                        texto += "Es super efectivo\nEnemigo derrotado (+1 Nivel)\n\n";
+                        nivel += 1;
+                        jTextField1.setText(Integer.toString(nivel));
+                    } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
+                        texto += "Es poco efectivo\nEl enemigo ha contratacado (-1 vida)\n\n";
+                        vida -= 1;
+                        jTextField2.setText(Integer.toString(vida));
+                        if (vida <= 0) {
+                            JOptionPane.showMessageDialog(null, "Has perdido. La aplicación se cerrará.", ":(", JOptionPane.INFORMATION_MESSAGE);
+                            System.exit(0);
+                        }
+                    } else {
+                        texto += "Es neutro\n\n";
+                    }
+                }
+
+            }
+            Metodos.reescrituraID(tipoPersonaje, grupoActual);
+            for (int i : Metodos.idGrupo) {
+                System.out.println(i);
+            }
+            actualizarTabla(grupoActual);
+
+            boolean todosUno = true;
+            for (int i : Metodos.idGrupo) {
+                if (i != -1) {
+                    todosUno = false;
+                }
+            }
+
+            if (todosUno) {
+                jButton1_Luchar.setEnabled(false);
+                texto += "¡Has derrotado este grupo de enemigos!\nPresiona el botón Continuar para seguir con el siguiente grupo";
+                jButton2_Continuar.setEnabled(true);
+            }
+
+            jEditorPane2.setText(texto);
+        } catch (IOException ex) {
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1_LucharActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
