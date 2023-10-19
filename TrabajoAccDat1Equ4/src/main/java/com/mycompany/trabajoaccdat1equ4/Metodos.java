@@ -57,13 +57,11 @@ import java.io.File;
  */
 public class Metodos {
 
-    
     public static boolean waitingNextGroup;
     public static ArrayList<Integer> idGrupo = new ArrayList<>();
     public static ArrayList<String> nombreGrupo = new ArrayList<>();
     public static ArrayList<String> tipoGrupo = new ArrayList<>();
-    
-    
+
     /**
      * Método que crea un archivo que contiene todo el bestiario de enemigos que
      * se empleará en operaciones posteriores.
@@ -127,7 +125,7 @@ public class Metodos {
     }
 
     public static File elegirDirectorio() {
-       try {
+        try {
             // Establecer el Look and Feel de Windows
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -204,8 +202,7 @@ public class Metodos {
         idGrupo = new ArrayList<>();
         nombreGrupo = new ArrayList<>();
         tipoGrupo = new ArrayList<>();
-        
-        
+
         File archivo = new File(nombreFichero);
         try {
             FileInputStream lector = new FileInputStream(archivo);
@@ -214,7 +211,7 @@ public class Metodos {
             while (dis.available() > 0) {
                 int id = dis.readInt();
                 idGrupo.add(id);
-                
+
                 StringBuffer sb1 = new StringBuffer();
                 for (int i = 0; i < 20; i++) {
                     sb1.append(dis.readChar());
@@ -236,7 +233,7 @@ public class Metodos {
             System.out.println("Excepción de tipo IOE");
         }
         System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
-        for (String str : tipoGrupo){
+        for (String str : tipoGrupo) {
             System.out.println(str);
         }
     }
@@ -441,6 +438,8 @@ public class Metodos {
     public static void reescrituraID(String elementoElegido, String rutaFichEnemigos) {
         try {
 
+            int iteracciones = 0;
+
             File f = new File(rutaFichEnemigos);
 
             RandomAccessFile fichero = new RandomAccessFile(rutaFichEnemigos, "rw");
@@ -455,6 +454,7 @@ public class Metodos {
             // elemento
 
             while (registroActual < tam) {
+                
 
                 fichero.seek(registroActual);
                 int id = fichero.readInt();
@@ -468,6 +468,9 @@ public class Metodos {
 
                         System.out.println("El elemento elegido (" + elementoElegido + ") es más fuerte que "
                                 + "el elemento del enemigo (" + elementoEnemigo + ").");
+
+                        idGrupo.set(iteracciones, -1);
+
                         fichero.seek(registroActual);
                         fichero.writeInt(-1);
 
@@ -479,6 +482,7 @@ public class Metodos {
 
                 // Avanza al siguiente registro
                 registroActual += tamRegistro;
+                iteracciones++;
             }
 
             fichero.close();
@@ -905,7 +909,6 @@ public class Metodos {
 //            }
 //            
 //        }
-        
 
     }
 
@@ -998,113 +1001,115 @@ public class Metodos {
     public static void detenerEsperar() {
         waitingNextGroup = false;
     }
-    
+
     /**
-     * Método que comprueba que la estructura de un archivo XML pasado por parámetro
-     * cumple con la estructura esperada.
+     * Método que comprueba que la estructura de un archivo XML pasado por
+     * parámetro cumple con la estructura esperada.
+     *
      * @param fichXML String que contiene el nombre del archivo XML a comprobar
-     * @return true si cumple con la estructura esperada, false en
-     * caso contrario
+     * @return true si cumple con la estructura esperada, false en caso
+     * contrario
      */
     public static boolean comprobarEstructuraXML(String fichXML) {
-    boolean estructuraAdecuada = true;
-    
-    try {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(new File(fichXML));
-        Element root = document.getDocumentElement();
+        boolean estructuraAdecuada = true;
 
-        if (root.getTagName().equals("Grupo_de_enemigos")) {
-            NodeList enemigos = root.getElementsByTagName("Enemigo");
-            boolean continuarVerificacion = true;
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new File(fichXML));
+            Element root = document.getDocumentElement();
 
-            for (int i = 0; i < enemigos.getLength() && continuarVerificacion; i++) {
-                Element enemigo = (Element) enemigos.item(i);
-                NodeList id = enemigo.getElementsByTagName("id");
-                NodeList nombre = enemigo.getElementsByTagName("nombre");
-                NodeList elemento = enemigo.getElementsByTagName("elemento");
+            if (root.getTagName().equals("Grupo_de_enemigos")) {
+                NodeList enemigos = root.getElementsByTagName("Enemigo");
+                boolean continuarVerificacion = true;
 
-                if (id.getLength() != 1 || nombre.getLength() != 1 || elemento.getLength() != 1) {
-                    System.out.println("Enemigo " + (i + 1) + " no cumple con la estructura esperada.");
-                    estructuraAdecuada = false;
-                    continuarVerificacion = false;
+                for (int i = 0; i < enemigos.getLength() && continuarVerificacion; i++) {
+                    Element enemigo = (Element) enemigos.item(i);
+                    NodeList id = enemigo.getElementsByTagName("id");
+                    NodeList nombre = enemigo.getElementsByTagName("nombre");
+                    NodeList elemento = enemigo.getElementsByTagName("elemento");
+
+                    if (id.getLength() != 1 || nombre.getLength() != 1 || elemento.getLength() != 1) {
+                        System.out.println("Enemigo " + (i + 1) + " no cumple con la estructura esperada.");
+                        estructuraAdecuada = false;
+                        continuarVerificacion = false;
+                    }
                 }
+            } else {
+                System.out.println("El documento no tiene la estructura esperada.");
+                estructuraAdecuada = false;
             }
-        }else {
-                    System.out.println("El documento no tiene la estructura esperada.");
-                    estructuraAdecuada = false;
-                }
         } catch (Exception e) {
-        System.out.println(e);
-        estructuraAdecuada = false;
+            System.out.println(e);
+            estructuraAdecuada = false;
+        }
+
+        return estructuraAdecuada;
     }
 
-    return estructuraAdecuada;
-}
-    
     /**
-     * Método que encripta una cadena utilizando la técnica de sumar +1 
-     * a cada carácter
+     * Método que encripta una cadena utilizando la técnica de sumar +1 a cada
+     * carácter
+     *
      * @param contenido String que contiene el texto que queremos encriptar
      * @return contenidoEncriptado String con el texto encriptado
      */
     public static String encriptarContenido(String contenido) {
-    String contenidoEncriptado = "";
-    for (char c : contenido.toCharArray()) {
-        char caracterEncriptado = c;
+        String contenidoEncriptado = "";
+        for (char c : contenido.toCharArray()) {
+            char caracterEncriptado = c;
 
-        if (c >= '0' && c <= '9') {
-            caracterEncriptado = (char) ('0' + (c - '0' + 1) % 10);
-        } else {
-            caracterEncriptado = (char) (c + 1);
+            if (c >= '0' && c <= '9') {
+                caracterEncriptado = (char) ('0' + (c - '0' + 1) % 10);
+            } else {
+                caracterEncriptado = (char) (c + 1);
+            }
+
+            contenidoEncriptado += caracterEncriptado;
         }
-        
-        contenidoEncriptado += caracterEncriptado;
+
+        return contenidoEncriptado;
     }
-    
-    return contenidoEncriptado;
-}
+
     /**
      * Método de encriptación de ficheros XML utilizando la lectura con DOM
+     *
      * @param fichXML String que contiene el nombre del fichero XML a encriptar
      */
-    public static void encriptarXML(String fichXML){
+    public static void encriptarXML(String fichXML) {
         try {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(new File(fichXML));
-        document.getDocumentElement().normalize();
-        boolean estructuraValida = comprobarEstructuraXML(fichXML);
-        
-        if (estructuraValida) {
-        NodeList enemigos = document.getElementsByTagName("Enemigo");
-        for (int i = 0; i < enemigos.getLength(); i++) {
-             Element enemigo = (Element) enemigos.item(i);
-             NodeList elementos = enemigo.getChildNodes();
-             
-             for (int j = 0; j < elementos.getLength(); j++) {
-                Node elemento = elementos.item(j);
-                
-                if (elemento.getNodeType() == Node.ELEMENT_NODE) {
-                    String contenido = elemento.getTextContent();
-                    String contenidoEncriptado = encriptarContenido(contenido);
-                    elemento.setTextContent(contenidoEncriptado);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new File(fichXML));
+            document.getDocumentElement().normalize();
+            boolean estructuraValida = comprobarEstructuraXML(fichXML);
+
+            if (estructuraValida) {
+                NodeList enemigos = document.getElementsByTagName("Enemigo");
+                for (int i = 0; i < enemigos.getLength(); i++) {
+                    Element enemigo = (Element) enemigos.item(i);
+                    NodeList elementos = enemigo.getChildNodes();
+
+                    for (int j = 0; j < elementos.getLength(); j++) {
+                        Node elemento = elementos.item(j);
+
+                        if (elemento.getNodeType() == Node.ELEMENT_NODE) {
+                            String contenido = elemento.getTextContent();
+                            String contenidoEncriptado = encriptarContenido(contenido);
+                            elemento.setTextContent(contenidoEncriptado);
+                        }
+                    }
                 }
-        }
-        }
-        } else {
-            System.out.println("La estructura del XML no es válida, no se encriptará.");
-        }
-        
-        generarXml(document, fichXML);
-        }catch (Exception e) {
+            } else {
+                System.out.println("La estructura del XML no es válida, no se encriptará.");
+            }
+
+            generarXml(document, fichXML);
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-    
-    
+
     /*
      * Método que permite crear y reubicar todo lo necesario para poder iniciar
      * el juego.
@@ -1126,100 +1131,97 @@ public class Metodos {
      * este modo de juego.
      */
     public static void iniciarJuegoNormal() {
-        
+
         int tamañoRegistro = 64;
-        
+
         Metodos.crearBestiario("enemigos.dat");
         Metodos.crearZona(".\\Zona 1");
         Metodos.crearZona(".\\Zona 2");
         Metodos.crearZona(".\\Zona 3");
         Metodos.crearZona(".\\Zona de juego");
-        
+
         Metodos.creaGrupo("nGrupo 1-1.dat", tamañoRegistro, "enemigos.dat", 5);
         Metodos.moverGrupo(".\\nGrupo 1-1.dat", ".\\Zona 1\\nGrupo 1-1.dat");
         Metodos.duplicarFile(".\\Zona 1\\nGrupo 1-1.dat", ".\\Zona 1\\fGrupo 1-1.dat");
-        
+
         Metodos.creaGrupo("nGrupo 1-2.dat", tamañoRegistro, "enemigos.dat", 6);
         Metodos.moverGrupo(".\\nGrupo 1-2.dat", ".\\Zona 1\\nGrupo 1-2.dat");
         Metodos.duplicarFile(".\\Zona 1\\nGrupo 1-2.dat", ".\\Zona 1\\fGrupo 1-2.dat");
-        
+
         Metodos.creaGrupo("nGrupo 1-3.dat", tamañoRegistro, "enemigos.dat", 7);
         Metodos.moverGrupo(".\\nGrupo 1-3.dat", ".\\Zona 1\\nGrupo 1-3.dat");
         Metodos.duplicarFile(".\\Zona 1\\nGrupo 1-3.dat", ".\\Zona 1\\fGrupo 1-3.dat");
-        
+
         Metodos.creaGrupo("nGrupo 2-1.dat", tamañoRegistro, "enemigos.dat", 1);
         Metodos.moverGrupo(".\\nGrupo 2-1.dat", ".\\Zona 2\\nGrupo 2-1.dat");
         Metodos.duplicarFile(".\\Zona 2\\nGrupo 2-1.dat", ".\\Zona 2\\fGrupo 2-1.dat");
-        
+
         Metodos.creaGrupo("nGrupo 2-2.dat", tamañoRegistro, "enemigos.dat", 2);
         Metodos.moverGrupo(".\\nGrupo 2-2.dat", ".\\Zona 2\\nGrupo 2-2.dat");
         Metodos.duplicarFile(".\\Zona 2\\nGrupo 2-2.dat", ".\\Zona 2\\fGrupo 2-2.dat");
-        
+
         Metodos.creaGrupo("nGrupo 2-3.dat", tamañoRegistro, "enemigos.dat", 3);
         Metodos.moverGrupo(".\\nGrupo 2-3.dat", ".\\Zona 2\\nGrupo 2-3.dat");
         Metodos.duplicarFile(".\\Zona 2\\nGrupo 2-3.dat", ".\\Zona 2\\fGrupo 2-3.dat");
-        
+
         Metodos.creaGrupo("nGrupo 3-1.dat", tamañoRegistro, "enemigos.dat", 4);
         Metodos.moverGrupo(".\\nGrupo 3-1.dat", ".\\Zona 3\\nGrupo 3-1.dat");
         Metodos.duplicarFile(".\\Zona 3\\nGrupo 3-1.dat", ".\\Zona 3\\fGrupo 3-1.dat");
-        
+
         Metodos.creaGrupo("nGrupo 3-2.dat", tamañoRegistro, "enemigos.dat", 8);
         Metodos.moverGrupo(".\\nGrupo 3-2.dat", ".\\Zona 3\\nGrupo 3-2.dat");
         Metodos.duplicarFile(".\\Zona 3\\nGrupo 3-2.dat", ".\\Zona 3\\fGrupo 3-2.dat");
-        
+
         Metodos.creaGrupo("nGrupo 3-3.dat", tamañoRegistro, "enemigos.dat", 9);
         Metodos.moverGrupo(".\\nGrupo 3-3.dat", ".\\Zona 3\\nGrupo 3-3.dat");
         Metodos.duplicarFile(".\\Zona 3\\nGrupo 3-3.dat", ".\\Zona 3\\fGrupo 3-3.dat");
-        
-        
+
         Metodos.moverDirectorio(".\\Zona 1", ".\\Zona de juego\\Zona 1");
         Metodos.moverDirectorio(".\\Zona 2", ".\\Zona de juego\\Zona 2");
         Metodos.moverDirectorio(".\\Zona 3", ".\\Zona de juego\\Zona 3");
-        
-        
+
         File bestiario = new File(".\\enemigos.dat");
         bestiario.delete();
     }
-    
-    
-    
-    /** Método que permite comprobar si se ha realizado el borrado lógico de un
+
+    /**
+     * Método que permite comprobar si se ha realizado el borrado lógico de un
      * fichero completo de enemigos; lo revisa utilizando un contador para
-     * aquellos registros de ID que no estén asignados a -1, y si detecta
-     * que todos los registros de ID se encuentran en ese estado, devuelve true.
-     * 
+     * aquellos registros de ID que no estén asignados a -1, y si detecta que
+     * todos los registros de ID se encuentran en ese estado, devuelve true.
+     *
      * @param rutaArchivo String que contiene la ruta del fichero cuyo contenido
      * se va a evaluar
      * @return true si se ha realizado un borrado lógico completo de todos los
      * registros existentes, false en caso contrario
      */
-     public static boolean compruebaBorradoCompleto(String rutaArchivo) {
-        boolean borradoCompleto=false;
-        
-        int cuentaNoBorrado=0;
+    public static boolean compruebaBorradoCompleto(String rutaArchivo) {
+        boolean borradoCompleto = false;
+
+        int cuentaNoBorrado = 0;
         int idLeido;
         try {
-            
+
             RandomAccessFile fichero = new RandomAccessFile(rutaArchivo, "rw");
             while (fichero.getFilePointer() < fichero.length()) {
-                
+
                 idLeido = fichero.readInt();
                 if (idLeido != -1) {
                     cuentaNoBorrado++;
                 }
-                
-                fichero.skipBytes(60);   
+
+                fichero.skipBytes(60);
             }
             fichero.close();
 
         } catch (IOException ioe) {
             System.out.println("Excepción de tipo IOE al verificar que un fichero de enemigos esté borrado completo");
         }
-        
-        if (cuentaNoBorrado==0) {
-            borradoCompleto=true;
-        } 
-        
+
+        if (cuentaNoBorrado == 0) {
+            borradoCompleto = true;
+        }
+
         return borradoCompleto;
     }
 }

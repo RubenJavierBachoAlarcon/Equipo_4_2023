@@ -28,9 +28,13 @@ public class Juego extends javax.swing.JFrame {
      */
     private boolean waitingNextGroup = true;
     public final String userName = System.getProperty("user.name");
+    public static String nombreFicheroActual;
+    public static String nombreFicheroActualN;
     public static String grupoActual;
     public static int nivel = 0;
     public static int vida = 20;
+    public static Path directorio;
+    public String texto;
 
     public Juego() {
         initComponents();
@@ -342,39 +346,74 @@ public class Juego extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1_LucharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_LucharActionPerformed
-        jButton1_Luchar.setEnabled(false);
         
-        String tipoPersonaje = jComboBox1.getSelectedItem().toString();
-        String texto = "";
-        for (String tipoActual : Metodos.tipoGrupo) {
-            if (tipoPersonaje.equals("fuego")) {
-                texto += userName + " ha usado Explosión Piromágica contra " + tipoActual + "\n";
-            } else if (tipoPersonaje.equals("agua")) {
-                texto += userName + " ha usado Tormenta Acuática contra " + tipoActual + "\n";
-            } else if (tipoPersonaje.equals("tierra")) {
-                texto += userName + " ha usado Terremoto Rugiente contra " + tipoActual + "\n";
-            } else {
-                System.out.println("Tipo invalido");
+        try {
+            String tipoPersonaje = jComboBox1.getSelectedItem().toString();
+            
+            for (int i : Metodos.idGrupo) {
+                System.out.println(i);
             }
-            if (Metodos.esElementoElegidoMasFuerte(tipoPersonaje, tipoActual)) {
-                texto += "Es super efectivo\n\n";
-                System.out.println(nivel);
-                nivel += 1;
-                jTextField1.setText(Integer.toString(nivel));
-            } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
-                texto += "Es poco efectivo\n\n";
-                vida -= 1;
-                jTextField2.setText(Integer.toString(vida));
-                if (vida <= 0) {
-                    // Muestra un cuadro de diálogo de información y cierra la aplicación al hacer clic en "OK"
-                    JOptionPane.showMessageDialog(null, "Has perdido. La aplicación se cerrará.", ":(", JOptionPane.INFORMATION_MESSAGE);
-                    System.exit(0);
+            
+            String texto = ""; // Inicializa la cadena de texto
+            
+            for (int i = 0; i < Metodos.idGrupo.size(); i++) {
+                String tipoActual = Metodos.tipoGrupo.get(i);
+                int idActual = Metodos.idGrupo.get(i);
+                String nombreActual = Metodos.nombreGrupo.get(i);
+                
+                if (idActual != -1) {
+                    if (tipoPersonaje.equals("fuego")) {
+                        texto += userName + " ha usado Explosión Piromágica contra " + nombreActual + "\n";
+                    } else if (tipoPersonaje.equals("agua")) {
+                        texto += userName + " ha usado Tormenta Acuática contra " + nombreActual + "\n";
+                    } else if (tipoPersonaje.equals("tierra")) {
+                        texto += userName + " ha usado Terremoto Rugiente contra " + nombreActual + "\n";
+                    } else {
+                        System.out.println("Tipo inválido");
+                    }
+                    
+                    if (Metodos.esElementoElegidoMasFuerte(tipoPersonaje, tipoActual)) {
+                        texto += "Es super efectivo\nEnemigo derrotado (+1 Nivel)\n\n";
+                        nivel += 1;
+                        jTextField1.setText(Integer.toString(nivel));
+                    } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
+                        texto += "Es poco efectivo\nEl enemigo ha contratacado (-1 vida)\n\n";
+                        vida -= 1;
+                        jTextField2.setText(Integer.toString(vida));
+                        if (vida <= 0) {
+                            JOptionPane.showMessageDialog(null, "Has perdido. La aplicación se cerrará.", ":(", JOptionPane.INFORMATION_MESSAGE);
+                            System.exit(0);
+                        }
+                    } else {
+                        texto += "Es neutro\n\n";
+                    }
                 }
-            } else {
-                texto += "Es neutro\n\n";
+                
             }
+            Metodos.reescrituraID(tipoPersonaje, grupoActual);
+            for (int i : Metodos.idGrupo) {
+                System.out.println(i);
+            }
+            actualizarTabla(grupoActual);
+            
+            boolean todosUno = true;
+            for (int i : Metodos.idGrupo) {
+                if (i != -1){
+                    todosUno = false;
+                }
+            }
+            
+            if (todosUno){
+                jButton1_Luchar.setEnabled(false);
+                texto += "¡¡¡ENHORABUENA!!!!! Has derrotado esta zona";
+            }
+            
+            jEditorPane2.setText(texto);
+        } catch (IOException ex) {
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jEditorPane2.setText(texto);
+        
+        
     }//GEN-LAST:event_jButton1_LucharActionPerformed
 
     private void jButton2_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_ContinuarActionPerformed
@@ -400,11 +439,26 @@ public class Juego extends javax.swing.JFrame {
         Facil.setEnabled(false);
         Normal.setEnabled(false);
         jButton1.setEnabled(false);
+
         if (Facil.isSelected()) {
-            Metodos.modoFacil(grupoActual, jComboBox2.getSelectedItem().toString());
-            Metodos.leerFicheroEnemigosSecuencial(grupoActual);
             try {
-                actualizarTabla(grupoActual);
+                Files.walkFileTree(directorio, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                        // Procesa el archivo .dat
+                        System.out.println("HOLA22A222222222222222222");
+                        System.out.println(nombreFicheroActual);
+                        if (file.getFileName().toString().contains("f" + nombreFicheroActual)) {
+                            System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                            Metodos.modoFacil(file.toString(), jComboBox2.getSelectedItem().toString());
+                            Metodos.leerFicheroEnemigosSecuencial(file.toString());
+                            actualizarTabla(file.toString());
+                            grupoActual = file.toString();
+                        }
+
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
             } catch (IOException ex) {
                 Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -424,15 +478,20 @@ public class Juego extends javax.swing.JFrame {
     private void jButton1_SeleccionarZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_SeleccionarZonaActionPerformed
         new Thread(() -> {
             try {
-                final Path directorio = Metodos.elegirDirectorio().toPath();
+                directorio = Metodos.elegirDirectorio().toPath();
 
                 Files.walkFileTree(directorio, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                         // Procesa el archivo .dat
                         try {
-                            grupoActual = file.toString();
 
+                            nombreFicheroActualN = file.getFileName().toString();
+                            System.out.println(file.getFileName().toString());
+
+                            nombreFicheroActual = nombreFicheroActualN.substring(1);
+                            System.out.println(nombreFicheroActual);
+                            grupoActual = file.toString();
                             Metodos.leerFicheroEnemigosSecuencial(file.toString());
 
                             actualizarTabla(file.toString());

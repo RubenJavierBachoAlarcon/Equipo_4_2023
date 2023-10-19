@@ -46,44 +46,26 @@ public class TrabajoAccDat1Equ4 {
 
     public static void main(String[] args) {
 
+        Metodos.iniciarJuegoNormal();
 
-            Metodos.iniciarJuegoNormal();
-            
-            Metodos.reescrituraID("tierra", ".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat");
-            Metodos.reescrituraID("agua", ".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat");
-            Metodos.reescrituraID("fuego", ".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat");
-            System.out.println(Metodos.compruebaBorradoCompleto(".\\Zona de juego\\Zona 3\\nGrupo 3-3.dat"));
-            
-            
-            
-            
-            
-            //Metodos.modoFacil(".\\Zona 3\\Grupo 3-3.dat", "fuego");
-            //Metodos.convertirGrupoAXml(".\\Zona 3\\Grupo 3-3.dat", ".\\Zona 3\\Grupo 3-3.xml");
-            //Metodos.modificarXml(".\\Zona 3\\Grupo 3-3.xml", "Hydrobabosa", "Tengo sueño cojones");
+        
 
+        Metodos.modoFacil(".\\Zona 3\\Grupo 3-3.dat", "fuego");
+        Metodos.convertirGrupoAXml(".\\Zona 3\\Grupo 3-3.dat", ".\\Zona 3\\Grupo 3-3.xml");
+        Metodos.modificarXml(".\\Zona 3\\Grupo 3-3.xml", "Hydrobabosa", "Tengo sueño cojones");
+        SwingUtilities.invokeLater(() -> {
+            JFrame ventana = new JFrame("Seleccionar Modo");
+            ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            String[] opciones = {"Modo de Juego", "Modo Personalizado"};
+            int seleccion = JOptionPane.showOptionDialog(ventana, "Selecciona el modo de juego", "Modo de Juego", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
             
-            
-            
-            
-            
-            //SwingUtilities.invokeLater(() -> {
-            //    JFrame ventana = new JFrame("Seleccionar Modo");
-            //    ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                
-            //    String[] opciones = {"Modo de Juego", "Modo Personalizado"};
-            //    int seleccion = JOptionPane.showOptionDialog(ventana, "Selecciona el modo de juego", "Modo de Juego", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
-            //    
-            //    if (seleccion == 0) {
-            //        Juego juego = new Juego();
-            //        juego.setVisible(true);
-            //    } else if (seleccion == 1) {
-            //        Personalizado personalizado = new Personalizado();
-            //       personalizado.setVisible(true);
-            //    }
-            //});
-
-                
-                
+            if (seleccion == 0) {
+                Juego juego = new Juego();
+                juego.setVisible(true);
+            } else if (seleccion == 1) {
+                Personalizado personalizado = new Personalizado();
+               personalizado.setVisible(true);
+            }
+        });
     }
 }
