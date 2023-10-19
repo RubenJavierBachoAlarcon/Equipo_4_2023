@@ -1206,6 +1206,7 @@ public class Metodos {
         Metodos.moverDirectorio(".\\Zona 3", ".\\Zona de juego\\Zona 3");
 
         File bestiario = new File(".\\enemigos.dat");
+        bestiario.delete();
     }
 
     /**
