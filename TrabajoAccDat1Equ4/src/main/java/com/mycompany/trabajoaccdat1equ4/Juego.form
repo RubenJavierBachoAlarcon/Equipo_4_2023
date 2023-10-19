@@ -312,9 +312,6 @@
               </Border>
             </Property>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="&#xa1;Hora de luchar!"/>
-          </AccessibilityProperties>
 
           <Layout>
             <DimensionLayout dim="0">

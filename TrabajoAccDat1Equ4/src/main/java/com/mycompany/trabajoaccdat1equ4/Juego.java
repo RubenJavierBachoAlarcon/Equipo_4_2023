@@ -38,7 +38,7 @@ public class Juego extends javax.swing.JFrame {
 
     public Juego() {
         initComponents();
-        jLabel2.setText("¡Bienvenido a la aventura " + userName + "!");
+        jLabel2.setText("¡Bienvenido a la aventura, " + userName + "!");
         jLabel1.setVisible(false);
         jComboBox2.setVisible(false);
         jPanel3.setVisible(false);
@@ -432,7 +432,7 @@ public class Juego extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String mensaje = "¡¡¡ENHORABUENA!!! Has completado esta zona\nSelecciona otra zona para continuar";
+            String mensaje = "¡¡¡ENHORABUENA!!! ¡Has completado esta zona!\nSelecciona otra zona para continuar.";
             JOptionPane.showMessageDialog(null, mensaje, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             jPanel3.setVisible(false);
             jPanel4.setVisible(false);
@@ -484,11 +484,11 @@ public class Juego extends javax.swing.JFrame {
                     }
 
                     if (Metodos.esElementoElegidoMasFuerte(tipoPersonaje, tipoActual)) {
-                        texto += "Es super efectivo\nEnemigo derrotado (+1 Nivel)\n\n";
+                        texto += "¡Es súper efectivo!\n¡Enemigo derrotado! (+1 Nivel)\n\n";
                         nivel += 1;
                         jTextField1.setText(Integer.toString(nivel));
                     } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
-                        texto += "Es poco efectivo\nEl enemigo ha contratacado (-1 vida)\n\n";
+                        texto += "¡Es poco efectivo!\n¡El enemigo ha contratacado! (-1 vida)\n\n";
                         vida -= 1;
                         jTextField2.setText(Integer.toString(vida));
                         if (vida <= 0) {
@@ -496,7 +496,7 @@ public class Juego extends javax.swing.JFrame {
                             System.exit(0);
                         }
                     } else {
-                        texto += "Es neutro\n\n";
+                        texto += "¡No hay efecto aparente!\n\n";
                     }
                 }
 
@@ -516,7 +516,7 @@ public class Juego extends javax.swing.JFrame {
 
             if (todosUno) {
                 jButton1_Luchar.setEnabled(false);
-                texto += "¡Has derrotado este grupo de enemigos!\nPresiona el botón Continuar para seguir con el siguiente grupo";
+                texto += "¡Has derrotado este grupo de enemigos!\nPresiona el botón Continuar para seguir con el siguiente grupo.";
                 jButton2_Continuar.setEnabled(true);
             }
 

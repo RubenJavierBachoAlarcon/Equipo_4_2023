@@ -53,8 +53,8 @@ public class TrabajoAccDat1Equ4 {
         SwingUtilities.invokeLater(() -> {
             JFrame ventana = new JFrame("Seleccionar Modo");
             ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            String[] opciones = {"Modo de Juego", "Modo Personalizado"};
-            int seleccion = JOptionPane.showOptionDialog(ventana, "Selecciona el modo de juego", "Modo de Juego", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+            String[] opciones = {"Modo normal", "Modo personalizado"};
+            int seleccion = JOptionPane.showOptionDialog(ventana, "Selecciona el modo de juego", "Modo normal", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
             
             if (seleccion == 0) {
                 Juego juego = new Juego();
