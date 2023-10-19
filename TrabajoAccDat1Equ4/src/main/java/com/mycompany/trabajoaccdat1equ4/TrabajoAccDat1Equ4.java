@@ -46,7 +46,7 @@ public class TrabajoAccDat1Equ4 {
 
     public static void main(String[] args) {
 
-        try {
+
             Metodos.iniciarJuegoNormal();
             
             Metodos.reescrituraID("tierra", ".\\Zona de juego\\Zona 3\\Grupo 3-3n.dat");
@@ -82,9 +82,7 @@ public class TrabajoAccDat1Equ4 {
             //       personalizado.setVisible(true);
             //    }
             //});
-        } catch (IOException ex) {
-            Logger.getLogger(TrabajoAccDat1Equ4.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
                 
                 
     }

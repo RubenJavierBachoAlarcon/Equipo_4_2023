@@ -728,7 +728,7 @@ public class Metodos {
      * @throws IOException Si ocurre un error al duplicar el archivo, como si el
      * archivo de origen no existe o el archivo de destino ya existe.
      */
-    public static void duplicarFile(String sourcePath, String destinationPath) throws IOException {
+    public static void duplicarFile(String sourcePath, String destinationPath) {
         try {
             File sourceFile = new File(sourcePath);
             File destinationFile = new File(destinationPath);
@@ -815,7 +815,7 @@ public class Metodos {
      * @throws IOException Si ocurre un error al mover el directorio, como si el
      * directorio de origen no existe.
      */
-    public static void moverDirectorio(String directorioOrigen, String directorioDestino) throws IOException {
+    public static void moverDirectorio(String directorioOrigen, String directorioDestino) {
         try {
             File origen = new File(directorioOrigen);
             File destino = new File(directorioDestino);
@@ -1125,7 +1125,7 @@ public class Metodos {
      * elimina el bestiario, para que el usuario no tenga acceso a él desde
      * este modo de juego.
      */
-    public static void iniciarJuegoNormal() throws IOException {
+    public static void iniciarJuegoNormal() {
         
         int tamañoRegistro = 64;
         
