@@ -38,6 +38,7 @@ public class Juego extends javax.swing.JFrame {
 
     public Juego() {
         initComponents();
+        jMenu1.setEnabled(false);
         jLabel2.setText("¡Bienvenido a la aventura, " + userName + "!");
         jLabel1.setVisible(false);
         jComboBox2.setVisible(false);
@@ -82,6 +83,9 @@ public class Juego extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jEditorPane2 = new javax.swing.JEditorPane();
         jButton2 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -290,7 +294,7 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -332,6 +336,20 @@ public class Juego extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jMenu1.setText("Archivo");
+
+        jMenuItem1.setText("Exportar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -348,9 +366,9 @@ public class Juego extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 451, Short.MAX_VALUE)
+                    .addGap(0, 439, Short.MAX_VALUE)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 450, Short.MAX_VALUE)))
+                    .addGap(0, 439, Short.MAX_VALUE)))
         );
 
         pack();
@@ -418,6 +436,7 @@ public class Juego extends javax.swing.JFrame {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                         // Procesa el archivo .dat
+                        
                         System.out.println(file.getFileName());
                         if (file.getFileName().toString().trim().startsWith("n")) {
                             System.out.println(file.getFileName());
@@ -433,8 +452,10 @@ public class Juego extends javax.swing.JFrame {
 
                                 actualizarTabla(file.toString());
 
+                                jMenu1.setEnabled(true);
+                                
                                 waitingNextGroup = true;
-
+                                
                                 while (waitingNextGroup) {
                                     System.out.println("hola");
                                     // Espera activa para que el jugador confirme
@@ -456,6 +477,7 @@ public class Juego extends javax.swing.JFrame {
             jPanel3.setVisible(false);
             jPanel4.setVisible(false);
             jPanel5.setVisible(false);
+            jMenu1.setEnabled(false);
             jButton1_SeleccionarZona.setEnabled(true);
         }).start();
     }//GEN-LAST:event_jButton1_SeleccionarZonaActionPerformed
@@ -573,6 +595,12 @@ public class Juego extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Metodos.encriptarXML("grupo.xml");
+        Metodos.moverGrupo("grupo.xml", Metodos.elegirDirectorio().getPath() + "/grupoEncriptado.xml");
+        jButton2_Continuar.doClick();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -656,6 +684,9 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
