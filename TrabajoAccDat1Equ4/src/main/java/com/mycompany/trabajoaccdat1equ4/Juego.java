@@ -436,7 +436,7 @@ public class Juego extends javax.swing.JFrame {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                         // Procesa el archivo .dat
-                        
+
                         System.out.println(file.getFileName());
                         if (file.getFileName().toString().trim().startsWith("n")) {
                             System.out.println(file.getFileName());
@@ -453,9 +453,9 @@ public class Juego extends javax.swing.JFrame {
                                 actualizarTabla(file.toString());
 
                                 jMenu1.setEnabled(true);
-                                
+
                                 waitingNextGroup = true;
-                                
+
                                 while (waitingNextGroup) {
                                     System.out.println("hola");
                                     // Espera activa para que el jugador confirme
@@ -528,11 +528,19 @@ public class Juego extends javax.swing.JFrame {
                         nivel += 1;
                         jTextField1.setText(Integer.toString(nivel));
 
-                        if (nivel == 70) {
-                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "Demasiado tiempo D:", JOptionPane.INFORMATION_MESSAGE);
+                        if (nivel == 45) {
+                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡Has acabado con todos los enemigos del JUEGO BASE!!", JOptionPane.INFORMATION_MESSAGE);
                         }
-                        if (nivel == 49) {
-                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡Has acabado con todos los enemigos del juego base!!", JOptionPane.INFORMATION_MESSAGE);
+
+                        if (nivel == 70) {
+                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "Demasiado tiempo perdido D:", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                        if (nivel == 90) {
+                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡HAS ASESINADO HASTA A SUS HERMANOS MENORES", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        if (nivel == 110) {
+                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡HAS PASADO JUGANDO UN PRECIOSO TIEMPO QUE MUY PROBABLEMENTE DEBERÍAS HABER DEDICADO A ALGO MÁS PRODUCTIVO", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
                         texto += "¡Es poco efectivo!\n¡El enemigo ha contratacado! (-1 vida)\n\n";
