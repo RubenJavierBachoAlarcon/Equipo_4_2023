@@ -1351,14 +1351,11 @@ public class Metodos {
      *
      * @param fichXMLEncriptado String que contiene el nombre del fichero XML
      * encriptado
-     * @param nombreNuevoXML String que contiene el nombre que le vamos a dar al
-     * fichero desencriptado (puede ser el mismo nombre que el fichero
-     * encriptado y, en ese caso, este se reescribiría)
      * @throws ParserConfigurationException
      * @throws SAXException
      * @throws TransformerException
      */
-    public static void desencriptarXML(String fichXMLEncriptado, String nombreNuevoXML)
+    public static void desencriptarXML(String fichXMLEncriptado)
             throws ParserConfigurationException, SAXException, TransformerException {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -1379,8 +1376,7 @@ public class Metodos {
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer transformer = tf.newTransformer();
             StreamSource fuente = new StreamSource(new StringReader(xmlCompleto2));
-            String archivoSalida = nombreNuevoXML;
-            StreamResult result = new StreamResult(new File(archivoSalida));
+            StreamResult result = new StreamResult(new File(fichXMLEncriptado));
             transformer.transform(fuente, result);
 
         } catch (Exception e) {
