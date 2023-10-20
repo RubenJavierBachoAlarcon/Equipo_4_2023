@@ -1523,4 +1523,18 @@ public class Metodos {
             dir.mkdir();
         }
     }
+    
+    /**
+     * Método que crea la carpeta "Zona personalizada" y mete dentro
+     * el bestiario y un grupo de monstruos vacío
+     */
+    public static void iniciarJuegoPersonalizado() {
+        crearZona(".\\Zona personalizada");
+        crearBestiario(".\\Zona personalizada\\enemigos.dat");
+        creaGrupo("grupoPersonalizado.dat", 64, "enemigos.dat", 0);
+        moverGrupo(".\\grupoPersonalizado.dat",".\\Zona Personalizada\\grupoPersonalizado.dat");  
+        
+        File bestiario = new File(".\\enemigos.dat");
+        bestiario.delete();
+    }
 }
