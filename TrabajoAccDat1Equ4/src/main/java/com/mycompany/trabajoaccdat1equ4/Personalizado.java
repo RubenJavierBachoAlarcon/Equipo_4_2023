@@ -412,9 +412,9 @@ public class Personalizado extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
             String rutaArchivo = Metodos.elegirArchivo("xml").getPath();
-            Metodos.desencriptarXML(rutaArchivo, "grupoDesencriptado.xml");
+            Metodos.desencriptarXML(rutaArchivo, "Imports/grupoDesencriptado.xml");
             try {
-                actualizarTabla(rutaArchivo, jEditorPane3);
+                actualizarTabla("Imports/grupoDesencriptado.xml", jEditorPane3);
             } catch (IOException ex) {
                 Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
             }

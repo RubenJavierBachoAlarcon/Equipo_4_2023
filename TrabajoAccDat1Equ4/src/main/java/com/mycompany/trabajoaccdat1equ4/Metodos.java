@@ -1347,15 +1347,20 @@ public class Metodos {
     }
 
     /**
-     * Método de desencriptación de ficheros XML utilizando la lectura con SAX
+     * Método para desencriptar un archivo XML utilizando la lectura con SAX y
+     * guardar el resultado en un nuevo archivo.
      *
-     * @param fichXMLEncriptado String que contiene el nombre del fichero XML
-     * encriptado
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws TransformerException
+     * @param fichXMLEncriptado Nombre del archivo XML encriptado.
+     * @param nombreFichDesencriptado Nombre del archivo desencriptado donde se
+     * guardará el resultado.
+     * @throws ParserConfigurationException Cuando ocurre un error de
+     * configuración del parser SAX.
+     * @throws SAXException Cuando ocurre un error durante el análisis del
+     * archivo XML encriptado.
+     * @throws TransformerException Cuando ocurre un error durante la
+     * transformación del XML desencriptado.
      */
-    public static void desencriptarXML(String fichXMLEncriptado)
+    public static void desencriptarXML(String fichXMLEncriptado, String nombreFichDesencriptado)
             throws ParserConfigurationException, SAXException, TransformerException {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -1376,7 +1381,7 @@ public class Metodos {
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer transformer = tf.newTransformer();
             StreamSource fuente = new StreamSource(new StringReader(xmlCompleto2));
-            StreamResult result = new StreamResult(new File(fichXMLEncriptado));
+            StreamResult result = new StreamResult(new File(nombreFichDesencriptado));
             transformer.transform(fuente, result);
 
         } catch (Exception e) {
@@ -1501,13 +1506,14 @@ public class Metodos {
 
         }
     }
-    
+
     /**
-     * Método para la creación de los directorios de importaciones
-     * y exportaciones. Si ya existen, no se hace nada; en caso
-     * contrario, se crean en la ruta especificada.
-     * @param rutaDir String que contiene la ruta donde se crearán
-     * los directorios.
+     * Método para la creación de los directorios de importaciones y
+     * exportaciones. Si ya existen, no se hace nada; en caso contrario, se
+     * crean en la ruta especificada.
+     *
+     * @param rutaDir String que contiene la ruta donde se crearán los
+     * directorios.
      */
     public static void crearDirImportarExportar(String rutaDir) {
         File dir = new File(rutaDir);
