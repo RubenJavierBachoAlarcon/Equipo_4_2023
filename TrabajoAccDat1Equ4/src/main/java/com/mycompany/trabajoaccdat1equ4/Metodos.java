@@ -67,6 +67,7 @@ public class Metodos {
     public static ArrayList<Integer> idGrupo = new ArrayList<>();
     public static ArrayList<String> nombreGrupo = new ArrayList<>();
     public static ArrayList<String> tipoGrupo = new ArrayList<>();
+    public static File zonaActual; 
 
     /**
      * Método que crea un archivo que contiene todo el bestiario de enemigos que
@@ -163,6 +164,7 @@ public class Metodos {
         } else {
             System.out.println("No se seleccionó ningún directorio.");
         }
+        zonaActual = selectedDirectory;
         return selectedDirectory;
     }
     

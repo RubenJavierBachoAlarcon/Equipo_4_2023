@@ -81,6 +81,7 @@ public class Juego extends javax.swing.JFrame {
         jButton2_Continuar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jEditorPane2 = new javax.swing.JEditorPane();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,7 +160,7 @@ public class Juego extends javax.swing.JFrame {
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(Normal)
                     .addComponent(jButton1))
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,29 +246,38 @@ public class Juego extends javax.swing.JFrame {
         jEditorPane2.setFont(new java.awt.Font("Dialog", 0, 17)); // NOI18N
         jScrollPane2.setViewportView(jEditorPane2);
 
+        jButton2.setText("Duplicar Zona");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton1_Luchar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2_Continuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2_Continuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1_Luchar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -283,9 +293,12 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1_Luchar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2_Continuar)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton1_Luchar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2_Continuar))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -348,7 +361,7 @@ public class Juego extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         jButton1_Luchar.setEnabled(true);
         jComboBox2.setEnabled(false);
         Facil.setEnabled(false);
@@ -395,6 +408,7 @@ public class Juego extends javax.swing.JFrame {
 
     private void jButton1_SeleccionarZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_SeleccionarZonaActionPerformed
         jButton1_SeleccionarZona.setEnabled(false);
+        jButton2.setEnabled(true);
 
         new Thread(() -> {
             try {
@@ -491,6 +505,13 @@ public class Juego extends javax.swing.JFrame {
                         texto += "¡Es súper efectivo!\n¡Enemigo derrotado! (+1 Nivel)\n\n";
                         nivel += 1;
                         jTextField1.setText(Integer.toString(nivel));
+
+                        if (nivel == 70) {
+                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "Demasiado tiempo D:", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        if (nivel == 49) {
+                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡Has acabado con todos los enemigos del juego base!!", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
                         texto += "¡Es poco efectivo!\n¡El enemigo ha contratacado! (-1 vida)\n\n";
                         vida -= 1;
@@ -502,6 +523,7 @@ public class Juego extends javax.swing.JFrame {
                     } else {
                         texto += "¡No hay efecto aparente!\n\n";
                     }
+
                 }
 
             }
@@ -519,6 +541,7 @@ public class Juego extends javax.swing.JFrame {
             }
 
             if (todosUno) {
+                jButton2.setEnabled(false);
                 jButton1_Luchar.setEnabled(false);
                 texto += "¡Has derrotado este grupo de enemigos!\nPresiona el botón Continuar para seguir con el siguiente grupo.";
                 jButton2_Continuar.setEnabled(true);
@@ -533,6 +556,22 @@ public class Juego extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jButton2.setEnabled(false);
+        String parentDir = Metodos.zonaActual.getParent();
+        String sourceName = Metodos.zonaActual.getName();
+        String copyName = sourceName + "-copia";
+
+        try {
+            Metodos.duplicarDirectory(Metodos.zonaActual.getPath(), parentDir + "/" + copyName);
+
+            // Mostrar un mensaje emergente (popup) de éxito
+            JOptionPane.showMessageDialog(this, "La zona se ha duplicado correctamente.", "Duplicación exitosa", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -606,6 +645,7 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1_Luchar;
     private javax.swing.JButton jButton1_SeleccionarZona;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton2_Continuar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
