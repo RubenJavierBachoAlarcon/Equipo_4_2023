@@ -52,6 +52,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 import java.io.StringReader;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
@@ -67,7 +68,7 @@ public class Metodos {
     public static ArrayList<Integer> idGrupo = new ArrayList<>();
     public static ArrayList<String> nombreGrupo = new ArrayList<>();
     public static ArrayList<String> tipoGrupo = new ArrayList<>();
-    public static File zonaActual; 
+    public static File zonaActual;
 
     /**
      * Método que crea un archivo que contiene todo el bestiario de enemigos que
@@ -131,6 +132,33 @@ public class Metodos {
         return selectedFile;
     }
 
+    public static File elegirArchivo(String extension) {
+        try {
+            // Establecer el Look and Feel de Windows
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.out.println("Ruta incorrecta");
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
+
+        // Crear un filtro de extensión para el tipo de archivo deseado
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos " + extension, extension);
+        fileChooser.setFileFilter(filter);
+
+        File selectedFile = null;
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Ruta del archivo seleccionado: " + selectedFile.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ningún archivo.");
+        }
+        return selectedFile;
+    }
+
     public static File elegirDirectorioZona() {
         try {
             // Establecer el Look and Feel de Windows
@@ -167,7 +195,7 @@ public class Metodos {
         zonaActual = selectedDirectory;
         return selectedDirectory;
     }
-    
+
     public static File elegirDirectorio() {
         try {
             // Establecer el Look and Feel de Windows
@@ -181,7 +209,6 @@ public class Metodos {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         // Crear un filtro personalizado para mostrar solo directorios que empiezan por "Zona"
-
         File selectedDirectory = null;
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -487,7 +514,6 @@ public class Metodos {
             // elemento
 
             while (registroActual < tam) {
-                
 
                 fichero.seek(registroActual);
                 int id = fichero.readInt();
@@ -685,21 +711,19 @@ public class Metodos {
 
             while (registroActual < fichero.length()) {
 
-                byte[] registro = new byte[(int)tamaño];
+                byte[] registro = new byte[(int) tamaño];
                 fichero.seek(registroActual);
                 fichero.readFully(registro);
                 // Antes de evaluar si el ID del enemigo leído es o no -1 para
                 // ver si se añade o no al XML, se evalúa que se trate de un
                 // registro en blanco para sencillamente omitirlo y que no
                 // aparezca en el archivo XML final.
-                
+
                 // Se crea un array de bytes de tamaño igual al tamaño de los
                 // registros que estamos utilizando, se ubica el puntero en el
                 // registro que estemos leyendo, se lee el registro completo,
                 // se asigna al array de bytes creado y se pasa como parámetro
                 // a un método que lo evalúa.
-                
-                
                 fichero.seek(registroActual);
                 id = fichero.readInt();
 
@@ -731,34 +755,28 @@ public class Metodos {
             System.out.println(te);
         }
     }
-    
-    
-    
+
     /**
-     * Método que permite verificar si un registro de bytes que se esté 
-     * evaluando está o no completamente en blanco, fruto de haber escrito 
-     * con RandomAccessFile saltando registros, para así omitirlo en la
-     * creación del archivo XML final.
+     * Método que permite verificar si un registro de bytes que se esté
+     * evaluando está o no completamente en blanco, fruto de haber escrito con
+     * RandomAccessFile saltando registros, para así omitirlo en la creación del
+     * archivo XML final.
+     *
      * @param registro Array de bytes que conforman un registro a evaluar
-     * @return True si se trata de un registro en blanco, False en caso contrario
+     * @return True si se trata de un registro en blanco, False en caso
+     * contrario
      */
     public static boolean esRegistroEnBlanco(byte[] registro) {
         boolean enBlanco = true;
-        
-        for (byte e:registro) {
+
+        for (byte e : registro) {
             if (e != 0x00) {
                 enBlanco = false;
             }
         }
-        
+
         return enBlanco;
     }
-    
-    
-    
-    
-    
-    
 
     /**
      * Método que permite la creación de un fichero HTML a partir de una hoja de
@@ -1302,185 +1320,189 @@ public class Metodos {
 
         return borradoCompleto;
     }
-    
+
     /**
-     * Método que desencripta una cadena utilizando la técnica de restar -1 
-     * a cada carácter
-     * @param contenidoEncriptado String que contiene el texto que queremos desencriptar
+     * Método que desencripta una cadena utilizando la técnica de restar -1 a
+     * cada carácter
+     *
+     * @param contenidoEncriptado String que contiene el texto que queremos
+     * desencriptar
      * @return contenidoDesencriptado String con el texto desencriptado
      */
     public static String desencriptarContenido(String contenidoEncriptado) {
         String contenidoDesencriptado = "";
         for (char c : contenidoEncriptado.toCharArray()) {
-        char caracterDesencriptado = c;
+            char caracterDesencriptado = c;
 
-        if (c >= '0' && c <= '9') {
-            caracterDesencriptado = (char) ('0' + (c - '0' - 1 + 10) % 10);
-        } else {
-            caracterDesencriptado = (char) (c - 1);
+            if (c >= '0' && c <= '9') {
+                caracterDesencriptado = (char) ('0' + (c - '0' - 1 + 10) % 10);
+            } else {
+                caracterDesencriptado = (char) (c - 1);
+            }
+
+            contenidoDesencriptado += caracterDesencriptado;
         }
-        
-        contenidoDesencriptado += caracterDesencriptado;
-    }
-    
+
         return contenidoDesencriptado;
     }
-    
+
     /**
      * Método de desencriptación de ficheros XML utilizando la lectura con SAX
-     * @param fichXMLEncriptado String que contiene el nombre del fichero XML encriptado
-     * @param nombreNuevoXML String que contiene el nombre que le vamos a dar 
-     * al fichero desencriptado (puede ser el mismo nombre que el fichero encriptado y,
-     * en ese caso, este se reescribiría)
+     *
+     * @param fichXMLEncriptado String que contiene el nombre del fichero XML
+     * encriptado
+     * @param nombreNuevoXML String que contiene el nombre que le vamos a dar al
+     * fichero desencriptado (puede ser el mismo nombre que el fichero
+     * encriptado y, en ese caso, este se reescribiría)
      * @throws ParserConfigurationException
      * @throws SAXException
-     * @throws TransformerException 
+     * @throws TransformerException
      */
-    public static void desencriptarXML(String fichXMLEncriptado, String nombreNuevoXML) 
+    public static void desencriptarXML(String fichXMLEncriptado, String nombreNuevoXML)
             throws ParserConfigurationException, SAXException, TransformerException {
-         try {
-         SAXParserFactory factory = SAXParserFactory.newInstance();
-         SAXParser parser = factory.newSAXParser();
-         XMLReader reader = parser.getXMLReader();
-         GestionContenido handler = new GestionContenido();
-         reader.setContentHandler(handler);
+        try {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser parser = factory.newSAXParser();
+            XMLReader reader = parser.getXMLReader();
+            GestionContenido handler = new GestionContenido();
+            reader.setContentHandler(handler);
 
-         InputSource source = new InputSource(fichXMLEncriptado);
-         reader.parse(source);
-         String nuevoXml = handler.getNuevoXml();
-         StringBuilder xmlCompleto = new StringBuilder();
-         xmlCompleto.append("<Grupo_de_enemigos>")
-          .append(nuevoXml)  
-          .append("</Grupo_de_enemigos>");
-         String xmlCompleto2 = xmlCompleto.toString();
-         //System.out.println(xmlCompleto2);
-         TransformerFactory tf = TransformerFactory.newInstance();
-         Transformer transformer = tf.newTransformer();
-         StreamSource fuente = new StreamSource(new StringReader(xmlCompleto2));
-         String archivoSalida = nombreNuevoXML;
-         StreamResult result = new StreamResult(new File(archivoSalida));
-         transformer.transform(fuente, result);
-            
-         } catch (Exception e) {
-             System.out.println(e);
-         } 
+            InputSource source = new InputSource(fichXMLEncriptado);
+            reader.parse(source);
+            String nuevoXml = handler.getNuevoXml();
+            StringBuilder xmlCompleto = new StringBuilder();
+            xmlCompleto.append("<Grupo_de_enemigos>")
+                    .append(nuevoXml)
+                    .append("</Grupo_de_enemigos>");
+            String xmlCompleto2 = xmlCompleto.toString();
+            //System.out.println(xmlCompleto2);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+            StreamSource fuente = new StreamSource(new StringReader(xmlCompleto2));
+            String archivoSalida = nombreNuevoXML;
+            StreamResult result = new StreamResult(new File(archivoSalida));
+            transformer.transform(fuente, result);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-    
-    
-    
+
     /**
-     * Método que permite utilizar las clases FileOutputStream y DataOutputStream
-     * para escribir "a continuación", tomando un fichero de datos binario y
-     * escribiendo al final del mismo datos leídos de un fichero bestiario
-     * que se le pase por parámetro y que se leerá mediante la clase RandomAccessFile
+     * Método que permite utilizar las clases FileOutputStream y
+     * DataOutputStream para escribir "a continuación", tomando un fichero de
+     * datos binario y escribiendo al final del mismo datos leídos de un fichero
+     * bestiario que se le pase por parámetro y que se leerá mediante la clase
+     * RandomAccessFile
+     *
      * @param registroUsuario Número de ID con que el usuario desea que sus
      * monstruos aparezcan en el fichero personalizado.
      * @param registroElegido Número de ID asociado en el bestiario al monstruo
      * que el usuario desea introducir en su fichero de monstruos personalizado.
-     * @param rutaBestiario String que contiene la ruta del fichero bestiario del
-     * cual se leerán los registros para después escribirlos en el fichero de
-     * datos personalizado.
+     * @param rutaBestiario String que contiene la ruta del fichero bestiario
+     * del cual se leerán los registros para después escribirlos en el fichero
+     * de datos personalizado.
      * @param rutaPersonalizado String que contiene la ruta en la que se ubica
-     * el fichero de datos personalizado en el que se escribirán los datos leídos.
+     * el fichero de datos personalizado en el que se escribirán los datos
+     * leídos.
      */
     public static void escribirAContinuacion(int registroUsuario, int registroElegido, String rutaBestiario, String rutaPersonalizado) {
-        long tamañoRegistro=64;
-        long bytePos = (registroElegido-1)*tamañoRegistro;
-        
+        long tamañoRegistro = 64;
+        long bytePos = (registroElegido - 1) * tamañoRegistro;
+
         try {
             RandomAccessFile ficheroBestiario = new RandomAccessFile(rutaBestiario, "rw");
             FileOutputStream escritor = new FileOutputStream(rutaPersonalizado, true);
             DataOutputStream dos = new DataOutputStream(escritor);
-            
+
             ficheroBestiario.seek(bytePos);
             ficheroBestiario.readInt();
             dos.writeInt(registroUsuario);
             dos.writeChars(Metodos.leerCadena(20, ficheroBestiario, false));
             dos.writeChars(Metodos.leerCadena(10, ficheroBestiario, false));
-            
+
             dos.close();
             escritor.close();
             ficheroBestiario.close();
-            
+
         } catch (IOException ioe) {
             System.out.println("Excepción IOE al añadir un enemigo al grupo personalizado con File/DataOutputStream");
         }
     }
-    
-    
-    
+
     /**
      * Método que permite utilizar la clase RandomAccessFile para escribir "al
-     * final" de un archivo, dejando un registro completo en blanco entre el punto en el
-     * que termina el archivo y el punto de escritura de registros.
+     * final" de un archivo, dejando un registro completo en blanco entre el
+     * punto en el que termina el archivo y el punto de escritura de registros.
      * Los registros que se escriban serán aquellos que se lean de un archivo
      * bestiario, mediante el uso de la clase RandomAccessFile.
+     *
      * @param registroUsuario Número de ID con que el usuario desea que sus
      * monstruos aparezcan en el fichero personalizado.
      * @param registroElegido Número de ID asociado en el bestiario al monstruo
      * que el usuario desea introducir en su fichero de monstruos personalizado.
-     * @param rutaBestiario String que contiene la ruta del fichero bestiario del
-     * cual se leerán los registros para después escribirlos en el fichero de
-     * datos personalizado.
+     * @param rutaBestiario String que contiene la ruta del fichero bestiario
+     * del cual se leerán los registros para después escribirlos en el fichero
+     * de datos personalizado.
      * @param rutaPersonalizado String que contiene la ruta en la que se ubica
-     * el fichero de datos personalizado en el que se escribirán los datos leídos.
+     * el fichero de datos personalizado en el que se escribirán los datos
+     * leídos.
      */
     public static void insertarAccesoAleatorio(int registroUsuario, int registroElegido, String rutaBestiario, String rutaPersonalizado) {
 
         long tamañoRegistro = 64;
         long bytePos = (registroElegido - 1) * tamañoRegistro;
-        
+
         try {
             RandomAccessFile ficheroBestiario = new RandomAccessFile(rutaBestiario, "rw");
             RandomAccessFile ficheroPersonalizado = new RandomAccessFile(rutaPersonalizado, "rw");
-            
+
             ficheroBestiario.seek(bytePos);
             // Línea en la que se hace la inserción aleatoria dejando
             // registros en blanco; se salta hasta el final del archivo, se
             // deja un registro completo en blanco y a continuación se escribe
             ficheroPersonalizado.seek(ficheroPersonalizado.length() + tamañoRegistro);
-            
+
             ficheroPersonalizado.writeInt(registroUsuario);
             ficheroPersonalizado.writeChars(Metodos.leerCadena(20, ficheroBestiario, false));
             ficheroPersonalizado.writeChars(Metodos.leerCadena(10, ficheroBestiario, false));
-            
+
             ficheroPersonalizado.close();
             ficheroBestiario.close();
-            
-            
+
         } catch (IOException ioe) {
             System.out.println("Excepción IOE al añadir un enemigo al grupo personalizado con RandomAccessFile saltando registros");
         }
     }
-    
-    
-    
+
     /**
      * Método que decide a cara o cruz si el monstruo elegido del bestiario se
      * insertará al final del fichero personalizado con DataOutputStream
      * escribiendo al final o con RandomAccessFile posicionándose al final y
      * dejando un registro en blanco.
+     *
      * @param registroUsuario Número de ID con que el usuario desea que sus
      * monstruos aparezcan en el fichero personalizado.
      * @param registroElegido Número de ID asociado en el bestiario al monstruo
      * que el usuario desea introducir en su fichero de monstruos personalizado.
-     * @param rutaBestiario String que contiene la ruta del fichero bestiario del
-     * cual se leerán los registros para después escribirlos en el fichero de
-     * datos personalizado.
+     * @param rutaBestiario String que contiene la ruta del fichero bestiario
+     * del cual se leerán los registros para después escribirlos en el fichero
+     * de datos personalizado.
      * @param rutaPersonalizado String que contiene la ruta en la que se ubica
-     * el fichero de datos personalizado en el que se escribirán los datos leídos.
+     * el fichero de datos personalizado en el que se escribirán los datos
+     * leídos.
      */
     public static void insertarMonstruoEnFicheroPersonalizado(int registroUsuario, int registroElegido, String rutaBestiario, String rutaPersonalizado) {
-        int aleatorio = aleatorio(1,0);
-        
-        if (aleatorio==0) {
+        int aleatorio = aleatorio(1, 0);
+
+        if (aleatorio == 0) {
             System.out.println("La moneda ha salido cara. Los enemigos se añaden al final.");
             escribirAContinuacion(registroUsuario, registroElegido, rutaBestiario, rutaPersonalizado);
-            
-        } else if (aleatorio==1) {
+
+        } else if (aleatorio == 1) {
             System.out.println("La moneda ha salido cruz. Los enemigos se añaden saltando un registro.");
             insertarAccesoAleatorio(registroUsuario, registroElegido, rutaBestiario, rutaPersonalizado);
-            
+
         }
     }
 }
