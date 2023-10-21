@@ -1629,6 +1629,7 @@ public class Metodos {
             }
         }
         
+        grito = grito.replace(' ','_');
         return grito;
     }
     
@@ -1724,6 +1725,7 @@ public class Metodos {
             }
         }
         
+        grito = grito.replace(' ','_');
         return grito;
     }
     
