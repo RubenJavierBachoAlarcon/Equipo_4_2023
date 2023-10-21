@@ -650,7 +650,7 @@ public class Juego extends javax.swing.JFrame {
 
         if (pathFile.toString().toLowerCase().endsWith(".dat")) {
             Metodos.convertirGrupoAXml(pathFile, "grupo.xml");
-            String htmlContent = Metodos.leerHTMLXML("grupo.xml");
+            String htmlContent = Metodos.leerHTMLXML("grupo.xml", "hojaEstilos.xsl");
             System.out.println(htmlContent);
             htmlContent = htmlContent.replaceAll("\\s+", "");
             htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
@@ -659,7 +659,7 @@ public class Juego extends javax.swing.JFrame {
             jEditorPane1.setText(htmlContent);
             System.out.println("Archivo HTML creado con éxito.");
         } else if (pathFile.toString().toLowerCase().endsWith(".xml")) {
-            String htmlContent = Metodos.leerHTMLXML(pathFile);
+            String htmlContent = Metodos.leerHTMLXML(pathFile, "hojaEstilos.xsl");
             System.out.println(htmlContent);
             htmlContent = htmlContent.replaceAll("\\s+", "");
             htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");

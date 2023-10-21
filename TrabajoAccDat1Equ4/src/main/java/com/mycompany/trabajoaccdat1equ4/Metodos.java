@@ -810,9 +810,8 @@ public class Metodos {
      * @return El contenido del archivo como una cadena en formato UTF-8.
      * @throws IOException Si ocurre un error al leer el archivo.
      */
-    public static String leerHTMLXML(String ruta) throws IOException {
-
-        crearHTML("hojaEstilos.xsl", ruta);
+    public static String leerHTMLXML(String ruta, String hojaEstilo) throws IOException {
+        crearHTML(hojaEstilo, ruta);
         byte[] bytes = Files.readAllBytes(Paths.get("pagina.html"));
         String fileContent = new String(bytes, "UTF-8");
         return fileContent;
