@@ -27,7 +27,7 @@ public class Personalizado extends javax.swing.JFrame {
     public static File grupoActual;
 
     public final String userName = System.getProperty("user.name");
-    
+
     public static boolean gritoAñadido;
     public static boolean esLindoAñadido;
     public static boolean ambosAñadido;
@@ -37,21 +37,14 @@ public class Personalizado extends javax.swing.JFrame {
      */
     public Personalizado() {
         initComponents();
-        jPanel9.setEnabled(false);
         jButton6.setEnabled(false);
-        for (Component component : jPanel9.getComponents()) {
-            component.setEnabled(false);
-        }
         for (Component component : jPanel8.getComponents()) {
-            component.setEnabled(false);
-        }
-        for (Component component : jPanel6.getComponents()) {
             component.setEnabled(false);
         }
 
         jLabel2.setText("¡Bienvenido al modo personalizado " + userName + "!");
         try {
-            actualizarTabla("mostros.dat", jEditorPane1, "hojaEstilos.xsl");
+            actualizarTablaBestiario("mostros.dat", jEditorPane1, "hojaEstilos.xsl");
             jEditorPane1.setCaretPosition(0);
         } catch (IOException ex) {
             Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,18 +85,17 @@ public class Personalizado extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jEditorPane3 = new javax.swing.JEditorPane();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -140,7 +132,7 @@ public class Personalizado extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -273,7 +265,7 @@ public class Personalizado extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -296,62 +288,11 @@ public class Personalizado extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Domar a las Bestias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Añadir/Eliminar Característica"));
-
-        jButton4.setText("Añadir Característica");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Eliminar Característica");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox1.setText("Es Lindo");
-
-        jCheckBox2.setText("Grito de Guerra");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jButton5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Cambiar Nombre de los Enemigos"));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Cambiar Nombre de los Enemigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jLabel4.setText("Introduce el nombre actual del enemigo que quieres cambiar");
 
@@ -406,24 +347,52 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Conoce Mejor a las Bestias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+
+        jButton4.setText("Añadir Característica");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Eliminar Característica");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1.setText("Ver si te parece lindo");
+
+        jCheckBox2.setText("Ver su grito de guerra");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jButton5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -436,17 +405,18 @@ public class Personalizado extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,14 +428,17 @@ public class Personalizado extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         jMenu2.setText("Archivo");
@@ -531,34 +504,29 @@ public class Personalizado extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
-            if (jCheckBox1.isSelected() && jCheckBox2.isSelected() && ambosAñadido){
-                Metodos.eliminarNodoXml("grupo.xml", "gritoDeGuerra");
-                Metodos.eliminarNodoXml("grupo.xml", "esLindo");
-                actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilos.xsl");
+            if (jCheckBox1.isSelected() && jCheckBox2.isSelected() && ambosAñadido) {
+                Metodos.eliminarNodoXml("mostros.xml", "gritoDeGuerra");
+                Metodos.eliminarNodoXml("mostros.xml", "esLindo");
+                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
                 ambosAñadido = false;
-            }
-            else if (jCheckBox1.isSelected() && esLindoAñadido){
-                Metodos.eliminarNodoXml("grupo.xml", "eslindo");
-                if (!gritoAñadido){
-                    actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilos.xsl");
-                }
-                else {
-                    actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilosGritoGuerra.xsl");
+            } else if (jCheckBox1.isSelected() && esLindoAñadido) {
+                Metodos.eliminarNodoXml("mostros.xml", "eslindo");
+                if (!gritoAñadido) {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                } else {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
                 }
                 esLindoAñadido = false;
-            }
-            else if (jCheckBox2.isSelected() && gritoAñadido){
-                Metodos.eliminarNodoXml("grupo.xml", "gritoguerra");
-                if (!esLindoAñadido){
-                    actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilos.xsl");
-                }
-                else {
-                    actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilosEsLindo.xsl");
+            } else if (jCheckBox2.isSelected() && gritoAñadido) {
+                Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
+                if (!esLindoAñadido) {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                } else {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
                 }
                 gritoAñadido = false;
             }
-            
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -566,25 +534,28 @@ public class Personalizado extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            if (jCheckBox1.isSelected() && jCheckBox2.isSelected()){
+            if (jCheckBox1.isSelected() && jCheckBox2.isSelected()) {
                 System.out.println("CCCCCCCCCCCCCCCCCCCCCCCC");
-                Metodos.añadirNodoXml("grupo.xml", "gritoDeGuerra");
-                Metodos.añadirNodoXml("grupo.xml", "esLindo");
-                actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilosGritoYLindo.xsl");
+                Metodos.añadirNodoXml("mostros.xml", "gritoDeGuerra");
+                Metodos.añadirNodoXml("mostros.xml", "esLindo");
+                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoYLindo.xsl");
                 ambosAñadido = true;
-            }
-            else if (jCheckBox1.isSelected()){
-                Metodos.añadirNodoXml("grupo.xml", "eslindo");
-                actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilosEsLindo.xsl");
+            } else if (jCheckBox1.isSelected()) {
+                if (gritoAñadido){
+                    Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
+                }
+                Metodos.añadirNodoXml("mostros.xml", "eslindo");
+                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
                 esLindoAñadido = true;
-            }
-            else if (jCheckBox2.isSelected()){
-                Metodos.añadirNodoXml("grupo.xml", "gritoguerra");
-                actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilosGritoGuerra.xsl");
+            } else if (jCheckBox2.isSelected()) {
+                if (esLindoAñadido){
+                    Metodos.eliminarNodoXml("mostros.xml", "eslindo");
+                }
+                Metodos.añadirNodoXml("mostros.xml", "gritoguerra");
+                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
                 gritoAñadido = true;
             }
-            
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -636,18 +607,14 @@ public class Personalizado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        jPanel9.setEnabled(true);
-        
-        for (Component component : jPanel9.getComponents()) {
-            component.setEnabled(true);
-        }
+
         for (Component component : jPanel8.getComponents()) {
             component.setEnabled(true);
         }
         for (Component component : jPanel6.getComponents()) {
             component.setEnabled(true);
         }
-        
+
         jPanel3.setEnabled(false);
         for (Component component : jPanel3.getComponents()) {
             component.setEnabled(false);
@@ -730,6 +697,20 @@ public class Personalizado extends javax.swing.JFrame {
 
     }
 
+    public void actualizarTablaBestiario(String pathFile, JEditorPane JEditorP, String hojaEstilos) throws IOException {
+
+        Metodos.convertirGrupoAXml(pathFile, "mostros.xml");
+        String htmlContent = Metodos.leerHTMLXML("mostros.xml", hojaEstilos);
+        System.out.println(htmlContent);
+        htmlContent = htmlContent.replaceAll("\\s+", "");
+        htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+        System.out.println(htmlContent);
+        JEditorP.setContentType("text/html");
+        JEditorP.setText(htmlContent);
+        System.out.println("Archivo HTML creado con éxito.");
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -761,7 +742,6 @@ public class Personalizado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
