@@ -42,9 +42,9 @@ public class Personalizado extends javax.swing.JFrame {
             component.setEnabled(false);
         }
 
-        jLabel2.setText("¡Bienvenido al modo personalizado " + userName + "!");
+        jLabel2.setText("¡Bienvenido al modo de doma de monstruos, " + userName + "!");
         try {
-            actualizarTablaBestiario("mostros.dat", jEditorPane1, "hojaEstilos.xsl");
+            actualizarTablaBestiario(".\\Zona personalizada\\enemigos.dat", jEditorPane1, "hojaEstilos.xsl");
             jEditorPane1.setCaretPosition(0);
         } catch (IOException ex) {
             Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,7 +114,7 @@ public class Personalizado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Bestiario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bestiario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jEditorPane1.setEditable(false);
         jEditorPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -140,7 +140,7 @@ public class Personalizado extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jLabel2.setText("¡Hola aventurero!");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Añadir grupo vacio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Añadir grupo vacio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jButton1.setText("Crear Grupo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +178,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Insertar enemigo en un grupo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Insertar enemigo en un grupo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jButton2.setText("Seleccionar Grupo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +196,7 @@ public class Personalizado extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Inserta el id del enemigo que quieras añadir (grupo seleccionado):");
+        jLabel5.setText("Inserta el id con el que quieres que aparezca:");
 
         jButton6.setText("Confirmar Grupo");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +248,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Monstruos domados ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Monstruos domados ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jEditorPane2.setEditable(false);
         jScrollPane2.setViewportView(jEditorPane2);
@@ -270,7 +270,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Monstruos domados por tus amigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Monstruos domados por tus amigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jEditorPane3.setEditable(false);
         jEditorPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -293,11 +293,11 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Cambiar Nombre de los Enemigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cambiar Nombre de los Enemigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jLabel4.setText("Introduce el nombre actual del enemigo que quieres cambiar");
 
-        jLabel6.setText("Introduce el nuevo nombre del enemigo que quieres cambiar");
+        jLabel6.setText("Introduce el nuevo nombre que tendrá el enemigo");
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +348,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Conoce Mejor a las Bestias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conoce Mejor a las Bestias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jButton4.setText("Añadir Característica");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -510,7 +510,7 @@ public class Personalizado extends javax.swing.JFrame {
                 try {
                     int numeroF = Integer.parseInt(jTextField4.getText());
                     if (numeroF > 0) {
-                        Metodos.insertarMonstruoEnFicheroPersonalizado(numeroF, numeroB, "mostros.dat", grupoActual.getPath());
+                        Metodos.insertarMonstruoEnFicheroPersonalizado(numeroF, numeroB, ".\\Zona personalizada\\enemigos.dat", grupoActual.getPath());
                         actualizarTabla(grupoActual.getPath(), jEditorPane2, "hojaEstilos.xsl");
                     } else {
                         JOptionPane.showMessageDialog(null, "El id del fichero tiene que ser positivo", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -542,7 +542,7 @@ public class Personalizado extends javax.swing.JFrame {
         try {
             String rutaArchivo = "Zona personalizada/" + jTextField1.getText() + ".dat";
             System.out.println(rutaArchivo);
-            Metodos.creaGrupo(rutaArchivo, 64, "enemigos.dat", 0);
+            Metodos.creaGrupo(rutaArchivo, 64, ".\\Zona personalizada\\enemigos.dat", 0);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El valor debe ser un id numérico", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -566,8 +566,8 @@ public class Personalizado extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
-            Metodos.modificarXml("grupo.xml", jTextField3.getText(), jTextField5.getText());
-            actualizarTabla("grupo.xml", jEditorPane2, "hojaEstilos.xsl");
+            Metodos.modificarXml(".\\Zona personalizada\\grupo.xml", jTextField3.getText(), jTextField5.getText());
+            actualizarTabla(".\\Zona personalizada\\grupo.xml", jEditorPane2, "hojaEstilos.xsl");
         } catch (IOException ex) {
             Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -580,24 +580,24 @@ public class Personalizado extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
             if (jRadioButton1.isSelected() && jRadioButton2.isSelected() && ambosAñadido) {
-                Metodos.eliminarNodoXml("mostros.xml", "gritoDeGuerra");
-                Metodos.eliminarNodoXml("mostros.xml", "esLindo");
-                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
+                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
+                actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilos.xsl");
                 ambosAñadido = false;
             } else if (jRadioButton1.isSelected() && esLindoAñadido) {
-                Metodos.eliminarNodoXml("mostros.xml", "eslindo");
+                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
                 if (!gritoAñadido) {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilos.xsl");
                 } else {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
+                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
                 }
                 esLindoAñadido = false;
             } else if (jRadioButton2.isSelected() && gritoAñadido) {
-                Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
+                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
                 if (!esLindoAñadido) {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilos.xsl");
                 } else {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
+                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
                 }
                 gritoAñadido = false;
             }
@@ -611,19 +611,19 @@ public class Personalizado extends javax.swing.JFrame {
         try {
             if (jRadioButton1.isSelected()) {
                 if (gritoAñadido) {
-                    Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
+                    Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
                 }
-                Metodos.añadirNodoXml("mostros.xml", "eslindo");
-                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
+                Metodos.añadirNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
+                actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
                 esLindoAñadido = true;
             }
 
             if (jRadioButton2.isSelected()) {
                 if (esLindoAñadido) {
-                    Metodos.eliminarNodoXml("mostros.xml", "eslindo");
+                    Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
                 }
-                Metodos.añadirNodoXml("mostros.xml", "gritoguerra");
-                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
+                Metodos.añadirNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
+                actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
                 gritoAñadido = true;
             }
 
@@ -670,8 +670,8 @@ public class Personalizado extends javax.swing.JFrame {
     public void actualizarTabla(String pathFile, JEditorPane JEditorP, String hojaEstilos) throws IOException {
 
         if (pathFile.toString().toLowerCase().endsWith(".dat")) {
-            Metodos.convertirGrupoAXml(pathFile, "grupo.xml");
-            String htmlContent = Metodos.leerHTMLXML("grupo.xml", hojaEstilos);
+            Metodos.convertirGrupoAXml(pathFile, ".\\Zona personalizada\\grupo.xml");
+            String htmlContent = Metodos.leerHTMLXML(".\\Zona personalizada\\grupo.xml", hojaEstilos);
             System.out.println(htmlContent);
             htmlContent = htmlContent.replaceAll("\\s+", "");
             htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
@@ -696,8 +696,8 @@ public class Personalizado extends javax.swing.JFrame {
 
     public void actualizarTablaBestiario(String pathFile, JEditorPane JEditorP, String hojaEstilos) throws IOException {
 
-        Metodos.convertirGrupoAXml(pathFile, "mostros.xml");
-        String htmlContent = Metodos.leerHTMLXML("mostros.xml", hojaEstilos);
+        Metodos.convertirGrupoAXml(pathFile, ".\\Zona personalizada\\enemigos.xml");
+        String htmlContent = Metodos.leerHTMLXML(".\\Zona personalizada\\enemigos.xml", hojaEstilos);
         System.out.println(htmlContent);
         htmlContent = htmlContent.replaceAll("\\s+", "");
         htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");

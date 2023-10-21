@@ -351,7 +351,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Inserta el id del enemigo que quieras a&#xf1;adir (grupo seleccionado):"/>
+                <Property name="text" type="java.lang.String" value="Inserta el id con el que quieres que aparezca:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField4">
@@ -529,7 +529,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Introduce el nuevo nombre del enemigo que quieres cambiar"/>
+                <Property name="text" type="java.lang.String" value="Introduce el nuevo nombre que tendr&#xe1; el enemigo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField3">
