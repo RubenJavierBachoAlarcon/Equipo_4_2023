@@ -111,6 +111,12 @@ public class Metodos {
         }
     }
 
+    /**
+     * Muestra un diálogo de selección de archivos en el directorio actual.
+     *
+     * @return El archivo seleccionado por el usuario o null si no se seleccionó
+     * ningún archivo.
+     */
     public static File elegirArchivo() {
         try {
             // Establecer el Look and Feel de Windows
@@ -132,6 +138,14 @@ public class Metodos {
         return selectedFile;
     }
 
+    /**
+     * Muestra un diálogo de selección de archivos en el directorio actual con
+     * un filtro de extensión.
+     *
+     * @param extension La extensión de archivo que se mostrará en el filtro.
+     * @return El archivo seleccionado por el usuario o null si no se seleccionó
+     * ningún archivo.
+     */
     public static File elegirArchivo(String extension) {
         try {
             // Establecer el Look and Feel de Windows
@@ -158,7 +172,17 @@ public class Metodos {
         }
         return selectedFile;
     }
-    
+
+    /**
+     * Muestra un diálogo de selección de archivos en un directorio específico
+     * con un filtro de extensión.
+     *
+     * @param extension La extensión de archivo que se mostrará en el filtro.
+     * @param rutaComienzo La ruta inicial desde la que se abrirá el diálogo de
+     * selección.
+     * @return El archivo seleccionado por el usuario o null si no se seleccionó
+     * ningún archivo.
+     */
     public static File elegirArchivo(String extension, String rutaComienzo) {
         try {
             // Establecer el Look and Feel de Windows
@@ -185,43 +209,57 @@ public class Metodos {
         }
         return selectedFile;
     }
-    
+
+    /**
+     * Muestra un diálogo de selección de archivos en el directorio actual con
+     * un filtro de extensión y oculta archivos específicos.
+     *
+     * @param extension La extensión de archivo que se mostrará en el filtro.
+     * @return El archivo seleccionado por el usuario o null si no se seleccionó
+     * ningún archivo.
+     */
     public static File elegirArchivoOcultar(String extension) {
-    try {
-        // Establecer el Look and Feel de Windows
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-        System.out.println("Ruta incorrecta");
-    }
-
-    JFileChooser fileChooser = new JFileChooser() {
-        @Override
-        public boolean accept(File file) {
-            if (file.getName().equals("enemigos.dat")) {
-                return false; // Oculta estos archivos
-            }
-            return super.accept(file);
+        try {
+            // Establecer el Look and Feel de Windows
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.out.println("Ruta incorrecta");
         }
-    };
-    fileChooser.setCurrentDirectory(new File("./Zona personalizada"));
 
-    // Crear un filtro de extensión para el tipo de archivo deseado
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos " + extension, extension);
-    fileChooser.setFileFilter(filter);
+        JFileChooser fileChooser = new JFileChooser() {
+            @Override
+            public boolean accept(File file) {
+                if (file.getName().equals("enemigos.dat")) {
+                    return false; // Oculta estos archivos
+                }
+                return super.accept(file);
+            }
+        };
+        fileChooser.setCurrentDirectory(new File("./Zona personalizada"));
 
-    File selectedFile = null;
-    int returnValue = fileChooser.showOpenDialog(null);
+        // Crear un filtro de extensión para el tipo de archivo deseado
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos " + extension, extension);
+        fileChooser.setFileFilter(filter);
 
-    if (returnValue == JFileChooser.APPROVE_OPTION) {
-        selectedFile = fileChooser.getSelectedFile();
-        System.out.println("Ruta del archivo seleccionado: " + selectedFile.getAbsolutePath());
-    } else {
-        System.out.println("No se seleccionó ningún archivo.");
+        File selectedFile = null;
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Ruta del archivo seleccionado: " + selectedFile.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ningún archivo.");
+        }
+        return selectedFile;
     }
-    return selectedFile;
-}
 
-
+    /**
+     * Muestra un diálogo de selección de directorios en el directorio de juego
+     * actual.
+     *
+     * @return El directorio seleccionado por el usuario o null si no se
+     * seleccionó ningún directorio.
+     */
     public static File elegirDirectorioZona() {
         try {
             // Establecer el Look and Feel de Windows
@@ -259,6 +297,12 @@ public class Metodos {
         return selectedDirectory;
     }
 
+    /**
+     * Muestra un diálogo de selección de directorios en el directorio actual.
+     *
+     * @return El directorio seleccionado por el usuario o null si no se
+     * seleccionó ningún directorio.
+     */
     public static File elegirDirectorio() {
         try {
             // Establecer el Look and Feel de Windows
@@ -282,7 +326,16 @@ public class Metodos {
         }
         return selectedDirectory;
     }
-    
+
+    /**
+     * Muestra un diálogo de selección de directorios en un directorio
+     * específico.
+     *
+     * @param rutaComienzo La ruta inicial desde la que se abrirá el diálogo de
+     * selección.
+     * @return El directorio seleccionado por el usuario o null si no se
+     * seleccionó ningún directorio.
+     */
     public static File elegirDirectorio(String rutaComienzo) {
         try {
             // Establecer el Look and Feel de Windows
@@ -1609,35 +1662,34 @@ public class Metodos {
             dir.mkdir();
         }
     }
-    
+
     /**
-     * Método que crea la carpeta "Zona personalizada" y mete dentro
-     * el bestiario y un grupo de monstruos vacío
+     * Método que crea la carpeta "Zona personalizada" y mete dentro el
+     * bestiario y un grupo de monstruos vacío
      */
     public static void iniciarJuegoPersonalizado() {
         crearZona(".\\Zona personalizada");
         crearBestiario(".\\Zona personalizada\\enemigos.dat");
         creaGrupo("Monstruos domados.dat", 64, "enemigos.dat", 0);
-        moverGrupo(".\\Monstruos domados.dat",".\\Zona Personalizada\\Monstruos domados.dat");  
-        
+        moverGrupo(".\\Monstruos domados.dat", ".\\Zona Personalizada\\Monstruos domados.dat");
+
         File bestiario = new File(".\\enemigos.dat");
         bestiario.delete();
     }
-    
-    
-    
+
     /**
      * Método al que se le pasa por parámetro una String que contiene el nombre
      * del monstruo que se está evaluando y devuelve el grito o reacción que
      * emitirá dicho monstruo cuando se entre en batalla con él.
+     *
      * @param enemigo String que contiene el nombre del enemigo que se está
      * evaluando
-     * @return String que contiene el grito de guerra emitido por un monstruo
-     * al enfrentarlo en combate
+     * @return String que contiene el grito de guerra emitido por un monstruo al
+     * enfrentarlo en combate
      */
     public static String obtenerGritoGuerra(String enemigo) {
         String grito = null;
-        
+
         switch (enemigo) {
             case "Pyrobabosa" -> {
                 grito = new String("¡Grrrblrblrblr!");
@@ -1715,17 +1767,16 @@ public class Metodos {
                 grito = new String("*Lanza una llamarada al aire*");
             }
         }
-        
-        grito = grito.replace(' ','_');
+
+        grito = grito.replace(' ', '_');
         return grito;
     }
-    
-    
-    
+
     /**
      * Método al que se le pasa por parámetro una String que contiene el nombre
-     * del monstruo que se está evaluando y devuelve la impresión que se
-     * tiene de él.
+     * del monstruo que se está evaluando y devuelve la impresión que se tiene
+     * de él.
+     *
      * @param enemigo String que contiene el nombre del enemigo que se está
      * evaluando
      * @return String que contiene las impresiones que se obtienen del monstruo
@@ -1733,7 +1784,7 @@ public class Metodos {
      */
     public static String obtenerEsLindo(String enemigo) {
         String lindo = null;
-        
+
         switch (enemigo) {
             case "Pyrobabosa" -> {
                 lindo = new String("Te dan ganas de darle un pyrobesito.");
@@ -1811,100 +1862,92 @@ public class Metodos {
                 lindo = new String("No es demasiado monete. De hecho, da canguelo.");
             }
         }
-        
-        lindo = lindo.replace(' ','_');
+
+        lindo = lindo.replace(' ', '_');
         return lindo;
     }
-    
-    
-    
+
     /**
      * Método que permite añadir nodos XML, dependiendo de una determinada
      * estructura de archivos XML, a un archivo cuya ruta se le pase por
-     * parámetro. 
-     * El nombre del nodo que se desea añadir también deberá pasarse por
-     * parámetro; únicamente hay implementación para los nodos "gritoguerra"
+     * parámetro. El nombre del nodo que se desea añadir también deberá pasarse
+     * por parámetro; únicamente hay implementación para los nodos "gritoguerra"
      * y "eslindo".
-     * @param rutaArchivo String que contiene la ruta del archivo XML al que
-     * se añadirán los nodos.
-     * @param nombreNodo String que contiene el nombre del nodo a añadir;
-     * las posibilidades por el momento son "gritoguerra" y "eslindo".
+     *
+     * @param rutaArchivo String que contiene la ruta del archivo XML al que se
+     * añadirán los nodos.
+     * @param nombreNodo String que contiene el nombre del nodo a añadir; las
+     * posibilidades por el momento son "gritoguerra" y "eslindo".
      */
     public static void añadirNodoXml(String rutaArchivo, String nombreNodo) {
         try {
-           File archivo = new File(rutaArchivo);
-           // Parseamos el archivo xml a utilizar
-           DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-           DocumentBuilder builder = factory.newDocumentBuilder();
-           Document documento = builder.parse(archivo);
-           
-           // Le aplicamos normalización
-           documento.getDocumentElement().normalize();
-           
-           // Recuperamos la lista de nodos etiquetados como "Enemigo"
-           // y la recorremos
-           NodeList listaNodos = documento.getElementsByTagName("Enemigo");
-           
-           for (int i=0; i<listaNodos.getLength(); i++) {
-               Node nodo = listaNodos.item(i);
-               // Con ésto podemos iterar entre los distintos nodos "Enemigo".
-               
-               
-               // Si lo que se están recorriendo son nodos, se les hace un
-               // casting a objeto de la clase Elemento para poder tratarlos
-               // como tal (como cuando escribimos ficheros XML con DOM)
-               if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                   Element elemento = (Element) nodo;
-                   
-                   // Tras ello, se verifica si el nodo cuyo nombre pasado por
-                   // parámetro existe; si no existe, se crea y añade, y si 
-                   // existe, no se aplican cambios 
-                   NodeList listaNodosParam = elemento.getElementsByTagName(nombreNodo);
-                   if (listaNodosParam.getLength() == 0) {
-                       // Se guarda en una String el texto que contiene
-                       // el nodo etiquetado como "nombre"
-                       String nombreMonstruo = elemento.getElementsByTagName("nombre").item(0).getTextContent();
-                       
+            File archivo = new File(rutaArchivo);
+            // Parseamos el archivo xml a utilizar
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document documento = builder.parse(archivo);
 
-                       // Obtenemos el contenido del nodo a añadir
-                       // según el nombre del monstruo
-                       String textoNodo = null;
-                       if (nombreNodo.equals("gritoguerra")) {
-                           textoNodo=Metodos.obtenerGritoGuerra(nombreMonstruo);
-                       } else if (nombreNodo.equals("eslindo")) {
-                           textoNodo=Metodos.obtenerEsLindo(nombreMonstruo);
-                       }
-                       
-                       
-                       // Utilizamos el método crearNodo para crear
-                       // un nodo cuyo contenido es texto. Este nodo pasa
-                       // a colgar del elemento que se indique por parámetro,
-                       // en este caso los nodos Enemigo por los que se
-                       // estaba iterando
-                       Metodos.crearNodo(nombreNodo, textoNodo, documento, elemento);
-                       
-                   }
-               }
-           }
-           
-           // Y se crea el archivo xml
-           Metodos.generarXml(documento, rutaArchivo);
-           
-           
-           
-       } catch (Exception e) {
-           System.out.println("Excepción al añadir nodos xml");
-       }
+            // Le aplicamos normalización
+            documento.getDocumentElement().normalize();
+
+            // Recuperamos la lista de nodos etiquetados como "Enemigo"
+            // y la recorremos
+            NodeList listaNodos = documento.getElementsByTagName("Enemigo");
+
+            for (int i = 0; i < listaNodos.getLength(); i++) {
+                Node nodo = listaNodos.item(i);
+                // Con ésto podemos iterar entre los distintos nodos "Enemigo".
+
+                // Si lo que se están recorriendo son nodos, se les hace un
+                // casting a objeto de la clase Elemento para poder tratarlos
+                // como tal (como cuando escribimos ficheros XML con DOM)
+                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elemento = (Element) nodo;
+
+                    // Tras ello, se verifica si el nodo cuyo nombre pasado por
+                    // parámetro existe; si no existe, se crea y añade, y si 
+                    // existe, no se aplican cambios 
+                    NodeList listaNodosParam = elemento.getElementsByTagName(nombreNodo);
+                    if (listaNodosParam.getLength() == 0) {
+                        // Se guarda en una String el texto que contiene
+                        // el nodo etiquetado como "nombre"
+                        String nombreMonstruo = elemento.getElementsByTagName("nombre").item(0).getTextContent();
+
+                        // Obtenemos el contenido del nodo a añadir
+                        // según el nombre del monstruo
+                        String textoNodo = null;
+                        if (nombreNodo.equals("gritoguerra")) {
+                            textoNodo = Metodos.obtenerGritoGuerra(nombreMonstruo);
+                        } else if (nombreNodo.equals("eslindo")) {
+                            textoNodo = Metodos.obtenerEsLindo(nombreMonstruo);
+                        }
+
+                        // Utilizamos el método crearNodo para crear
+                        // un nodo cuyo contenido es texto. Este nodo pasa
+                        // a colgar del elemento que se indique por parámetro,
+                        // en este caso los nodos Enemigo por los que se
+                        // estaba iterando
+                        Metodos.crearNodo(nombreNodo, textoNodo, documento, elemento);
+
+                    }
+                }
+            }
+
+            // Y se crea el archivo xml
+            Metodos.generarXml(documento, rutaArchivo);
+
+        } catch (Exception e) {
+            System.out.println("Excepción al añadir nodos xml");
+        }
     }
-    
-    
-    
+
     /**
-     * Método que permite eliminar nodos XML en un archivo cuya ruta se pase
-     * por parámetro. Los nodos que se eliminarán serán aquellos cuya etiqueta
+     * Método que permite eliminar nodos XML en un archivo cuya ruta se pase por
+     * parámetro. Los nodos que se eliminarán serán aquellos cuya etiqueta
      * coincida con una String pasada por parámetro.
-     * @param rutaArchivo String que contiene la ruta del archivo XML del que
-     * se eliminarán los nodos.
+     *
+     * @param rutaArchivo String que contiene la ruta del archivo XML del que se
+     * eliminarán los nodos.
      * @param nombreNodo String que contiene la etiqueta del nodo a eliminar;
      * las posibilidades por el momento son "gritoguerra" y "eslindo".
      */
@@ -1917,35 +1960,32 @@ public class Metodos {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document documento = builder.parse(archivo);
             documento.getDocumentElement().normalize();
-            
-            
+
             // Recogemos en una lista de nodos todos aquells nodos cuya
             // etiqueta coincida con la String que se pasa por parámetro
             // ("gritoguerra" o "eslindo")
             NodeList listaNodos = documento.getElementsByTagName(nombreNodo);
-            
-            
+
             // Recorremos la lista de nodos obtenida y, en cada uno de los nodos,
             // accedemos al padre; desde éste, indicamos que se elimine el nodo
             // hijo indicado, que es el mismo que se está recorriendo
             // Conseguimos de esta manera eliminar de manera efectiva los mismos
             // nodos que estamos recorriendo, es decir, aquellos cuya etiqueta
             // coincide con la String pasada por parámetro
-            
             // La lista de nodos se recorre de atrás hacia adelante porque es
             // una lista dinámica, y, cuando se borra un elemento, el resto de
             // ellos se reubica. Si se intenta hacer un recorrido borrando de
             // atrás hacia adelante, los nodos se van reposicionando a medida
             // que se van borrando, y el resultado es que se borran un nodo
             // sí y un nodo no, alternativamente.
-            for (int i = listaNodos.getLength()-1; i>=0; i--) {
+            for (int i = listaNodos.getLength() - 1; i >= 0; i--) {
                 Node nodo = listaNodos.item(i);
                 nodo.getParentNode().removeChild(nodo);
             }
-            
+
             // Y regeneramos el XML
             Metodos.generarXml(documento, rutaArchivo);
-            
+
         } catch (Exception e) {
             System.out.println("Excepción al eliminar nodos xml");
         }
