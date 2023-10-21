@@ -158,6 +158,69 @@ public class Metodos {
         }
         return selectedFile;
     }
+    
+    public static File elegirArchivo(String extension, String rutaComienzo) {
+        try {
+            // Establecer el Look and Feel de Windows
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.out.println("Ruta incorrecta");
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(rutaComienzo));
+
+        // Crear un filtro de extensión para el tipo de archivo deseado
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos " + extension, extension);
+        fileChooser.setFileFilter(filter);
+
+        File selectedFile = null;
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Ruta del archivo seleccionado: " + selectedFile.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ningún archivo.");
+        }
+        return selectedFile;
+    }
+    
+    public static File elegirArchivoOcultar(String extension) {
+    try {
+        // Establecer el Look and Feel de Windows
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        System.out.println("Ruta incorrecta");
+    }
+
+    JFileChooser fileChooser = new JFileChooser() {
+        @Override
+        public boolean accept(File file) {
+            if (file.getName().equals("enemigos.dat")) {
+                return false; // Oculta estos archivos
+            }
+            return super.accept(file);
+        }
+    };
+    fileChooser.setCurrentDirectory(new File("./Zona personalizada"));
+
+    // Crear un filtro de extensión para el tipo de archivo deseado
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos " + extension, extension);
+    fileChooser.setFileFilter(filter);
+
+    File selectedFile = null;
+    int returnValue = fileChooser.showOpenDialog(null);
+
+    if (returnValue == JFileChooser.APPROVE_OPTION) {
+        selectedFile = fileChooser.getSelectedFile();
+        System.out.println("Ruta del archivo seleccionado: " + selectedFile.getAbsolutePath());
+    } else {
+        System.out.println("No se seleccionó ningún archivo.");
+    }
+    return selectedFile;
+}
+
 
     public static File elegirDirectorioZona() {
         try {
@@ -206,6 +269,30 @@ public class Metodos {
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("."));
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        // Crear un filtro personalizado para mostrar solo directorios que empiezan por "Zona"
+        File selectedDirectory = null;
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedDirectory = fileChooser.getSelectedFile();
+            System.out.println("Directorio seleccionado: " + selectedDirectory.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ningún directorio.");
+        }
+        return selectedDirectory;
+    }
+    
+    public static File elegirDirectorio(String rutaComienzo) {
+        try {
+            // Establecer el Look and Feel de Windows
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.out.println("Ruta incorrecta");
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(rutaComienzo));
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         // Crear un filtro personalizado para mostrar solo directorios que empiezan por "Zona"

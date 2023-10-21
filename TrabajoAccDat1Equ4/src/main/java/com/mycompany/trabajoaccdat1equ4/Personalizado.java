@@ -37,6 +37,7 @@ public class Personalizado extends javax.swing.JFrame {
      */
     public Personalizado() {
         initComponents();
+        jMenu2.setEnabled(false);
         jButton6.setEnabled(false);
         for (Component component : jPanel8.getComponents()) {
             component.setEnabled(false);
@@ -100,6 +101,7 @@ public class Personalizado extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -114,7 +116,7 @@ public class Personalizado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bestiario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Bestiario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jEditorPane1.setEditable(false);
         jEditorPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -140,7 +142,7 @@ public class Personalizado extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jLabel2.setText("¡Hola aventurero!");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Añadir grupo vacio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Añadir grupo vacio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jButton1.setText("Crear Grupo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +180,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Insertar enemigo en un grupo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Insertar enemigo en un grupo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jButton2.setText("Seleccionar Grupo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +250,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Monstruos domados ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Monstruos domados ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jEditorPane2.setEditable(false);
         jScrollPane2.setViewportView(jEditorPane2);
@@ -270,7 +272,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Monstruos domados por tus amigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Monstruos domados por tus amigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jEditorPane3.setEditable(false);
         jEditorPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -293,7 +295,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cambiar Nombre de los Enemigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Cambiar Nombre de los Enemigos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jLabel4.setText("Introduce el nombre actual del enemigo que quieres cambiar");
 
@@ -348,7 +350,7 @@ public class Personalizado extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conoce Mejor a las Bestias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Conoce Mejor a las Bestias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jButton4.setText("Añadir Característica");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -457,6 +459,14 @@ public class Personalizado extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
+        jMenuItem2.setText("Exportar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -483,7 +493,7 @@ public class Personalizado extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
-            String rutaArchivo = Metodos.elegirArchivo("xml").getPath();
+            String rutaArchivo = Metodos.elegirArchivo("xml", "./Exports").getPath();
             Metodos.desencriptarXML(rutaArchivo, "Imports/grupoDesencriptado.xml");
             try {
                 actualizarTabla("Imports/grupoDesencriptado.xml", jEditorPane3, "hojaEstilos.xsl");
@@ -530,7 +540,7 @@ public class Personalizado extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            grupoActual = Metodos.elegirArchivo();
+            grupoActual = Metodos.elegirArchivoOcultar("dat");
             actualizarTabla(grupoActual.getPath(), jEditorPane2, "hojaEstilos.xsl");
             jButton6.setEnabled(true);
         } catch (IOException ex) {
@@ -549,7 +559,7 @@ public class Personalizado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        jMenu2.setEnabled(true);
         for (Component component : jPanel8.getComponents()) {
             component.setEnabled(true);
         }
@@ -579,32 +589,21 @@ public class Personalizado extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
-            if (jRadioButton1.isSelected() && jRadioButton2.isSelected() && ambosAñadido) {
-                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
-                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
-                actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilos.xsl");
-                ambosAñadido = false;
-            } else if (jRadioButton1.isSelected() && esLindoAñadido) {
-                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
-                if (!gritoAñadido) {
-                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilos.xsl");
-                } else {
-                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
-                }
-                esLindoAñadido = false;
-            } else if (jRadioButton2.isSelected() && gritoAñadido) {
-                Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
-                if (!esLindoAñadido) {
-                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilos.xsl");
-                } else {
-                    actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
-                }
-                gritoAñadido = false;
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
+        if (jRadioButton1.isSelected() && esLindoAñadido) {
+            System.out.println("Es lindo añadido");
+            // Si el primer radio button está seleccionado y el nodo actual es "eslindo"
+            Metodos.eliminarNodoXml("./Zona personalizada/enemigos.xml", "eslindo");
+            actualizarTabla("./Zona personalizada/enemigos.xml", jEditorPane1, "hojaEstilos.xsl"); // Establece el estilo predeterminado o el que prefieras
+            esLindoAñadido = false;
+        } else if (jRadioButton2.isSelected() && gritoAñadido) {
+            // Si el segundo radio button está seleccionado y el nodo actual es "gritoguerra"
+            Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
+            actualizarTabla("./Zona personalizada/enemigos.xml", jEditorPane1, "hojaEstilos.xsl"); // Establece el estilo predeterminado o el que prefieras
+            gritoAñadido = false;
         }
+    } catch (IOException ex) {
+        Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -612,6 +611,7 @@ public class Personalizado extends javax.swing.JFrame {
             if (jRadioButton1.isSelected()) {
                 if (gritoAñadido) {
                     Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
+                    gritoAñadido = false;
                 }
                 Metodos.añadirNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
                 actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
@@ -621,6 +621,7 @@ public class Personalizado extends javax.swing.JFrame {
             if (jRadioButton2.isSelected()) {
                 if (esLindoAñadido) {
                     Metodos.eliminarNodoXml(".\\Zona personalizada\\enemigos.xml", "eslindo");
+                    esLindoAñadido = false;
                 }
                 Metodos.añadirNodoXml(".\\Zona personalizada\\enemigos.xml", "gritoguerra");
                 actualizarTabla(".\\Zona personalizada\\enemigos.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
@@ -631,6 +632,11 @@ public class Personalizado extends javax.swing.JFrame {
             Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Metodos.encriptarXML("./Zona personalizada/grupo.xml");
+        Metodos.moverGrupo("./Zona personalizada/grupo.xml", Metodos.elegirDirectorio("./Exports").getPath() + "/grupoEncriptado.xml");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -730,6 +736,7 @@ public class Personalizado extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
