@@ -1530,8 +1530,8 @@ public class Metodos {
     public static void iniciarJuegoPersonalizado() {
         crearZona(".\\Zona personalizada");
         crearBestiario(".\\Zona personalizada\\enemigos.dat");
-        creaGrupo("grupoPersonalizado.dat", 64, "enemigos.dat", 0);
-        moverGrupo(".\\grupoPersonalizado.dat",".\\Zona Personalizada\\grupoPersonalizado.dat");  
+        creaGrupo("Monstruos domados.dat", 64, "enemigos.dat", 0);
+        moverGrupo(".\\Monstruos domados.dat",".\\Zona Personalizada\\Monstruos domados.dat");  
         
         File bestiario = new File(".\\enemigos.dat");
         bestiario.delete();

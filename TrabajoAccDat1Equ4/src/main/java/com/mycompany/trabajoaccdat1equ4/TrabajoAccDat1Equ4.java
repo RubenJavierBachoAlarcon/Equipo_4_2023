@@ -48,9 +48,8 @@ public class TrabajoAccDat1Equ4 {
     public static void main(String[] args) {
 
         Metodos.iniciarJuegoNormal();
-        Metodos.modoFacil(".\\Zona 3\\Grupo 3-3.dat", "fuego");
-        Metodos.convertirGrupoAXml(".\\Zona 3\\Grupo 3-3.dat", ".\\Zona 3\\Grupo 3-3.xml");
-        Metodos.modificarXml(".\\Zona 3\\Grupo 3-3.xml", "Hydrobabosa", "Tengo sueño cojones");
+        Metodos.iniciarJuegoPersonalizado();
+        
         SwingUtilities.invokeLater(() -> {
             JFrame ventana = new JFrame("Seleccionar Modo");
             ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,34 +64,6 @@ public class TrabajoAccDat1Equ4 {
                personalizado.setVisible(true);
             }
         });
-        Metodos.crearBestiario(".\\mostros.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 25, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 1, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 24, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 2, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 23, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 3, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 22, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 4, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 21, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 5, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.insertarMonstruoEnFicheroPersonalizado(1, 17, ".\\mostros.dat", ".\\MISMOSTROS.dat");
-        Metodos.convertirGrupoAXml(".\\MISMOSTROS.dat", ".\\MISMOSTROS.xml");
-        
-//        Metodos.crearDirImportarExportar(".\\Imports");
-//        Metodos.crearDirImportarExportar(".\\Exports");
-       
-       // Metodos.iniciarJuegoPersonalizado();
-        
-       
-       
-       Metodos.añadirNodoXml(".\\MISMOSTROS.xml", "gritoguerra");
-       Metodos.añadirNodoXml(".\\MISMOSTROS.xml", "gritoguerra");
-       Metodos.añadirNodoXml(".\\MISMOSTROS.xml", "gritoguerra");
-       Metodos.añadirNodoXml(".\\MISMOSTROS.xml", "eslindo");
-       
-       Metodos.eliminarNodoXml(".\\MISMOSTROS.xml", "gritoguerra");
-       Metodos.eliminarNodoXml(".\\MISMOSTROS.xml", "eslindo");
     }
     
     
