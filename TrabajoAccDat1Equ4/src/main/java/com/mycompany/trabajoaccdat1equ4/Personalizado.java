@@ -62,6 +62,7 @@ public class Personalizado extends javax.swing.JFrame {
     private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -94,8 +95,8 @@ public class Personalizado extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -363,9 +364,11 @@ public class Personalizado extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setText("Ver si te parece lindo");
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Ver si te parece lindo");
 
-        jCheckBox2.setText("Ver su grito de guerra");
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Ver su grito de guerra");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -374,8 +377,8 @@ public class Personalizado extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
@@ -387,12 +390,12 @@ public class Personalizado extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(jRadioButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jRadioButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -436,9 +439,7 @@ public class Personalizado extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jMenu2.setText("Archivo");
@@ -501,65 +502,6 @@ public class Personalizado extends javax.swing.JFrame {
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
 
     }//GEN-LAST:event_jMenu2ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        try {
-            if (jCheckBox1.isSelected() && jCheckBox2.isSelected() && ambosAñadido) {
-                Metodos.eliminarNodoXml("mostros.xml", "gritoDeGuerra");
-                Metodos.eliminarNodoXml("mostros.xml", "esLindo");
-                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
-                ambosAñadido = false;
-            } else if (jCheckBox1.isSelected() && esLindoAñadido) {
-                Metodos.eliminarNodoXml("mostros.xml", "eslindo");
-                if (!gritoAñadido) {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
-                } else {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
-                }
-                esLindoAñadido = false;
-            } else if (jCheckBox2.isSelected() && gritoAñadido) {
-                Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
-                if (!esLindoAñadido) {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
-                } else {
-                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
-                }
-                gritoAñadido = false;
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try {
-            if (jCheckBox1.isSelected() && jCheckBox2.isSelected()) {
-                System.out.println("CCCCCCCCCCCCCCCCCCCCCCCC");
-                Metodos.añadirNodoXml("mostros.xml", "gritoDeGuerra");
-                Metodos.añadirNodoXml("mostros.xml", "esLindo");
-                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoYLindo.xsl");
-                ambosAñadido = true;
-            } else if (jCheckBox1.isSelected()) {
-                if (gritoAñadido){
-                    Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
-                }
-                Metodos.añadirNodoXml("mostros.xml", "eslindo");
-                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
-                esLindoAñadido = true;
-            } else if (jCheckBox2.isSelected()) {
-                if (esLindoAñadido){
-                    Metodos.eliminarNodoXml("mostros.xml", "eslindo");
-                }
-                Metodos.añadirNodoXml("mostros.xml", "gritoguerra");
-                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
-                gritoAñadido = true;
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
@@ -634,6 +576,61 @@ public class Personalizado extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            if (jRadioButton1.isSelected() && jRadioButton2.isSelected() && ambosAñadido) {
+                Metodos.eliminarNodoXml("mostros.xml", "gritoDeGuerra");
+                Metodos.eliminarNodoXml("mostros.xml", "esLindo");
+                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                ambosAñadido = false;
+            } else if (jRadioButton1.isSelected() && esLindoAñadido) {
+                Metodos.eliminarNodoXml("mostros.xml", "eslindo");
+                if (!gritoAñadido) {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                } else {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
+                }
+                esLindoAñadido = false;
+            } else if (jRadioButton2.isSelected() && gritoAñadido) {
+                Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
+                if (!esLindoAñadido) {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilos.xsl");
+                } else {
+                    actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
+                }
+                gritoAñadido = false;
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            if (jRadioButton1.isSelected()) {
+                if (gritoAñadido) {
+                    Metodos.eliminarNodoXml("mostros.xml", "gritoguerra");
+                }
+                Metodos.añadirNodoXml("mostros.xml", "eslindo");
+                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosEsLindo.xsl");
+                esLindoAñadido = true;
+            }
+
+            if (jRadioButton2.isSelected()) {
+                if (esLindoAñadido) {
+                    Metodos.eliminarNodoXml("mostros.xml", "eslindo");
+                }
+                Metodos.añadirNodoXml("mostros.xml", "gritoguerra");
+                actualizarTabla("mostros.xml", jEditorPane1, "hojaEstilosGritoGuerra.xsl");
+                gritoAñadido = true;
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Personalizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -712,6 +709,7 @@ public class Personalizado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -719,8 +717,6 @@ public class Personalizado extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JEditorPane jEditorPane2;
@@ -742,6 +738,8 @@ public class Personalizado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
