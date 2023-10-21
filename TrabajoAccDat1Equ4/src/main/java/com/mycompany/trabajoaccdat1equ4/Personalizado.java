@@ -673,8 +673,8 @@ public class Personalizado extends javax.swing.JFrame {
             Metodos.convertirGrupoAXml(pathFile, ".\\Zona personalizada\\grupo.xml");
             String htmlContent = Metodos.leerHTMLXML(".\\Zona personalizada\\grupo.xml", hojaEstilos);
             System.out.println(htmlContent);
-            htmlContent = htmlContent.replaceAll("\\s+", "");
-            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+            //htmlContent = htmlContent.replaceAll("\\s+", "");
+            //htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
             System.out.println(htmlContent);
             JEditorP.setContentType("text/html");
             JEditorP.setText(htmlContent);
@@ -682,8 +682,8 @@ public class Personalizado extends javax.swing.JFrame {
         } else if (pathFile.toString().toLowerCase().endsWith(".xml")) {
             String htmlContent = Metodos.leerHTMLXML(pathFile, hojaEstilos);
             System.out.println(htmlContent);
-            htmlContent = htmlContent.replaceAll("\\s+", "");
-            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+            //htmlContent = htmlContent.replaceAll("\\s+", "");
+            //htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
             System.out.println(htmlContent);
             JEditorP.setContentType("text/html");
             JEditorP.setText(htmlContent);
@@ -699,8 +699,8 @@ public class Personalizado extends javax.swing.JFrame {
         Metodos.convertirGrupoAXml(pathFile, ".\\Zona personalizada\\enemigos.xml");
         String htmlContent = Metodos.leerHTMLXML(".\\Zona personalizada\\enemigos.xml", hojaEstilos);
         System.out.println(htmlContent);
-        htmlContent = htmlContent.replaceAll("\\s+", "");
-        htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+        //htmlContent = htmlContent.replaceAll("\\s+", "");
+        //htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
         System.out.println(htmlContent);
         JEditorP.setContentType("text/html");
         JEditorP.setText(htmlContent);

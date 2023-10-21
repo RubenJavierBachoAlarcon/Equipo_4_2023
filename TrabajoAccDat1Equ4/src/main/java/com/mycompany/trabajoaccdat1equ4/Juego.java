@@ -652,8 +652,8 @@ public class Juego extends javax.swing.JFrame {
             Metodos.convertirGrupoAXml(pathFile, "grupo.xml");
             String htmlContent = Metodos.leerHTMLXML("grupo.xml", "hojaEstilos.xsl");
             System.out.println(htmlContent);
-            htmlContent = htmlContent.replaceAll("\\s+", "");
-            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+            //htmlContent = htmlContent.replaceAll("\\s+", "");
+            //htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
             System.out.println(htmlContent);
             jEditorPane1.setContentType("text/html");
             jEditorPane1.setText(htmlContent);
@@ -661,8 +661,8 @@ public class Juego extends javax.swing.JFrame {
         } else if (pathFile.toString().toLowerCase().endsWith(".xml")) {
             String htmlContent = Metodos.leerHTMLXML(pathFile, "hojaEstilos.xsl");
             System.out.println(htmlContent);
-            htmlContent = htmlContent.replaceAll("\\s+", "");
-            htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
+            //htmlContent = htmlContent.replaceAll("\\s+", "");
+            //htmlContent = htmlContent.replaceAll("tableborder=\"1\"", "table border=\"1\"");
             System.out.println(htmlContent);
             jEditorPane1.setContentType("text/html");
             jEditorPane1.setText(htmlContent);
