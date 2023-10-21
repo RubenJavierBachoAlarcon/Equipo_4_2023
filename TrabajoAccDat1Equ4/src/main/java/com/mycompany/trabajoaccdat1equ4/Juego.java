@@ -529,18 +529,18 @@ public class Juego extends javax.swing.JFrame {
                         jTextField1.setText(Integer.toString(nivel));
 
                         if (nivel == 45) {
-                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡Has acabado con todos los enemigos del JUEGO BASE!!", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "¡¡Has acabado con todos los enemigos del JUEGO BASE!!", "LOGRO DESBLOQUEADO", JOptionPane.INFORMATION_MESSAGE);
                         }
 
                         if (nivel == 70) {
-                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "Demasiado tiempo perdido D:", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Demasiado tiempo perdido D:", "LOGRO DESBLOQUEADO", JOptionPane.INFORMATION_MESSAGE);
                         }
 
                         if (nivel == 90) {
-                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡HAS ASESINADO HASTA A SUS HERMANOS MENORES", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "¡¡HAS ASESINADO HASTA A SUS HERMANOS MENORES!!", "LOGRO DESBLOQUEADO", JOptionPane.INFORMATION_MESSAGE);
                         }
                         if (nivel == 110) {
-                            JOptionPane.showMessageDialog(null, "LOGRO DESBLOQUEADO", "¡¡HAS PASADO JUGANDO UN PRECIOSO TIEMPO QUE MUY PROBABLEMENTE DEBERÍAS HABER DEDICADO A ALGO MÁS PRODUCTIVO", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "¡¡HAS PASADO JUGANDO UN PRECIOSO TIEMPO QUE MUY PROBABLEMENTE DEBERÍAS HABER DEDICADO A ALGO MÁS PRODUCTIVO!!", "LOGRO DESBLOQUEADO", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else if (Metodos.esElementoElegidoMasFuerte(tipoActual, tipoPersonaje)) {
                         texto += "¡Es poco efectivo!\n¡El enemigo ha contratacado! (-1 vida)\n\n";
