@@ -1645,88 +1645,88 @@ public class Metodos {
      * evaluado
      */
     public static String obtenerEsLindo(String enemigo) {
-        String grito = null;
+        String lindo = null;
         
         switch (enemigo) {
             case "Pyrobabosa" -> {
-                grito = new String("Te dan ganas de darle un pyrobesito.");
+                lindo = new String("Te dan ganas de darle un pyrobesito.");
             }
             case "Geobabosa" -> {
-                grito = new String("Pues... ni fu, ni fa.");
+                lindo = new String("Pues... ni fu, ni fa.");
             }
             case "Hydrobabosa" -> {
-                grito = new String("Te dan ganas de que no hable tanto.");
+                lindo = new String("Te dan ganas de que no hable tanto.");
             }
             case "Pyrodragarto" -> {
-                grito = new String("Se lo ve escamosito. Es lindo.");
+                lindo = new String("Se lo ve escamosito. Es lindo.");
             }
             case "Geodragarto" -> {
-                grito = new String("También es escamosito, pero un poco menos lindo.");
+                lindo = new String("También es escamosito, pero un poco menos lindo.");
             }
             case "Hydrodragarto" -> {
-                grito = new String("Te dan ganas de acariciarlo.");
+                lindo = new String("Te dan ganas de acariciarlo.");
             }
             case "Pyroesqueleto" -> {
-                grito = new String("Está un poco en los huesos.");
+                lindo = new String("Está un poco en los huesos.");
             }
             case "Geoesqueleto" -> {
-                grito = new String("No es feo, sólo es complicado de mirar.");
+                lindo = new String("No es feo, sólo es complicado de mirar.");
             }
             case "Hydroesqueleto" -> {
-                grito = new String("Mono, lo que se dice mono, no es.");
+                lindo = new String("Mono, lo que se dice mono, no es.");
             }
             case "Pyrocaballero" -> {
-                grito = new String("Demasiado mazado. No es tu tipo.");
+                lindo = new String("Demasiado mazado. No es tu tipo.");
             }
             case "Geocaballero" -> {
-                grito = new String("Es normalucho, pero tirando a guapete.");
+                lindo = new String("Es normalucho, pero tirando a guapete.");
             }
             case "Hydrocaballero" -> {
-                grito = new String("El ser tan quejica le quita atractivo.");
+                lindo = new String("El ser tan quejica le quita atractivo.");
             }
             case "Pyrocapitán" -> {
-                grito = new String("Lo cierto es que es todo un galán.");
+                lindo = new String("Lo cierto es que es todo un galán.");
             }
             case "Geocapitán" -> {
-                grito = new String("Le notas una musculatura rocosa.");
+                lindo = new String("Le notas una musculatura rocosa.");
             }
             case "Hydrocapitán" -> {
-                grito = new String("Además de apuesto, parece adinerado.");
+                lindo = new String("Además de apuesto, parece adinerado.");
             }
             case "Pyrodiablillo" -> {
-                grito = new String("Está bastante raquítico.");
+                lindo = new String("Está bastante raquítico.");
             }
             case "Geodiablillo" -> {
-                grito = new String("Es feo. Feo con ganas. Feo con saña y avaricia.");
+                lindo = new String("Es feo. Feo con ganas. Feo con saña y avaricia.");
             }
             case "Hydrodiablillo" -> {
-                grito = new String("Tiene cara como de haber estado chupando limones.");
+                lindo = new String("Tiene cara como de haber estado chupando limones.");
             }
             case "Pyrobestia" -> {
-                grito = new String("Está bastante enfadada. Ganas de acariciarla no te dan.");
+                lindo = new String("Está bastante enfadada. Ganas de acariciarla no te dan.");
             }
             case "Geobestia" -> {
-                grito = new String("Parece una tortuga grande. Sientes el deseo de darle lechuga.");
+                lindo = new String("Parece una tortuga grande. Sientes el deseo de darle lechuga.");
             }
             case "Hydrobestia" -> {
-                grito = new String("La ves tan dormidita que te dan ganas de acurrucarte con ella.");
+                lindo = new String("La ves tan dormidita que te dan ganas de acurrucarte con ella.");
             }
             case "Pyrodemonio" -> {
-                grito = new String("Lo cierto es que es bastante atractivo.");
+                lindo = new String("Lo cierto es que es bastante atractivo.");
             }
             case "Geodemonio" -> {
-                grito = new String("No está mal, pero necesita una ducha.");
+                lindo = new String("No está mal, pero necesita una ducha.");
             }
             case "Hydrodemonio" -> {
-                grito = new String("Si se cortase esas greñas, sería guapillo.");
+                lindo = new String("Si se cortase esas greñas, sería guapillo.");
             }
             case "Wyvern demente" -> {
-                grito = new String("No es demasiado monete. De hecho, da canguelo.");
+                lindo = new String("No es demasiado monete. De hecho, da canguelo.");
             }
         }
         
-        grito = grito.replace(' ','_');
-        return grito;
+        lindo = lindo.replace(' ','_');
+        return lindo;
     }
     
     
