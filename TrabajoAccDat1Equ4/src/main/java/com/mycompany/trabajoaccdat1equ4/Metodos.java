@@ -1827,7 +1827,7 @@ public class Metodos {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document documento = builder.parse(archivo);
-            documento.normalize();
+            documento.getDocumentElement().normalize();
             
             
             // Recogemos en una lista de nodos todos aquells nodos cuya
@@ -1842,7 +1842,14 @@ public class Metodos {
             // Conseguimos de esta manera eliminar de manera efectiva los mismos
             // nodos que estamos recorriendo, es decir, aquellos cuya etiqueta
             // coincide con la String pasada por parámetro
-            for (int i=0; i<listaNodos.getLength(); i++) {
+            
+            // La lista de nodos se recorre de atrás hacia adelante porque es
+            // una lista dinámica, y, cuando se borra un elemento, el resto de
+            // ellos se reubica. Si se intenta hacer un recorrido borrando de
+            // atrás hacia adelante, los nodos se van reposicionando a medida
+            // que se van borrando, y el resultado es que se borran un nodo
+            // sí y un nodo no, alternativamente.
+            for (int i = listaNodos.getLength()-1; i>=0; i--) {
                 Node nodo = listaNodos.item(i);
                 nodo.getParentNode().removeChild(nodo);
             }
