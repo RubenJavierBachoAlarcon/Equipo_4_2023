@@ -38,6 +38,7 @@ public class Juego extends javax.swing.JFrame {
 
     public Juego() {
         initComponents();
+        
         jMenu1.setEnabled(false);
         jLabel2.setText("¡Bienvenido a la aventura, " + userName + "!");
         jLabel1.setVisible(false);

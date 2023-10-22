@@ -44,11 +44,13 @@ import org.w3c.dom.NodeList;
  * @author pokem, patri, bacho
  */
 public class TrabajoAccDat1Equ4 {
-
+    
     public static void main(String[] args) {
-
+        
         Metodos.iniciarJuegoNormal();
         Metodos.iniciarJuegoPersonalizado();
+        
+        Metodos.crearDirEncriptados("Exports");
         
         SwingUtilities.invokeLater(() -> {
             JFrame ventana = new JFrame("Seleccionar Modo");
@@ -58,13 +60,14 @@ public class TrabajoAccDat1Equ4 {
             
             if (seleccion == 0) {
                 Juego juego = new Juego();
+                juego.setTitle("Juego sobre mostros sin copyright");
                 juego.setVisible(true);
             } else if (seleccion == 1) {
                 Personalizado personalizado = new Personalizado();
-               personalizado.setVisible(true);
+                personalizado.setTitle("Juego para ver si los mostros sin copyright te parecen lindos");
+                personalizado.setVisible(true);
             }
         });
     }
-    
     
 }

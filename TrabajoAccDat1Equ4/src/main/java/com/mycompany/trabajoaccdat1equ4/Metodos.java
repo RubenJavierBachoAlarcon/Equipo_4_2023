@@ -1647,14 +1647,14 @@ public class Metodos {
     }
 
     /**
-     * Método para la creación de los directorios de importaciones y
-     * exportaciones. Si ya existen, no se hace nada; en caso contrario, se
-     * crean en la ruta especificada.
+     * Método para la creación de los directorios de archivos Encriptados. 
+     * Si ya existe, no se hace nada; en caso contrario, se crea en la ruta
+     * especificada.
      *
      * @param rutaDir String que contiene la ruta donde se crearán los
      * directorios.
      */
-    public static void crearDirImportarExportar(String rutaDir) {
+    public static void crearDirEncriptados(String rutaDir) {
         File dir = new File(rutaDir);
         if (dir.exists()) {
             System.out.println("El directorio ya existe. No se realizará ninguna acción.");
