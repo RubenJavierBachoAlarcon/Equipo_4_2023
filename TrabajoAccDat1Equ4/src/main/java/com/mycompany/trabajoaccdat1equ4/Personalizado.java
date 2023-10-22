@@ -31,6 +31,7 @@ public class Personalizado extends javax.swing.JFrame {
     public static boolean gritoAñadido;
     public static boolean esLindoAñadido;
     public static boolean ambosAñadido;
+    public static String nombreGrupoActual;
 
     /**
      * Creates new form Personalizado
@@ -553,6 +554,7 @@ public class Personalizado extends javax.swing.JFrame {
             String rutaArchivo = "Zona personalizada/" + jTextField1.getText() + ".dat";
             System.out.println(rutaArchivo);
             Metodos.creaGrupo(rutaArchivo, 64, ".\\Zona personalizada\\enemigos.dat", 0);
+            nombreGrupoActual = jTextField1.getText();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El valor debe ser un id numérico", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -635,7 +637,10 @@ public class Personalizado extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         Metodos.encriptarXML("./Zona personalizada/grupo.xml");
-        Metodos.moverGrupo("./Zona personalizada/grupo.xml", Metodos.elegirDirectorio("./Exports").getPath() + "/grupoEncriptado.xml");
+        System.out.println("ESTO:" + nombreGrupoActual);
+        String rutaEsto = Metodos.elegirDirectorio("./Exports").getPath();
+        System.out.println("ESTOCapitulo2: " + rutaEsto);
+        Metodos.moverGrupo("./Zona personalizada/grupo.xml", rutaEsto + "/" +nombreGrupoActual+ "-Encriptado" + ".xml");
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
