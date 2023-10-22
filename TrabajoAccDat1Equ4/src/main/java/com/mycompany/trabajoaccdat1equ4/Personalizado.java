@@ -576,7 +576,6 @@ public class Personalizado extends javax.swing.JFrame {
         for (Component component : jPanel3.getComponents()) {
             component.setEnabled(false);
         }
-
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
