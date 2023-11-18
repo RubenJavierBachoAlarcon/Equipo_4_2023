@@ -964,8 +964,6 @@ public class Metodos {
      * @param sourcePath Ruta del archivo de origen que se desea duplicar.
      * @param destinationPath Ruta del archivo de destino donde se copiará el
      * archivo.
-     * @throws IOException Si ocurre un error al duplicar el archivo, como si el
-     * archivo de origen no existe o el archivo de destino ya existe.
      */
     public static void duplicarFile(String sourcePath, String destinationPath) {
         try {
