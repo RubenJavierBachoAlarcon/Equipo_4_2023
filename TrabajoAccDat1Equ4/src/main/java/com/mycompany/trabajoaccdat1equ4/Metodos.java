@@ -969,37 +969,26 @@ public class Metodos {
      */
     public static void duplicarFile(String sourcePath, String destinationPath) {
         try {
-            File sourceFile = new File(sourcePath);
-            File destinationFile = new File(destinationPath);
+            // Obtener los Paths de los archivos de origen y destino
+            Path sourceFilePath = Path.of(sourcePath);
+            Path destinationFilePath = Path.of(destinationPath);
 
             // Verificar si el archivo de origen existe
-            if (!sourceFile.exists()) {
+            if (!Files.exists(sourceFilePath)) {
                 throw new IOException("El archivo de origen no existe.");
             }
 
             // Verificar si el archivo de destino ya existe
-            if (destinationFile.exists()) {
+            if (Files.exists(destinationFilePath)) {
                 throw new IOException("El archivo de destino ya existe. No se puede duplicar.");
             }
 
-            // Crear streams de entrada y salida
-            FileInputStream input = new FileInputStream(sourceFile);
-            FileOutputStream output = new FileOutputStream(destinationFile);
-
-            // Leer y escribir el archivo
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = input.read(buffer)) > 0) {
-                output.write(buffer, 0, bytesRead);
-            }
-
-            // Cerrar los streams
-            input.close();
-            output.close();
+            // Copiar el archivo utilizando Files.copy()
+            Files.copy(sourceFilePath, destinationFilePath, StandardCopyOption.REPLACE_EXISTING);
 
             System.out.println("Archivo duplicado con éxito.");
         } catch (IOException ioe) {
-            System.out.println("Excepción de tipo IOE al duplicar archivos");
+            System.out.println("Excepción de tipo IOE al duplicar archivos: " + ioe.getMessage());
         }
     }
 
