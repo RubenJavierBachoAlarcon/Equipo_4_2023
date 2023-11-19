@@ -1107,16 +1107,21 @@ public class Metodos {
         }
         StringBuffer sb = new StringBuffer(debilidad);
         sb.setLength(10);
-
+        
+        long byteActual = 44; // Se saltan, por registro, los 4 bytes que
+        // corresponden a la ID y los 40 que corresponden al nombre
+        long tamRegistro = 64;
+        
         try {
 
             RandomAccessFile fichero = new RandomAccessFile(rutaArchivo, "rw");
             while (fichero.getFilePointer() < fichero.length()) {
 
-                fichero.readInt();
-                leerCadena(20, fichero);
+                fichero.seek(byteActual);
+                        
                 fichero.writeChars(sb.toString());
 
+                byteActual += tamRegistro;
             }
 
         } catch (IOException ioe) {
